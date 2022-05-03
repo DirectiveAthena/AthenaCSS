@@ -21,18 +21,32 @@ class CSSelement:
         self.properties = []
         self.selectors = []
 
-    def print(self) -> str:
+    def __str__(self):
+        return self.print()
+
+    def print(self,*,indent_spacing:int=4) -> str:
+
         selectors = ',\n'.join(s.print() for s in self.selectors)
-        properties = ';\n'.join(p.print() for p in self.properties)
+        properties = '\n'.join(f"{' '*indent_spacing}{p.print()};" for p in self.properties)
         return f"{selectors} {{\n{properties}\n}}"
 
-    def add_selector(self, selector:Selector) -> CSSelement:
+    def append(self, *other:Selector|CSSproperty|CSSpropertyShorthand) -> CSSelement:
+        for o in other:
+            if isinstance(o, Selector):
+                self.selectors.append(o)
+            elif isinstance(o, CSSproperty|CSSpropertyShorthand):
+                self.properties.append(o)
+            else:
+                return NotImplemented
+        return self
+
+    def append_selector(self, selector:Selector) -> CSSelement:
         if not isinstance(selector, Selector):
             raise TypeError(f"{selector=} is not a Selector")
         self.selectors.append(selector)
         return self
 
-    def add_property(self, prop:CSSproperty|CSSpropertyShorthand) -> CSSelement:
+    def append_property(self, prop:CSSproperty|CSSpropertyShorthand) -> CSSelement:
         if not isinstance(prop, CSSproperty|CSSpropertyShorthand):
             raise TypeError(f"{prop=} is not a CSSproperty or CSSpropertyShorthand")
         self.properties.append(prop)

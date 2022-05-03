@@ -16,7 +16,8 @@ from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier
 __all__=[
     "align_content", "align_items", "align_self",
     "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
-        "animation_direction","animation_fill_mode","animation_play_state"
+        "animation_direction","animation_fill_mode","animation_play_state","animation",
+
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -26,7 +27,7 @@ class align_content(CSSproperty):
     possibleValues = ('center', 'flex-start', 'flex-end', 'space-between', 'space-around', 'stretch')
     possibleValueTypes=str
 
-    def __init__(self,value:str, *args, **kwargs):
+    def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     @property
@@ -38,7 +39,7 @@ class align_items(CSSproperty):
     possibleValues = ('baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
 
-    def __init__(self,value:str, *args, **kwargs):
+    def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     @property
@@ -50,7 +51,7 @@ class align_self(CSSproperty):
     possibleValues = ('auto','baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
 
-    def __init__(self,value:str, *args, **kwargs):
+    def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     @property
@@ -59,16 +60,16 @@ class align_self(CSSproperty):
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_name(CSSproperty):
-    possibleValueTypes=str
+    possibleValueTypes=str|None
     
-    def __init__(self,value:str, *args, **kwargs):
+    def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_duration(CSSproperty):
-    possibleValueTypes=Second|MilliSecond|int
+    possibleValueTypes=Second|MilliSecond|int|None
 
-    def __init__(self,value:Second|MilliSecond|int, *args, **kwargs):
+    def __init__(self,value:Second|MilliSecond|int=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     def value_presetter(self, value) -> object:
@@ -86,9 +87,9 @@ class animation_duration(CSSproperty):
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_timing_function(CSSproperty):
     possibleValues = ('linear', 'ease', 'ease-in', 'ease-out', ' ease-in-out', CubicBezier)
-    possibleValueTypes = str|CubicBezier
+    possibleValueTypes = str|CubicBezier|None
     
-    def __init__(self,value:str|CubicBezier, *args, **kwargs):
+    def __init__(self,value:str|CubicBezier=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     @property
@@ -97,11 +98,16 @@ class animation_timing_function(CSSproperty):
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_delay(CSSproperty):
-    possibleValueTypes=Second|MilliSecond|int
+    possibleValueTypes=Second|MilliSecond|int|None
 
-    def __init__(self,value:Second|MilliSecond|int, *args, **kwargs):
+    def __init__(self,value:Second|MilliSecond|int=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
+    def value_presetter(self, value) -> object:
+        if isinstance(value, int) and value != 0:
+            return Second(value)
+        else:
+            return value
     @property
     def defaultValue(self):
         return Second(0)
@@ -109,9 +115,9 @@ class animation_delay(CSSproperty):
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_iteration_count(CSSproperty):
     possibleValues = ("infinite",int)
-    possibleValueTypes=str|int
+    possibleValueTypes=str|int|None
 
-    def __init__(self,value:str|int, *args, **kwargs):
+    def __init__(self,value:str|int=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     def value_presetter(self, value) -> object:
@@ -127,9 +133,9 @@ class animation_iteration_count(CSSproperty):
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_direction(CSSproperty):
     possibleValues = ("normal","reverse","alternate", "alternate-reverse")
-    possibleValueTypes=str
+    possibleValueTypes=str|None
 
-    def __init__(self,value:str, *args, **kwargs):
+    def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     @property
@@ -139,17 +145,17 @@ class animation_direction(CSSproperty):
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_fill_mode(CSSproperty):
     possibleValues = ("forwards","backwards", "both")
-    possibleValueTypes=str
+    possibleValueTypes=str|None
 
-    def __init__(self,value:str, *args, **kwargs):
+    def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_play_state(CSSproperty):
     possibleValues = ("paused","running")
-    possibleValueTypes=str
+    possibleValueTypes=str|None
 
-    def __init__(self,value:str, *args, **kwargs):
+    def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
     @property
@@ -169,34 +175,36 @@ class animation(CSSpropertyShorthand):
     play_state=animation_play_state
 
     # To make sure the output order is correct:
-    printer_order = ["name", "duration","timing", "delay","iteration_count","direction","fill_mode", "play_state"]
+    printer_order = ["name", "duration","timing_function", "delay","iteration_count","direction","fill_mode", "play_state"]
 
     # for correct type hinting and correct argument parsing
     def __init__(
         self,
-        name:animation_name,
-        duration:animation_duration,
-        timing_function:animation_timing_function,
-        delay:animation_delay,
-        iteration_count:animation_iteration_count,
-        direction:animation_direction,
-        fill_mode:animation_fill_mode,
-        play_state:animation_play_state,
+        name:           animation_name.possibleValueTypes,
+        duration:       animation_duration.possibleValueTypes,
+        timing_function:animation_timing_function.possibleValueTypes,
+        delay:          animation_delay.possibleValueTypes,
+        iteration_count:animation_iteration_count.possibleValueTypes,
+        direction:      animation_direction.possibleValueTypes,
+        fill_mode:      animation_fill_mode.possibleValueTypes,
+        play_state:     animation_play_state.possibleValueTypes,
         *args,
         **kwargs,
     ):
         super(animation, self).__init__(
             *args,
-            name=name,
-            duration=duration,
+            name=           name,
+            duration=       duration,
             timing_function=timing_function,
-            delay=delay,
+            delay=          delay,
             iteration_count=iteration_count,
-            direction=direction,
-            fill_mode=fill_mode,
-            play_state=play_state,
+            direction=      direction,
+            fill_mode=      fill_mode,
+            play_state=     play_state,
             **kwargs,
         )
+
+
 
 
 

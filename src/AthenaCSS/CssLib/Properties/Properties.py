@@ -8,7 +8,6 @@ from typing import Union
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.CssLib.Types import ValueType
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Base CSS Property Class -
@@ -41,7 +40,7 @@ class CSSproperty:
         if value is None:
             value = self.defaultValue
         elif not isinstance(value, self.possibleValueTypes):
-            raise TypeError(f"{value=} was not the same type as {self.possibleValueTypes=}")
+            raise TypeError(f"{value=} was not the same type as {type(self).__name__} -> {self.possibleValueTypes=}")
         elif self.possibleValues is not None:
             # to allow for ValueTypes to be used as inserted values
             for pv in {*self.possibleValues, 'initial', 'inherit'}:
@@ -87,28 +86,39 @@ class CSSpropertyShorthand:
     def __init__(self,*args,important:bool=False, **values):
         # Inherited classes must have the named attributes set to the type of the to be made attribute
         for k,v in values.items():
-            self.__setattr__(k, self.__getattribute__(k)(v))
+            # relies on the fact that Shorthand Properties have their correct attributes set to the mapping CSSproperties
+            if isinstance(v, self.__getattribute__(k)):
+                self.__setattr__(k, v)
+            elif k in self.printer_order:
+
+                self.__setattr__(k, self.__getattribute__(k)(v))
+            else:
+                raise ValueError
         self.important = important
 
-    def print(self) -> str:
+    def printer_value(self) -> str:
         if self.printer_order is None:
-            string =  " ".join(
+            return " ".join(
                 *(
-                    p.printer_value
+                    str(p.printer_value())
                     for p in dir(self)
                     if isinstance(p, CSSproperty)
                 )
             )
-        elif isinstance(self.printer_order, list|tuple):
-            string = " ".join(
-                self.__getattribute__(p).printer_value
+        elif isinstance(self.printer_order, list | tuple):
+            return " ".join(
+                str(self.__getattribute__(p).printer_value())
                 for p in self.printer_order
                 if isinstance(self.__getattribute__(p), CSSproperty)
             )
         else:
             raise TypeError(self.printer_order)
 
+    def printer_name(self) -> str:
+        return str(type(self).__name__).replace('_', '-')
+
+    def print(self) -> str:
         if self.important:
-            return f"{string} !important"
+            return f"{self.printer_name()}: {self.printer_value()} !important"
         else:
-            return string
+            return f"{self.printer_name()}: {self.printer_value()}"

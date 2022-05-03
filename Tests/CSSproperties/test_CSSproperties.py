@@ -142,7 +142,7 @@ class CSSproperties_Full(unittest.TestCase):
             (None,              Second(0),      "0s"),
             (Second(10),        Second(10),     "10s"),
             (MilliSecond(10),   MilliSecond(10),"10ms"),
-            (1,                 1,              "1"),
+            (-1,                Second(-1),     "-1s"),
             (0,                 0,              "0"),
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
@@ -224,3 +224,37 @@ class CSSproperties_Full(unittest.TestCase):
             (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_Animation(self):
+        PropertyType = animation
+        PropertyName = "animation"
+        cases = (
+            (
+                (None,None,None,None,None,None,None,None),
+                "none 0s ease 0s 1 normal none running"
+            ),
+            (
+                ("TESTING",-500,"linear",100,"infinite","alternate","backwards","paused"),
+                "TESTING 500s linear 100s infinite alternate backwards paused"
+            ),
+            (
+                (animation_name('TESTING'),-500,"linear",100,"infinite","alternate","backwards","paused"),
+                "TESTING 500s linear 100s infinite alternate backwards paused"
+            ),
+        )
+        for value, value_printer in cases:
+            with self.subTest(value=value, value_printer=value_printer):
+                self.assertEqual(PropertyType(*value).print(), f"{PropertyName}: {value_printer}")
+                self.assertEqual(PropertyType(*value, important=True).print(), f"{PropertyName}: {value_printer} !important")
+
+        casesFail = (
+            # args                                              #kwargs                             #error
+            ((None,"None",None,None,None,None,None,None),       {},                                 TypeError), # depending on the underlying properties
+            ("1",                                               {},                                 TypeError), # missing arguments
+            ((None, None, None, None, None, None, None, None),  {"a":"a"},                          AttributeError),
+            ((None, None, None, None, None, None, None),        {"play_state":animation_name()},    TypeError),
+        )
+        for args,kwargs , error in casesFail:
+            with self.subTest(args=args, kwargs=kwargs,error=error):
+                with self.assertRaises(error):
+                    PropertyType(*args, **kwargs)

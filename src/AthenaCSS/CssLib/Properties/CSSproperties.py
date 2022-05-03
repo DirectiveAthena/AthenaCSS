@@ -15,7 +15,7 @@ from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
     "align_content", "align_items", "align_self",
-    "animation_name", "animation_duration","animation_timing_function"
+    "animation_name", "animation_duration","animation_timing_function","animation_delay"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -25,51 +25,79 @@ class align_content(CSSproperty):
     possibleValues = ('center', 'flex-start', 'flex-end', 'space-between', 'space-around', 'stretch')
     possibleValueTypes=str
 
+    def __init__(self,value:str, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
     @property
     def defaultValue(self):
         return self.possibleValues[5]
 
+# ----------------------------------------------------------------------------------------------------------------------
 class align_items(CSSproperty):
     possibleValues = ('baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
+
+    def __init__(self,value:str, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
 
     @property
     def defaultValue(self):
         return self.possibleValues[4]
 
+# ----------------------------------------------------------------------------------------------------------------------
 class align_self(CSSproperty):
     possibleValues = ('auto','baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
+
+    def __init__(self,value:str, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
 
     @property
     def defaultValue(self):
         return self.possibleValues[0]
 
+# ----------------------------------------------------------------------------------------------------------------------
 class animation_name(CSSproperty):
     possibleValueTypes=str
+    
+    def __init__(self,value:str, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
 
+# ----------------------------------------------------------------------------------------------------------------------
 class animation_duration(CSSproperty):
     possibleValueTypes=Second|MilliSecond|int
 
     def __init__(self,value:Second|MilliSecond|int, *args, **kwargs):
-        # this is done to make my life easier, to not constantly use the 'Second' class
-        if isinstance(value, int) and value != 0:
-            value = Second(value)
-        super(animation_duration, self).__init__(value, *args, **kwargs)
+        super().__init__(value, *args, **kwargs)
 
     @property
     def defaultValue(self):
         return Second(0)
 
+# ----------------------------------------------------------------------------------------------------------------------
 class animation_timing_function(CSSproperty):
     possibleValues = ('linear', 'ease', 'ease-in', 'ease-out', ' ease-in-out', CubicBezier)
     possibleValueTypes = str|CubicBezier
+    
+    def __init__(self,value:str|CubicBezier, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
 
     @property
     def defaultValue(self):
         return "ease"
 
-class animation_delay(CSSproperty):pass
+# ----------------------------------------------------------------------------------------------------------------------
+class animation_delay(CSSproperty):
+    possibleValueTypes=Second|MilliSecond|int
+
+    def __init__(self,value:Second|MilliSecond|int, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    @property
+    def defaultValue(self):
+        return Second(0)
+
+# ----------------------------------------------------------------------------------------------------------------------
 class animation_iteration_count(CSSproperty):pass
 class animation_direction(CSSproperty):pass
 class animation_fill_mode(CSSproperty):pass

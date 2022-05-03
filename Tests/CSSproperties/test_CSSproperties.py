@@ -172,3 +172,20 @@ class CSSproperties_Full(unittest.TestCase):
             ("1",               ValueError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_AnimationDirection(self):
+        PropertyType = animation_direction
+        PropertyName = "animation-direction"
+        cases = (
+            #value              #result             #value_printer
+            (None,              "normal",           "normal"),
+            ("alternate",       "alternate",        "alternate"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)

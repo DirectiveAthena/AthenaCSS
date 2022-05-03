@@ -6,19 +6,18 @@ from __future__ import annotations
 import unittest
 
 # Custom Library
-
-# Custom Packages
 from AthenaCSS.CssLib.Properties.CSSproperties import *
 from AthenaCSS.CssLib.Types import Second,MilliSecond
+
+# Custom Packages
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class CSSproperties_Full(unittest.TestCase):
-
-    # ----------------------------------------------------------------------------------------------------------------------
+class CSSproperties(unittest.TestCase):
+    # ------------------------------------------------------------------------------------------------------------------
     # - Support Functions -
-    # ----------------------------------------------------------------------------------------------------------------------
+    # ------------------------------------------------------------------------------------------------------------------
     def SubtestFunction(self, PropertyType, cases, PropertyName):
         for value, result, value_printer in cases:
             with self.subTest(value=value, result=result, value_printer=value_printer):
@@ -224,40 +223,6 @@ class CSSproperties_Full(unittest.TestCase):
             (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
-
-    def test_Animation(self):
-        PropertyType = animation
-        PropertyName = "animation"
-        cases = (
-            (
-                (None,None,None,None,None,None,None,None),
-                "none 0s ease 0s 1 normal none running"
-            ),
-            (
-                ("TESTING",-500,"linear",100,"infinite","alternate","backwards","paused"),
-                "TESTING 500s linear 100s infinite alternate backwards paused"
-            ),
-            (
-                (animation_name('TESTING'),-500,"linear",100,"infinite","alternate","backwards","paused"),
-                "TESTING 500s linear 100s infinite alternate backwards paused"
-            ),
-        )
-        for value, value_printer in cases:
-            with self.subTest(value=value, value_printer=value_printer):
-                self.assertEqual(PropertyType(*value).print(), f"{PropertyName}: {value_printer}")
-                self.assertEqual(PropertyType(*value, important=True).print(), f"{PropertyName}: {value_printer} !important")
-
-        casesFail = (
-            # args                                              #kwargs                             #error
-            ((None,"None",None,None,None,None,None,None),       {},                                 TypeError), # depending on the underlying properties
-            ("1",                                               {},                                 TypeError), # missing arguments
-            ((None, None, None, None, None, None, None, None),  {"a":"a"},                          AttributeError),
-            ((None, None, None, None, None, None, None),        {"play_state":animation_name()},    TypeError),
-        )
-        for args,kwargs , error in casesFail:
-            with self.subTest(args=args, kwargs=kwargs,error=error):
-                with self.assertRaises(error):
-                    PropertyType(*args, **kwargs)
 
     def test_BackfaceVisibility(self):
         PropertyType = backface_visibility

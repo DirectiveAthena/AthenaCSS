@@ -17,7 +17,7 @@ __all__=[
     "align_content", "align_items", "align_self",
     "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
         "animation_direction","animation_fill_mode","animation_play_state","animation",
-
+    "backface_visibility",
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -203,6 +203,18 @@ class animation(CSSpropertyShorthand):
             play_state=     play_state,
             **kwargs,
         )
+
+# ----------------------------------------------------------------------------------------------------------------------
+class backface_visibility(CSSproperty):
+    possibleValues = ("visible","hidden")
+    possibleValueTypes=str|None
+
+    def __init__(self,value:str=None, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    @property
+    def defaultValue(self):
+        return self.possibleValues[0]
 
 
 

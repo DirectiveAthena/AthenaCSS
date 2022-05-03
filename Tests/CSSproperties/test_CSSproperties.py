@@ -258,3 +258,21 @@ class CSSproperties_Full(unittest.TestCase):
             with self.subTest(args=args, kwargs=kwargs,error=error):
                 with self.assertRaises(error):
                     PropertyType(*args, **kwargs)
+
+    def test_BackfaceVisibility(self):
+        PropertyType = backface_visibility
+        PropertyName = "backface-visibility"
+        cases = (
+            #value              #result             #value_printer
+            (None,              "visible",          "visible"),
+            ("visible",         "visible",          "visible"),
+            ("hidden",          "hidden",           "hidden"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)

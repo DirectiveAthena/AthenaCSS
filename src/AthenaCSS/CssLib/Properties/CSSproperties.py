@@ -8,13 +8,14 @@ from __future__ import annotations
 
 # Custom Packages
 from .Properties import CSSproperty, CSSpropertyShorthand
-from AthenaCSS.CssLib.Types import Second, MilliSecond
+from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - all -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
-    "align_content", "align_items", "align_self"
+    "align_content", "align_items", "align_self",
+    "animation_name", "animation_duration","animation_timing_function"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -29,7 +30,7 @@ class align_content(CSSproperty):
         return self.possibleValues[5]
 
 class align_items(CSSproperty):
-    possibleValues = ('basline','center', 'flex-start', 'flex-end', 'stretch')
+    possibleValues = ('baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
 
     @property
@@ -37,24 +38,37 @@ class align_items(CSSproperty):
         return self.possibleValues[4]
 
 class align_self(CSSproperty):
-    possibleValues = ('auto','basline','center', 'flex-start', 'flex-end', 'stretch')
+    possibleValues = ('auto','baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
 
     @property
     def defaultValue(self):
         return self.possibleValues[0]
 
-class animantion_name(CSSproperty):
+class animation_name(CSSproperty):
     possibleValueTypes=str
 
 class animation_duration(CSSproperty):
-    possibleValues=(Second, MilliSecond)
+    possibleValueTypes=Second|MilliSecond|int
+
+    def __init__(self,value:Second|MilliSecond|int, *args, **kwargs):
+        # this is done to make my life easier, to not constantly use the 'Second' class
+        if isinstance(value, int) and value != 0:
+            value = Second(value)
+        super(animation_duration, self).__init__(value, *args, **kwargs)
 
     @property
     def defaultValue(self):
         return Second(0)
 
-class animation_timing_function(CSSproperty):pass
+class animation_timing_function(CSSproperty):
+    possibleValues = ('linear', 'ease', 'ease-in', 'ease-out', ' ease-in-out', CubicBezier)
+    possibleValueTypes = str|CubicBezier
+
+    @property
+    def defaultValue(self):
+        return "ease"
+
 class animation_delay(CSSproperty):pass
 class animation_iteration_count(CSSproperty):pass
 class animation_direction(CSSproperty):pass
@@ -62,7 +76,8 @@ class animation_fill_mode(CSSproperty):pass
 class animation_play_state(CSSproperty):pass
 
 class animation(CSSpropertyShorthand):
-    name=animantion_name
+    # Sub properties
+    name=animation_name
     duration=animation_duration
     timing_function=animation_timing_function
     delay=animation_delay
@@ -71,8 +86,25 @@ class animation(CSSpropertyShorthand):
     fill_mode=animation_fill_mode
     play_state=animation_play_state
 
-    def __init__(self, name,duration,timing_function,delay,iteration_count,direction,fill_mode,play_state):
+    # To make sure the output order is correct:
+    printer_order = ["name", "duration","timing", "delay","iteration_count","direction","fill_mode", "play_state"]
+
+    # for correct type hinting and correct argument parsing
+    def __init__(
+        self,
+        name:animation_name,
+        duration:animation_duration,
+        timing_function:animation_timing_function,
+        delay:animation_delay,
+        iteration_count:animation_iteration_count,
+        direction:animation_direction,
+        fill_mode:animation_fill_mode,
+        play_state:animation_play_state,
+        *args,
+        **kwargs,
+    ):
         super(animation, self).__init__(
+            *args,
             name=name,
             duration=duration,
             timing_function=timing_function,
@@ -80,7 +112,8 @@ class animation(CSSpropertyShorthand):
             iteration_count=iteration_count,
             direction=direction,
             fill_mode=fill_mode,
-            play_state=play_state
+            play_state=play_state,
+            **kwargs,
         )
 
 

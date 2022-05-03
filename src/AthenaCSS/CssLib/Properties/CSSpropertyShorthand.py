@@ -38,14 +38,14 @@ class animation(CSSpropertyShorthand):
     # for correct type hinting and correct argument parsing
     def __init__(
         self,
-        name:           animation_name.possibleValueTypes,
-        duration:       animation_duration.possibleValueTypes,
-        timing_function:animation_timing_function.possibleValueTypes,
-        delay:          animation_delay.possibleValueTypes,
-        iteration_count:animation_iteration_count.possibleValueTypes,
-        direction:      animation_direction.possibleValueTypes,
-        fill_mode:      animation_fill_mode.possibleValueTypes,
-        play_state:     animation_play_state.possibleValueTypes,
+        name:           animation_name.possibleValueTypes=None,
+        duration:       animation_duration.possibleValueTypes=None,
+        timing_function:animation_timing_function.possibleValueTypes=None,
+        delay:          animation_delay.possibleValueTypes=None,
+        iteration_count:animation_iteration_count.possibleValueTypes=None,
+        direction:      animation_direction.possibleValueTypes=None,
+        fill_mode:      animation_fill_mode.possibleValueTypes=None,
+        play_state:     animation_play_state.possibleValueTypes=None,
         *args,
         **kwargs,
     ):
@@ -61,3 +61,6 @@ class animation(CSSpropertyShorthand):
             play_state=     play_state,
             **kwargs,
         )
+# ----------------------------------------------------------------------------------------------------------------------
+class backgroun(CSSpropertyShorthand):
+    pass

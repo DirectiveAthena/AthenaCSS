@@ -40,16 +40,17 @@ class CSSpropertyShorthands(unittest.TestCase):
             # args                                                                                      #kwargs     #result
             ((None,None,None,None,None,None,None,None),                                                 {},         "none 0s ease 0s 1 normal none running"),
             (("TESTING",-500,"linear",100,"infinite","alternate","backwards","paused"),                 {},         "TESTING 500s linear 100s infinite alternate backwards paused"),
-            ((animation_name('TESTING'),-500,"linear",100,"infinite","alternate","backwards","paused"), {},         "TESTING 500s linear 100s infinite alternate backwards paused")
+            ((animation_name('TESTING'),-500,"linear",100,"infinite","alternate","backwards","paused"), {},         "TESTING 500s linear 100s infinite alternate backwards paused"),
+            ("1",                                                                                       {},         "1 0s ease 0s 1 normal none running"), # missing arguments
+            (("1",-500),                                                                                {},         "1 500s ease 0s 1 normal none running"), # missing arguments
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
 
         casesFail = (
             # args                                              #kwargs                             #error
             ((None,"None",None,None,None,None,None,None),       {},                                 TypeError), # depending on the underlying properties
-            ("1",                                               {},                                 TypeError), # missing arguments
             ((None, None, None, None, None, None, None, None),  {"a":"a"},                          AttributeError),
-            ((None, None, None, None, None, None, None),        {"a":"a"},                          TypeError),
+            ((None, None, None, None, None, None, None),        {"a":"a"},                          AttributeError),
             ((None, None, None, None, None, None, None),        {"play_state":animation_name()},    TypeError),
         )
         self.SubtestFunctionFails(PropertyType,casesFail)

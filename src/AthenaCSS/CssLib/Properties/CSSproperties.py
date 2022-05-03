@@ -16,7 +16,7 @@ from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier
 __all__=[
     "align_content", "align_items", "align_self",
     "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
-        "animation_direction","animation_fill_mode"
+        "animation_direction","animation_fill_mode","animation_play_state"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -138,14 +138,23 @@ class animation_direction(CSSproperty):
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_fill_mode(CSSproperty):
-    possibleValues = (None,"forwards","backwards", "both")
-    possibleValueTypes=str|None
+    possibleValues = ("forwards","backwards", "both")
+    possibleValueTypes=str
 
     def __init__(self,value:str, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_play_state(CSSproperty):pass
+class animation_play_state(CSSproperty):
+    possibleValues = ("paused","running")
+    possibleValueTypes=str
+
+    def __init__(self,value:str, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    @property
+    def defaultValue(self):
+        return self.possibleValues[1]
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation(CSSpropertyShorthand):

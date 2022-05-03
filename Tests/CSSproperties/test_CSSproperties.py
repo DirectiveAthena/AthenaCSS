@@ -206,3 +206,21 @@ class CSSproperties_Full(unittest.TestCase):
             (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_AnimationPlayState(self):
+        PropertyType = animation_play_state
+        PropertyName = "animation-play-state"
+        cases = (
+            #value              #result             #value_printer
+            (None,              "running",          "running"),
+            ("running",         "running",          "running"),
+            ("paused",          "paused",           "paused"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)

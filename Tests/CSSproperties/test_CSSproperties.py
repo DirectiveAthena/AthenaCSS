@@ -313,4 +313,22 @@ class CSSproperties(unittest.TestCase):
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
+    # def test_BackgroundImage(self):
+    #     PropertyType = background_image
+    #     PropertyName = "background-image"
+    #     cases = (
+    #         #value              #result             #value_printer
+    #         (None,              None,               "none"),
+    #         ("padding-box",     "padding-box",      "padding-box"),
+    #         ("content-box",     "content-box",      "content-box"),
+    #     )
+    #     self.SubtestFunction(PropertyType,cases,PropertyName)
+    #     casesFail = (
+    #         #value              #error
+    #         ("RAISES_ERROR",    ValueError),
+    #         ("1",               ValueError),
+    #         (1,                 TypeError),
+    #     )
+    #     self.SubtestFunctionFails(PropertyType, casesFail)
+
 

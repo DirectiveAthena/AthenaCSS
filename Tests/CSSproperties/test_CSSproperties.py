@@ -295,4 +295,22 @@ class CSSproperties(unittest.TestCase):
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
+    def test_BackgroundClip(self):
+        PropertyType = background_clip
+        PropertyName = "background-clip"
+        cases = (
+            #value              #result             #value_printer
+            (None,              "border-box",       "border-box"),
+            ("padding-box",     "padding-box",      "padding-box"),
+            ("content-box",     "content-box",      "content-box"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)
+
 

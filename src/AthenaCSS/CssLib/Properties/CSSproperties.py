@@ -22,7 +22,7 @@ __all__=[
     "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
         "animation_direction","animation_fill_mode","animation_play_state",
     "backface_visibility",
-    "background_attachment","background_color",
+    "background_attachment","background_color","background_clip",
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -219,6 +219,14 @@ class background_color(CSSproperty):
     def defaultValue(self):
         return self.possibleValues[0]
 
+# ----------------------------------------------------------------------------------------------------------------------
+class background_clip(CSSproperty):
+    possibleValues = ("border-box","padding-box","content-box")
+    possibleValueTypes=str|None
 
+    def __init__(self,value:str=None, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
 
-
+    @property
+    def defaultValue(self):
+        return self.possibleValues[0]

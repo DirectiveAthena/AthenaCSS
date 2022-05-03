@@ -9,7 +9,7 @@ import unittest
 
 # Custom Packages
 from AthenaCSS.CssLib.Properties.CSSproperties import *
-from AthenaCSS.CssLib.Types import Second,MilliSecond
+from AthenaCSS.CssLib.Types import Second,MilliSecond,intPostive
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -27,18 +27,10 @@ class CSSproperties_Full(unittest.TestCase):
                 self.assertEqual(PropertyType(value, important=True).print(), f"{PropertyName}: {value_printer} !important")
 
     def SubtestFunctionFails(self, PropertyType, cases):
-        for value, result, value_printer in cases:
-            with self.subTest(value=value, result=result, value_printer=value_printer):
-                if value is not None:
-                    if not isinstance(value, PropertyType.possibleValueTypes):
-                        with self.assertRaises(TypeError):
-                            PropertyType(value)
-                        continue  # Continue to next case, else the code below fill fail the test
-
-                    if PropertyType.possibleValues is not None and value not in PropertyType.possibleValues:
-                        with self.assertRaises(ValueError):
-                            PropertyType(value)
-                        continue  # Continue to next case, else the code below fill fail the test
+        for value, error in cases:
+            with self.subTest(value=value, error=error):
+               with self.assertRaises(error):
+                    PropertyType(value)
 
     # ----------------------------------------------------------------------------------------------------------------------
     # - TESTS -
@@ -53,7 +45,9 @@ class CSSproperties_Full(unittest.TestCase):
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
-            ("RAISES_ERROR",None,           None),# should raise error
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
@@ -67,7 +61,9 @@ class CSSproperties_Full(unittest.TestCase):
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
-            ("RAISES_ERROR",None,       None),# should raise error
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
@@ -75,13 +71,15 @@ class CSSproperties_Full(unittest.TestCase):
         PropertyType = align_self
         PropertyName = "align-self"
         cases = (
-            #value          #result     #value_printer
-            (None,          "auto",     "auto"),
-            ("baseline",    "baseline", "baseline"),
+            #value              #result     #value_printer
+            (None,              "auto",     "auto"),
+            ("baseline",        "baseline", "baseline"),
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
-            ("RAISES_ERROR",None,       None),# should raise error
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
@@ -95,8 +93,8 @@ class CSSproperties_Full(unittest.TestCase):
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
-            (1,             None,       None),# should raise error
-            ("RAISES_ERROR",None,       None),# should raise error
+            #value              #error
+            (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
@@ -113,8 +111,9 @@ class CSSproperties_Full(unittest.TestCase):
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
-            ("1",               None,           None),# should raise error
-            ("RAISES_ERROR",    None,           None),# should raise error
+            #value              #error
+            ("RAISES_ERROR",    TypeError),
+            ("1",               TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
@@ -129,9 +128,9 @@ class CSSproperties_Full(unittest.TestCase):
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
-            ("1",               None,           None),# should raise error
-            (1,                 None,           None),# should raise error
-            ("RAISES_ERROR",    None,           None),# should raise error
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
@@ -148,7 +147,28 @@ class CSSproperties_Full(unittest.TestCase):
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
-            ("1",               None,           None),# should raise error
-            ("RAISES_ERROR",    None,           None),# should raise error
+            #value              #error
+            ("RAISES_ERROR",    TypeError),
+            ("1",               TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_AnimationIterationCount(self):
+        PropertyType = animation_iteration_count
+        PropertyName = "animation-iteration-count"
+        cases = (
+            #value              #result             #value_printer
+            (None,              intPostive(1),      "1"),
+            ("infinite",        "infinite",         "infinite"),
+            (100,               intPostive(100),    "100"),
+            (-100,              intPostive(100),    "100"),
+            (1,                 intPostive(1),      "1"),
+            (0,                 intPostive(0),      "0"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    TypeError),
+            ("1",               TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)

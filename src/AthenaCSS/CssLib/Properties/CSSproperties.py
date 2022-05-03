@@ -8,14 +8,15 @@ from __future__ import annotations
 
 # Custom Packages
 from .Properties import CSSproperty, CSSpropertyShorthand
-from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier
+from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier,intPostive
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - all -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
     "align_content", "align_items", "align_self",
-    "animation_name", "animation_duration","animation_timing_function","animation_delay"
+    "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
+
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -98,7 +99,22 @@ class animation_delay(CSSproperty):
         return Second(0)
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_iteration_count(CSSproperty):pass
+class animation_iteration_count(CSSproperty):
+    possibleValues = ("infinite",intPostive)
+    possibleValueTypes=str|int|intPostive
+
+    def __init__(self,value:str|int, *args, **kwargs):
+        if value in self.possibleValues or value is None:
+            print(value)
+            super().__init__(value, *args, **kwargs)
+        else:
+            super().__init__(intPostive(value), *args, **kwargs)
+
+    @property
+    def defaultValue(self):
+        return intPostive(1)
+
+# ----------------------------------------------------------------------------------------------------------------------
 class animation_direction(CSSproperty):pass
 class animation_fill_mode(CSSproperty):pass
 class animation_play_state(CSSproperty):pass

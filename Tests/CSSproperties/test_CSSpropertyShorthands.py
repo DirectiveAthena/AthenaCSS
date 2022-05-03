@@ -6,6 +6,7 @@ from __future__ import annotations
 import unittest
 
 # Custom Library
+from AthenaCSS.CssLib.Properties.CSSpropertyShorthand import *
 from AthenaCSS.CssLib.Properties.CSSproperties import *
 
 # Custom Packages
@@ -48,6 +49,7 @@ class CSSpropertyShorthands(unittest.TestCase):
             ((None,"None",None,None,None,None,None,None),       {},                                 TypeError), # depending on the underlying properties
             ("1",                                               {},                                 TypeError), # missing arguments
             ((None, None, None, None, None, None, None, None),  {"a":"a"},                          AttributeError),
+            ((None, None, None, None, None, None, None),        {"a":"a"},                          TypeError),
             ((None, None, None, None, None, None, None),        {"play_state":animation_name()},    TypeError),
         )
         self.SubtestFunctionFails(PropertyType,casesFail)

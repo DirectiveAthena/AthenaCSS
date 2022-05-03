@@ -9,6 +9,10 @@ import unittest
 from AthenaCSS.CssLib.Properties.CSSproperties import *
 from AthenaCSS.CssLib.Types import Second,MilliSecond
 
+from AthenaColor import RGB,RGBA,HEX,HEXA,HSV,HSL,CMYK
+from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples
+
+
 # Custom Packages
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -241,3 +245,54 @@ class CSSproperties(unittest.TestCase):
             (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_BackgroundAttachment(self):
+        PropertyType = background_attachment
+        PropertyName = "background-attachment"
+        cases = (
+            #value              #result             #value_printer
+            (None,              "scroll",           "scroll"),
+            ("scroll",          "scroll",           "scroll"),
+            ("fixed",           "fixed",            "fixed"),
+            ("local",           "local",            "local"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_BackgroundColor(self):
+        PropertyType = background_color
+        PropertyName = "background-color"
+        cases = (
+            #value              #result             #value_printer
+            (None,              "transparent",      "transparent"),
+            (RGB(),             RGB(0,0,0),         "rgb(0,0,0)"),
+            (HEX("#ff8800"),    RGB(255,136,0),     "rgb(255,136,0)"),
+            (HEXA("#ff880001"), RGBA(255,136,0,1),  "rgba(255,136,0,1)"),
+            (RGBA(255,136,0,1), RGBA(255,136,0,1),  "rgba(255,136,0,1)"),
+            (HSL(152,.9,.4),    RGB(10,194,108),    "rgb(10,194,108)"),
+            (HSV(152,.9,.4),    RGB(10,102,59),     "rgb(10,102,59)"),
+            (CMYK(0,.1,.87,.2), RGB(204,184,27),    "rgb(204,184,27)"),
+            (CMYK(0,.1,.87,.2), RGB(204,184,27),    "rgb(204,184,27)"),
+            ("SandyBrown",      RGB(244,164,96),    "rgb(244,164,96)"),
+            ("Azure",           RGB(240,255,255),   "rgb(240,255,255)"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
+            (1,                 TypeError),
+            ("AzureQQQQQ",      ValueError),
+            ("AzureQQQQQ",      ValueError),
+            (HtmlColorObjects,  TypeError),
+            (HtmlColorTuples,   TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)
+
+

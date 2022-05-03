@@ -2,26 +2,25 @@
 # - Package Imports -
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
-import setuptools
+from __future__ import annotations
+
+# Custom Library
 
 # Custom Packages
+from .Selectors import Selector
+from .CSSselectors import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-setuptools.setup(
-    name="AthenaCSS",
-    version="0.0.0",
-    author="Andreas Sas",
-    author_email="",
-    description="",
-    url="https://github.com/DirectiveAthena/VerSC-AthenaCSS",
-    project_urls={
-        "Bug Tracker": "https://github.com/DirectiveAthena/VerSC-AthenaCSS/issues",
-    },
-    license="GPLv3",
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
-    python_requires=">=3.10",
-    requires=["AthenaColor>=4.0.0"]
-)
+class Selector_Combination(Selector):
+    selectors:list
+    def __init__(self, *selectors: Selector|type[Selector]):
+        if not all(isinstance(s, Selector) or issubclass(s,Selector) for s in selectors):
+            raise TypeError
+        self.selectors = list(selectors)
+
+    def print(self) -> str:
+        return "".join(
+            s.print() if isinstance(s, Selector) else s.name
+            for s in self.selectors)

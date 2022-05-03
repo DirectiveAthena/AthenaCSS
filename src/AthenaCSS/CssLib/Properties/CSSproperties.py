@@ -5,6 +5,10 @@
 from __future__ import annotations
 
 # Custom Library
+from AthenaColor import RGB,HEX,CMYK,HSL,HSV,RGBA,HEXA
+from AthenaColor.Objects.Color.ColorSystem import ColorSystem
+from AthenaColor.Objects.Color.ColorObjectConversion import to_RGB,to_RGBA
+from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples
 
 # Custom Packages
 from .Properties import CSSproperty
@@ -18,6 +22,7 @@ __all__=[
     "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
         "animation_direction","animation_fill_mode","animation_play_state",
     "backface_visibility",
+    "background_attachment","background_color",
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -174,6 +179,45 @@ class backface_visibility(CSSproperty):
     def defaultValue(self):
         return self.possibleValues[0]
 
+# ----------------------------------------------------------------------------------------------------------------------
+class background_attachment(CSSproperty):
+    possibleValues = ("scroll","fixed","local")
+    possibleValueTypes=str|None
+
+    def __init__(self,value:str=None, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    @property
+    def defaultValue(self):
+        return self.possibleValues[0]
+
+# ----------------------------------------------------------------------------------------------------------------------
+class background_color(CSSproperty):
+    possibleValues = ("transparent",RGB,RGBA,HtmlColorObjects,HtmlColorTuples)
+    possibleValueTypes=str|RGB|RGBA|None
+
+    def __init__(self,value:str|RGB|RGBA|HtmlColorObjects|HtmlColorTuples=None, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    def value_presetter(self, value) -> object:
+        # Named colors:
+        if any(c in self.possibleValues for c in (HtmlColorObjects,HtmlColorTuples)) and isinstance(value, str):
+            try:
+                return getattr(HtmlColorObjects, value)
+            except AttributeError:
+                pass
+        elif isinstance(value, ColorSystem):
+            if isinstance(value, RGB|HEX|CMYK|HSL|HSV):
+                return to_RGB(value)
+            elif isinstance(value, RGBA|HEXA):
+                return to_RGBA(value)
+
+        # don't forget to return value
+        return value
+
+    @property
+    def defaultValue(self):
+        return self.possibleValues[0]
 
 
 

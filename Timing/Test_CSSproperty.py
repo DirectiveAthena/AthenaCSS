@@ -1,14 +1,21 @@
 import timeit
 from AthenaCSS.CssLib.Element import CSSelement
-from AthenaCSS.CssLib.Selectors.CSSselectors import SelectorClass
+from AthenaCSS.CssLib.Selectors.CSSselectors import *
+from AthenaCSS.CssLib.Selectors.CSSselectorCombination import Selector_Combination
 from AthenaCSS.CssLib.Properties.CSSproperties import *
 
 
 def main():
     el = CSSelement()
     el.append(
-        SelectorClass("test"),
-        SelectorClass("test2"),
+        Selector_Combination(
+            Selector_Header1,
+            Selector_Id("test-id"),
+            Selector_Class("test-class")
+        ),
+        Selector_Element("elementX"), # <elementX></elementX>
+        Selector_Class("test"), # <element class="test"> -> .test
+        Selector_Class("test2"),
         align_items("center")
     )
 

@@ -14,12 +14,29 @@ from AthenaCSS.CssLib.Types import ValueType
 # - Base CSS Property Class -
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSproperty:
-    value:object
+    _value:object
     important:bool
     possibleValues:tuple|None=None
     possibleValueTypes:type|tuple[type]|Union[type]=type
 
     def __init__(self, value:object=None,*,important=False):
+        # value is property to have more functionality over the setter of a value
+        #   think properties which cannout have a negative value
+        self.value = value
+        self.important = important
+
+    def value_presetter(self, value) -> object:
+        return value
+
+    @property
+    def value(self):
+        return self._value
+    
+    @value.setter
+    def value(self, value):
+        # self.value_setter done to make perties add extra functionality
+        value = self.value_presetter(value)
+
         # Faster if statements provided by twitch viewer: mateoox600
         if value is None:
             value = self.defaultValue
@@ -30,14 +47,14 @@ class CSSproperty:
             for pv in {*self.possibleValues, 'initial', 'inherit'}:
                 if value == pv:
                     break
-                elif pv is type and issubclass(pv,ValueType) and isinstance(value, pv) :
+                elif isinstance(pv, type) and isinstance(value, pv):
                     break
             else:
                 raise ValueError(f"{value=} not in {self.possibleValues=}")
 
-        self.value = value
-        self.important = important
-
+        # EVENTUALLY ACTUALLY SET THE VALUE!
+        self._value = value
+    
     @property
     def defaultValue(self) -> object|None:
         return None

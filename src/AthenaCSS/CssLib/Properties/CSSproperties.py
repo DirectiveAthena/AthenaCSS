@@ -8,7 +8,7 @@ from __future__ import annotations
 
 # Custom Packages
 from .Properties import CSSproperty, CSSpropertyShorthand
-from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier,intPostive
+from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - all -
@@ -71,6 +71,14 @@ class animation_duration(CSSproperty):
     def __init__(self,value:Second|MilliSecond|int, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
+    def value_presetter(self, value) -> object:
+        if isinstance(value, int):
+            return Second(abs(value))
+        elif isinstance(value, Second|MilliSecond):
+            return abs(value)
+        else:
+            return value
+
     @property
     def defaultValue(self):
         return Second(0)
@@ -100,19 +108,21 @@ class animation_delay(CSSproperty):
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_iteration_count(CSSproperty):
-    possibleValues = ("infinite",intPostive)
-    possibleValueTypes=str|int|intPostive
+    possibleValues = ("infinite",int)
+    possibleValueTypes=str|int
 
     def __init__(self,value:str|int, *args, **kwargs):
-        if value in self.possibleValues or value is None:
-            print(value)
-            super().__init__(value, *args, **kwargs)
+        super().__init__(value, *args, **kwargs)
+
+    def value_presetter(self, value) -> object:
+        if isinstance(value, int):
+            return abs(value)
         else:
-            super().__init__(intPostive(value), *args, **kwargs)
+            return value
 
     @property
     def defaultValue(self):
-        return intPostive(1)
+        return 1
 
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_direction(CSSproperty):pass

@@ -9,7 +9,7 @@ import unittest
 
 # Custom Packages
 from AthenaCSS.CssLib.Properties.CSSproperties import *
-from AthenaCSS.CssLib.Types import Second,MilliSecond,intPostive
+from AthenaCSS.CssLib.Types import Second,MilliSecond
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -106,8 +106,8 @@ class CSSproperties_Full(unittest.TestCase):
             (None,              Second(0),      "0s"),
             (Second(10),        Second(10),     "10s"),
             (MilliSecond(10),   MilliSecond(10),"10ms"),
-            (1,                 1,              "1"),
-            (0,                 0,              "0"),
+            (1,                 Second(1),      "1s"),
+            (0,                 Second(0),      "0s"),
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
@@ -158,17 +158,17 @@ class CSSproperties_Full(unittest.TestCase):
         PropertyName = "animation-iteration-count"
         cases = (
             #value              #result             #value_printer
-            (None,              intPostive(1),      "1"),
+            (None,              1,                  "1"),
             ("infinite",        "infinite",         "infinite"),
-            (100,               intPostive(100),    "100"),
-            (-100,              intPostive(100),    "100"),
-            (1,                 intPostive(1),      "1"),
-            (0,                 intPostive(0),      "0"),
+            (100,               100,                "100"),
+            (-100,              100,                "100"),
+            (1,                 1,                  "1"),
+            (0,                 0,                  "0"),
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
             #value              #error
-            ("RAISES_ERROR",    TypeError),
-            ("1",               TypeError),
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)

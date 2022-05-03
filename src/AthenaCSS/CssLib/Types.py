@@ -24,12 +24,20 @@ class Second(ValueType):
     def __str__(self):
         return f"{str(self.value)}s"
 
+    def __abs__(self) -> Second:
+        self.value = abs(self.value)
+        return self
+
 @dataclass
 class MilliSecond(ValueType):
     value:int
 
     def __str__(self):
         return f"{str(self.value)}ms"
+
+    def __abs__(self) -> MilliSecond:
+        self.value = abs(self.value)
+        return self
 
 @dataclass
 class CubicBezier(ValueType):
@@ -46,16 +54,3 @@ class CubicBezier(ValueType):
 
     def __str__(self):
         return f"cubic-bezier({self.x1}, {self.y1}, {self.x2}, {self.y2})"
-
-
-
-@dataclass
-class intPostive(ValueType,int):
-    value:int
-
-    def __post_init__(self):
-        # This value must always be postibe
-        self.value = abs(self.value)
-
-    def __str__(self):
-        return f"{str(self.value)}"

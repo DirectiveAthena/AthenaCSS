@@ -189,3 +189,20 @@ class CSSproperties_Full(unittest.TestCase):
             (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_AnimationFillMode(self):
+        PropertyType = animation_fill_mode
+        PropertyName = "animation-fill-mode"
+        cases = (
+            #value              #result             #value_printer
+            (None,              None,               "none"),
+            ("backwards",       "backwards",        "backwards"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            ("RAISES_ERROR",    ValueError),
+            ("1",               ValueError),
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)

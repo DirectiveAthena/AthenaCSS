@@ -334,4 +334,19 @@ class CSSproperties(unittest.TestCase):
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
+    def test_BackgroundOrigin(self):
+        PropertyType = background_origin
+        PropertyName = "background-origin"
+        cases = (
+            #value              #result             #value_printer
+            (None,              "padding-box",      "padding-box"),
+            ("border-box",      "border-box",       "border-box"),
+            ("content-box",     "content-box",      "content-box"),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)
 

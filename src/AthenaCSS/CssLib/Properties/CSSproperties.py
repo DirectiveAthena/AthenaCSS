@@ -25,7 +25,7 @@ __all__=[
     "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
         "animation_direction","animation_fill_mode","animation_play_state",
     "backface_visibility",
-    "background_attachment","background_color","background_clip","background_image"
+    "background_attachment","background_color","background_clip","background_image","background_origin"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -246,3 +246,15 @@ class background_image(CSSproperty):
             return Url(value=value)
         # don't forget to return value
         return value
+
+# ----------------------------------------------------------------------------------------------------------------------
+class background_origin(CSSproperty):
+    possibleValues = ("border-box","padding-box","content-box")
+    possibleValueTypes=str|None
+
+    def __init__(self,value:str=None, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    @property
+    def defaultValue(self):
+        return self.possibleValues[1]

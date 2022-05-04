@@ -195,6 +195,18 @@ class background_attachment(CSSproperty):
         return self.possibleValues[0]
 
 # ----------------------------------------------------------------------------------------------------------------------
+class background_clip(CSSproperty):
+    possibleValues = ("border-box","padding-box","content-box")
+    possibleValueTypes=str|None
+
+    def __init__(self,value:str=None, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    @property
+    def defaultValue(self):
+        return self.possibleValues[0]
+
+# ----------------------------------------------------------------------------------------------------------------------
 class background_color(CSSproperty):
     possibleValues = ("transparent",RGB,RGBA,HtmlColorObjects,HtmlColorTuples)
     possibleValueTypes=str|RGB|RGBA|None
@@ -217,18 +229,6 @@ class background_color(CSSproperty):
 
         # don't forget to return value
         return value
-
-    @property
-    def defaultValue(self):
-        return self.possibleValues[0]
-
-# ----------------------------------------------------------------------------------------------------------------------
-class background_clip(CSSproperty):
-    possibleValues = ("border-box","padding-box","content-box")
-    possibleValueTypes=str|None
-
-    def __init__(self,value:str=None, *args, **kwargs):
-        super().__init__(value, *args, **kwargs)
 
     @property
     def defaultValue(self):

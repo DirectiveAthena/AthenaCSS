@@ -12,6 +12,7 @@ from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples
 
 from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
+from AthenaLib.Types.Url import Url
 
 # Custom Packages
 from .Properties import CSSproperty
@@ -235,11 +236,13 @@ class background_clip(CSSproperty):
 
 # ----------------------------------------------------------------------------------------------------------------------
 class background_image(CSSproperty):
-    possibleValueTypes=str|None
+    possibleValueTypes=str|None|Url
 
-    def __init__(self,value:str=None, *args, **kwargs):
+    def __init__(self,value:str|Url=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
-    @property
-    def defaultValue(self):
-        return self.possibleValues[0]
+    def value_presetter(self, value) -> object:
+        if isinstance(value, str):
+            return Url(value=value)
+        # don't forget to return value
+        return value

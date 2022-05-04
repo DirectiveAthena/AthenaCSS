@@ -9,6 +9,8 @@ import unittest
 from AthenaCSS.CssLib.Properties.CSSproperties import *
 
 from AthenaLib.Types.Time import Second,MilliSecond
+from AthenaLib.Types.Bezier import CubicBezier
+from AthenaLib.Types.Url import Url
 
 from AthenaColor import RGB,RGBA,HEX,HEXA,HSV,HSL,CMYK
 from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples
@@ -125,10 +127,12 @@ class CSSproperties(unittest.TestCase):
         PropertyType = animation_timing_function
         PropertyName = "animation-timing-function"
         cases = (
-            #value              #result         #value_printer
-            (None,              "ease",         "ease"),
-            ("linear",          "linear",       "linear"),
-            ("ease-out",        "ease-out",     "ease-out"),
+            #value                  #result                 #value_printer
+            (None,                  "ease",                 "ease"),
+            ("linear",              "linear",               "linear"),
+            ("ease-out",            "ease-out",             "ease-out"),
+            (CubicBezier(1,1,1,1),  CubicBezier(1,1,1,1),   "cubic-bezier(1, 1, 1, 1)"),
+            (CubicBezier(2,-5,2,5),  CubicBezier(1,-5,1,5), "cubic-bezier(1.0, -5, 1.0, 5)"),
         )
         self.SubtestFunction(PropertyType,cases,PropertyName)
         casesFail = (
@@ -314,22 +318,20 @@ class CSSproperties(unittest.TestCase):
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 
-    # def test_BackgroundImage(self):
-    #     PropertyType = background_image
-    #     PropertyName = "background-image"
-    #     cases = (
-    #         #value              #result             #value_printer
-    #         (None,              None,               "none"),
-    #         ("padding-box",     "padding-box",      "padding-box"),
-    #         ("content-box",     "content-box",      "content-box"),
-    #     )
-    #     self.SubtestFunction(PropertyType,cases,PropertyName)
-    #     casesFail = (
-    #         #value              #error
-    #         ("RAISES_ERROR",    ValueError),
-    #         ("1",               ValueError),
-    #         (1,                 TypeError),
-    #     )
-    #     self.SubtestFunctionFails(PropertyType, casesFail)
+    def test_BackgroundImage(self):
+        PropertyType = background_image
+        PropertyName = "background-image"
+        cases = (
+            #value                          #result                         #value_printer
+            (None,                          None,                           "none"),
+            ("image/girlfriend.jpg",        'image/girlfriend.jpg',         'url("image/girlfriend.jpg")'),
+            (Url("image/girlfriend.jpg"),   'image/girlfriend.jpg',         'url("image/girlfriend.jpg")'),
+        )
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            (1,                 TypeError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)
 
 

@@ -10,9 +10,11 @@ from AthenaColor.Objects.Color.ColorSystem import ColorSystem
 from AthenaColor.Objects.Color.ColorObjectConversion import to_RGB,to_RGBA
 from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples
 
+from AthenaLib.Types.Time import Second, MilliSecond
+from AthenaLib.Types.Bezier import CubicBezier
+
 # Custom Packages
 from .Properties import CSSproperty
-from AthenaCSS.CssLib.Types import Second, MilliSecond, CubicBezier
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - all -

@@ -7,7 +7,8 @@ import unittest
 
 # Custom Library
 from AthenaCSS.CssLib.Properties.CSSproperties import *
-from AthenaCSS.CssLib.Types import Second,MilliSecond
+
+from AthenaLib.Types.Time import Second,MilliSecond
 
 from AthenaColor import RGB,RGBA,HEX,HEXA,HSV,HSL,CMYK
 from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples

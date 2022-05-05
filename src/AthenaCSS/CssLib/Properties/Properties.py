@@ -3,11 +3,15 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
+import itertools
+
 from typing import Union,Any
 
 # Custom Library
 from AthenaColor import RGB,RGBA
 from AthenaColor.Objects.Color.ColorTupleConversion import rgba_to_hexa, rgb_to_hex
+
+from AthenaLib.Types.ValueType import ValueType
 
 # Custom Packages
 
@@ -19,6 +23,7 @@ class CSSproperty:
     important:bool
     color_output:str
     possibleValues:tuple|None=None
+    possibleValuesTupleLen:int=0
     possibleValueTypes:type|tuple[type]|Union[type]=type
 
     def __init__(self, value:object=None,*,important:bool=False, color_output:str="rgb"):
@@ -30,7 +35,7 @@ class CSSproperty:
             raise ValueError
         self.color_output = color_output
 
-    def value_presetter(self, value) -> object:
+    def value_presetter(self, value):
         return value
 
     @property
@@ -48,12 +53,32 @@ class CSSproperty:
         elif not isinstance(value, self.possibleValueTypes):
             raise TypeError(f"{value=} was not the same type as {type(self).__name__} -> {self.possibleValueTypes=}")
         elif self.possibleValues is not None:
-            # to allow for ValueTypes to be used as inserted values
-            for pv in {*self.possibleValues, 'initial', 'inherit'}:
-                if value == pv or (isinstance(pv, type) and isinstance(value, pv)):
+            if isinstance(self.possibleValues, itertools.product):
+                if not isinstance(value, tuple):
+                    raise ValueError(f"{value=} was not a specified tuple")
+                elif len(value) != self.possibleValuesTupleLen:
+                    raise ValueError(f"{value=} was not of the allowed length of {self.possibleValuesTupleLen}")
+                # Value was a tuple,and the length matched the allowed length, which means we can start parsing for object types
+                for pv in self.possibleValues:
+                    counter = 0
+                    for i, v in enumerate(pv):
+                        if (isinstance(v, str) and value[i] == v) or (isinstance(v, ValueType) and isinstance(value[i], v)):
+                            # print("STRING VALUE FOUND")
+                            counter += 1
+                    if counter == self.possibleValuesTupleLen:
+                        break
                     break
+                else:
+                    if value not in ('initial', 'inherit'):
+                        raise ValueError(f"{value=} not in {self.possibleValues=}")
+
             else:
-                raise ValueError(f"{value=} not in {self.possibleValues=}")
+                # to allow for ValueTypes to be used as inserted values
+                for pv in {*self.possibleValues, 'initial', 'inherit'}:
+                    if value == pv or (isinstance(pv, type) and isinstance(value, pv)):
+                        break
+                else:
+                    raise ValueError(f"{value=} not in {self.possibleValues=}")
 
         # EVENTUALLY ACTUALLY SET THE VALUE!
         self._value = value
@@ -66,6 +91,8 @@ class CSSproperty:
         match self.value:
             case None:
                 return "none"
+            case tuple():
+                return ", ".join(str(t) for t in self.value)
             case RGB() if self.color_output == "rgb":
                 return f"rgb({self.value.r},{self.value.g},{self.value.b})"
             case RGBA() if self.color_output == "rgb":

@@ -8,9 +8,11 @@ import unittest
 # Custom Library
 from AthenaCSS.CssLib.Properties.CSSproperties import *
 
-from AthenaLib.Types.Time import Second,MilliSecond
+from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.Url import Url
+from AthenaLib.Types.RelativeLength import *
+from AthenaLib.Types.AbsoluteLength import *
 
 from AthenaColor import RGB,RGBA,HEX,HEXA,HSV,HSL,CMYK
 from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples
@@ -347,6 +349,28 @@ class CSSproperties(unittest.TestCase):
         casesFail = (
             #value              #error
             (1,                 TypeError),
+            ("RAISES ERROR",    ValueError),
+        )
+        self.SubtestFunctionFails(PropertyType, casesFail)
+
+    def test_BackgroundPosition(self):
+        PropertyType = background_position
+
+        PropertyName = "background-position"
+        cases = (
+            #value                      #result                     #value_printer
+            (None,                      (Percent(0),Percent(0)),    "0%, 0%"),
+            ((Percent(5),Percent(9)),   (Percent(5),Percent(9)),    "5%, 9%"),
+            ((Pixel(5),Pixel(9)),       (Pixel(5),Pixel(9)),        "5px, 9px"),
+        )
+
+        self.fail()
+
+        self.SubtestFunction(PropertyType,cases,PropertyName)
+        casesFail = (
+            #value              #error
+            (1,                 TypeError),
+            ("RAISES ERROR",    ValueError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
 

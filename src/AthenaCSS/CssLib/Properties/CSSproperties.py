@@ -3,6 +3,7 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
+import itertools
 
 # Custom Library
 from AthenaColor import RGB,HEX,CMYK,HSL,HSV,RGBA,HEXA
@@ -13,6 +14,8 @@ from AthenaColor.Data.HtmlColors import HtmlColorObjects,HtmlColorTuples
 from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.Url import Url
+from AthenaLib.Types.RelativeLength import *
+from AthenaLib.Types.AbsoluteLength import *
 
 # Custom Packages
 from .Properties import CSSproperty
@@ -25,7 +28,8 @@ __all__=[
     "animation_name", "animation_duration","animation_timing_function","animation_delay", "animation_iteration_count",
         "animation_direction","animation_fill_mode","animation_play_state",
     "backface_visibility",
-    "background_attachment","background_color","background_clip","background_image","background_origin"
+    "background_attachment","background_color","background_clip","background_image","background_origin",
+        "background_position"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -258,3 +262,22 @@ class background_origin(CSSproperty):
     @property
     def defaultValue(self):
         return self.possibleValues[1]
+
+# ----------------------------------------------------------------------------------------------------------------------
+class background_position(CSSproperty):
+    possibleValues = itertools.product(
+        ("bottom", "center", "left", "right", "top", Pixel, Percent)
+        , repeat=2
+    )
+    possibleValuesTupleLen=2
+    possibleValueTypes=str|None|tuple|Pixel|Percent
+
+    def __init__(self,value:str|tuple=None, *args, **kwargs):
+        super().__init__(value, *args, **kwargs)
+
+    def value_presetter(self, value) -> object:
+        return value
+
+    @property
+    def defaultValue(self):
+        return Percent(0),Percent(0)

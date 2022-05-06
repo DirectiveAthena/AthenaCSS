@@ -40,6 +40,11 @@ class CSSproperties(unittest.TestCase):
                with self.assertRaises(error):
                     PropertyType(value)
 
+    def SubtestFunctionOperations(self, ValueType_, cases):
+        for operation, oargs, okwargs, args, kwargs, result in cases:
+            with self.subTest(args=args, kwargs=kwargs, result=result, ):
+                self.assertEqual(operation(ValueType_(*args, **kwargs), *oargs, *okwargs), result)
+
     # ----------------------------------------------------------------------------------------------------------------------
     # - TESTS -
     # ----------------------------------------------------------------------------------------------------------------------
@@ -58,6 +63,11 @@ class CSSproperties(unittest.TestCase):
             (1,                 TypeError),
         )
         self.SubtestFunctionFails(PropertyType, casesFail)
+        casesOperations = (
+            #operation  oargs   okwargs     args        kwargs      result
+            (str,       (),     {},         (None,),    {},         "align-content : stretch"),
+        )
+        self.SubtestFunctionOperations(PropertyType, casesOperations)
 
     def test_AlignItems(self):
         PropertyType = align_items

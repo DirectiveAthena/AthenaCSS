@@ -18,7 +18,7 @@ from AthenaLib.Types.RelativeLength import *
 from AthenaLib.Types.AbsoluteLength import *
 
 # Custom Packages
-from .Properties import CSSproperty
+from .Classes.Properties import CSSpropertySingle,CSSpropertyMulti
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - all -
@@ -35,7 +35,7 @@ __all__=[
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class align_content(CSSproperty):
+class align_content(CSSpropertySingle):
     possibleValues = ('center', 'flex-start', 'flex-end', 'space-between', 'space-around', 'stretch')
     possibleValueTypes=str
 
@@ -47,7 +47,7 @@ class align_content(CSSproperty):
         return self.possibleValues[5]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class align_items(CSSproperty):
+class align_items(CSSpropertySingle):
     possibleValues = ('baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
 
@@ -59,7 +59,7 @@ class align_items(CSSproperty):
         return self.possibleValues[4]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class align_self(CSSproperty):
+class align_self(CSSpropertySingle):
     possibleValues = ('auto','baseline','center', 'flex-start', 'flex-end', 'stretch')
     possibleValueTypes=str
 
@@ -71,14 +71,14 @@ class align_self(CSSproperty):
         return self.possibleValues[0]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_name(CSSproperty):
+class animation_name(CSSpropertySingle):
     possibleValueTypes=str|None
     
     def __init__(self,value:str=None, *args, **kwargs):
         super().__init__(value, *args, **kwargs)
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_duration(CSSproperty):
+class animation_duration(CSSpropertySingle):
     possibleValueTypes=Second|MilliSecond|int|None
 
     def __init__(self,value:Second|MilliSecond|int=None, *args, **kwargs):
@@ -97,7 +97,7 @@ class animation_duration(CSSproperty):
         return Second(0)
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_timing_function(CSSproperty):
+class animation_timing_function(CSSpropertySingle):
     possibleValues = ('linear', 'ease', 'ease-in', 'ease-out', ' ease-in-out', CubicBezier)
     possibleValueTypes = str|CubicBezier|None
     
@@ -109,7 +109,7 @@ class animation_timing_function(CSSproperty):
         return "ease"
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_delay(CSSproperty):
+class animation_delay(CSSpropertySingle):
     possibleValueTypes=Second|MilliSecond|int|None
 
     def __init__(self,value:Second|MilliSecond|int=None, *args, **kwargs):
@@ -125,7 +125,7 @@ class animation_delay(CSSproperty):
         return Second(0)
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_iteration_count(CSSproperty):
+class animation_iteration_count(CSSpropertySingle):
     possibleValues = ("infinite",int)
     possibleValueTypes=str|int|None
 
@@ -143,7 +143,7 @@ class animation_iteration_count(CSSproperty):
         return 1
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_direction(CSSproperty):
+class animation_direction(CSSpropertySingle):
     possibleValues = ("normal","reverse","alternate", "alternate-reverse")
     possibleValueTypes=str|None
 
@@ -155,7 +155,7 @@ class animation_direction(CSSproperty):
         return self.possibleValues[0]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_fill_mode(CSSproperty):
+class animation_fill_mode(CSSpropertySingle):
     possibleValues = ("forwards","backwards", "both")
     possibleValueTypes=str|None
 
@@ -163,7 +163,7 @@ class animation_fill_mode(CSSproperty):
         super().__init__(value, *args, **kwargs)
 
 # ----------------------------------------------------------------------------------------------------------------------
-class animation_play_state(CSSproperty):
+class animation_play_state(CSSpropertySingle):
     possibleValues = ("paused","running")
     possibleValueTypes=str|None
 
@@ -175,7 +175,7 @@ class animation_play_state(CSSproperty):
         return self.possibleValues[1]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class backface_visibility(CSSproperty):
+class backface_visibility(CSSpropertySingle):
     possibleValues = ("visible","hidden")
     possibleValueTypes=str|None
 
@@ -187,7 +187,7 @@ class backface_visibility(CSSproperty):
         return self.possibleValues[0]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class background_attachment(CSSproperty):
+class background_attachment(CSSpropertySingle):
     possibleValues = ("scroll","fixed","local")
     possibleValueTypes=str|None
 
@@ -199,7 +199,7 @@ class background_attachment(CSSproperty):
         return self.possibleValues[0]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class background_clip(CSSproperty):
+class background_clip(CSSpropertySingle):
     possibleValues = ("border-box","padding-box","content-box")
     possibleValueTypes=str|None
 
@@ -211,7 +211,7 @@ class background_clip(CSSproperty):
         return self.possibleValues[0]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class background_color(CSSproperty):
+class background_color(CSSpropertySingle):
     possibleValues = ("transparent",RGB,RGBA,HtmlColorObjects,HtmlColorTuples)
     possibleValueTypes=str|RGB|RGBA|None
 
@@ -239,7 +239,7 @@ class background_color(CSSproperty):
         return self.possibleValues[0]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class background_image(CSSproperty):
+class background_image(CSSpropertySingle):
     possibleValueTypes=str|None|Url
 
     def __init__(self,value:str|Url=None, *args, **kwargs):
@@ -252,7 +252,7 @@ class background_image(CSSproperty):
         return value
 
 # ----------------------------------------------------------------------------------------------------------------------
-class background_origin(CSSproperty):
+class background_origin(CSSpropertySingle):
     possibleValues = ("border-box","padding-box","content-box")
     possibleValueTypes=str|None
 
@@ -264,7 +264,7 @@ class background_origin(CSSproperty):
         return self.possibleValues[1]
 
 # ----------------------------------------------------------------------------------------------------------------------
-class background_position(CSSproperty):
+class background_position(CSSpropertyMulti):
     possibleValues = itertools.product(
         ("bottom", "center", "left", "right", "top", Pixel, Percent)
         , repeat=2

@@ -7,7 +7,7 @@ from __future__ import annotations
 # Custom Library
 
 # Custom Packages
-from .Properties import CSSpropertyShorthand
+from .Classes.PropertiesShorthand import CSSpropertyShorthand
 from AthenaCSS.CssLib.Properties.CSSproperties import *
 
 # ----------------------------------------------------------------------------------------------------------------------

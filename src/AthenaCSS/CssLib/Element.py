@@ -8,13 +8,13 @@ from __future__ import annotations
 
 # Custom Packages
 from AthenaCSS.CssLib.Selectors.Selectors import Selector
-from AthenaCSS.CssLib.Properties.Properties import CSSpropertyShorthand,CSSproperty
+from AthenaCSS.CssLib.Properties.Properties import CSSpropertyShorthand,CSSpropertySingle
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSelement:
-    properties:list[CSSproperty|CSSpropertyShorthand]
+    properties:list[CSSpropertySingle | CSSpropertyShorthand]
     selectors:list[Selector]
 
     def __init__(self):
@@ -30,11 +30,11 @@ class CSSelement:
         properties = '\n'.join(f"{' '*indent_spacing}{p.print()};" for p in self.properties)
         return f"{selectors} {{\n{properties}\n}}"
 
-    def append(self, *other:Selector|CSSproperty|CSSpropertyShorthand) -> CSSelement:
+    def append(self, *other: Selector | CSSpropertySingle | CSSpropertyShorthand) -> CSSelement:
         for o in other:
             if isinstance(o, Selector):
                 self.selectors.append(o)
-            elif isinstance(o, CSSproperty|CSSpropertyShorthand):
+            elif isinstance(o, CSSpropertySingle | CSSpropertyShorthand):
                 self.properties.append(o)
             else:
                 return NotImplemented
@@ -46,8 +46,8 @@ class CSSelement:
         self.selectors.append(selector)
         return self
 
-    def append_property(self, prop:CSSproperty|CSSpropertyShorthand) -> CSSelement:
-        if not isinstance(prop, CSSproperty|CSSpropertyShorthand):
-            raise TypeError(f"{prop=} is not a CSSproperty or CSSpropertyShorthand")
+    def append_property(self, prop: CSSpropertySingle | CSSpropertyShorthand) -> CSSelement:
+        if not isinstance(prop, CSSpropertySingle | CSSpropertyShorthand):
+            raise TypeError(f"{prop=} is not a CSSpropertySingle or CSSpropertyShorthand")
         self.properties.append(prop)
         return self

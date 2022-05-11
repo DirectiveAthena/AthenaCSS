@@ -1,1 +1,1 @@
-AthenaColor>=4.0.0
+AthenaColor>=4.1.1

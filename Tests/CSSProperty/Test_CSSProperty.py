@@ -7,6 +7,7 @@ from __future__ import annotations
 # Custom Library
 from AthenaCSS.Properties.PropertyLibrary import *
 from AthenaLib.Types.Time import Second,MilliSecond
+from AthenaLib.Types.Bezier import CubicBezier
 
 # Custom Packages
 from BulkTests import BulkTests
@@ -61,6 +62,7 @@ class CSSProperty(BulkTests):
             (str(An()),                             "animation-timing-function: ease"),
             (str(An("linear")),                     "animation-timing-function: linear"),
             (str(An("ease-out")),                   "animation-timing-function: ease-out"),
+            (str(An(CubicBezier(1,1,1,1))),         "animation-timing-function: cubic-bezier(1, 1, 1, 1)"),
         )
         self.Subtest_Equality(cases)
 
@@ -70,6 +72,6 @@ class CSSProperty(BulkTests):
         Ani = animation
         cases = (
             #left                                   #right
-            (str(Ani()),                            "animation: none 0s ease"),
+            (str(Ani()),                            "animation: none 0s ease 0s 1 normal none running"),
         )
         self.Subtest_Equality(cases)

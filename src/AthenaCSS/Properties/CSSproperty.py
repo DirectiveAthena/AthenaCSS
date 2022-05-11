@@ -8,19 +8,20 @@ import copy
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Properties.CsspropertyValue import CSSpropertyValue
+from AthenaCSS.Properties.ValueLogic import ValueLogic
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 
 class CSSproperty:
-    _value:CSSpropertyValue
-    _valueFactory=None
+    _value:ValueLogic
+    _value_logic=None
     __slots__ = ("_value",)
 
     def __init__(self, value):
-        self._value = copy.deepcopy(self._valueFactory) if self._valueFactory is not None else CSSpropertyValue()
+        # make a new instance of the _valyeFactory as all value Logicl is defined there
+        self._value = copy.deepcopy(self._value_logic) if self._value_logic is not None else ValueLogic()
         self.value = value
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -32,6 +33,7 @@ class CSSproperty:
 
     @value.setter
     def value(self, value):
+        # Actual setter is defined by the ValueLogic class
         self._value.value = value
 
     @value.deleter
@@ -39,5 +41,8 @@ class CSSproperty:
         del self._value.value
 
     # ------------------------------------------------------------------------------------------------------------------
-    # - Possible Values -
+    # - Default Values -
     # ------------------------------------------------------------------------------------------------------------------
+    @property
+    def default(self):
+        return self._value.default

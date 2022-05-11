@@ -8,19 +8,18 @@ from typing import Any
 # Custom Library
 
 # Custom Packages
-from .CsspropertyValue import CSSpropertyValue
+from .ValueLogic import ValueLogic
 from .CSSproperty import CSSproperty
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class align_content(CSSproperty):
-    _valueFactory = CSSpropertyValue(
+    _value_logic = ValueLogic(
         default="stretch",
         value_choice={
             str: {"center", "fex-start", "flex-end", "space-between", "space-around", "stretch"},
-            (str,int): ("str", (1,2,3))
         },
     )
-    def __init__(self, value=_valueFactory.default):
+    def __init__(self, value=_value_logic.default):
         super(align_content, self).__init__(value)

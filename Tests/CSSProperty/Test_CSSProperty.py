@@ -75,3 +75,14 @@ class CSSProperty(BulkTests):
             (str(Ani()),                            "animation: none 0s ease 0s 1 normal none running"),
         )
         self.Subtest_Equality(cases)
+
+    def test_BackfaceVisibility(self):
+        # Define a CSSProperty Class with a defined name
+
+        Bv = backface_visibility
+        cases = (
+            #left                                   #right
+            (str(Bv()),                             "backface-visibility: visible"),
+            (str(Bv("hidden")),                     "backface-visibility: hidden"),
+        )
+        self.Subtest_Equality(cases)

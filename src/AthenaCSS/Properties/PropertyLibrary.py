@@ -20,7 +20,7 @@ from .CSSpropertyShorthand import CSSpropertyShorthand
 __all__=[
     "animation_fill_mode", "animation", "animation_direction", "animation_delay", "animation_play_state",
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
-    "align_content", "align_self",
+    "align_content", "align_self","backface_visibility"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -195,3 +195,14 @@ class animation(CSSpropertyShorthand):
             self.play_state._value.printer()
         ))
         return f"animation: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class backface_visibility (CSSproperty):
+    name="backface-visibility"
+    value_logic = ValueLogic(
+        default="visible",
+        value_choice={
+            str:{"visible", "hidden"}
+        },
+    )
+    def __init__(self, value=value_logic.default):
+        super().__init__(value)

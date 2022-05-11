@@ -15,6 +15,15 @@ from .CSSproperty import CSSproperty
 from .CSSpropertyShorthand import CSSpropertyShorthand
 
 # ----------------------------------------------------------------------------------------------------------------------
+# - All -
+# ----------------------------------------------------------------------------------------------------------------------
+__all__=[
+    "animation_fill_mode", "animation", "animation_direction", "animation_delay", "animation_play_state",
+    "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
+    "align_content", "align_self",
+]
+
+# ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class align_content(CSSproperty):
@@ -173,6 +182,7 @@ class animation(CSSpropertyShorthand):
         self.fill_mode = animation_fill_mode(fill_mode)
         self.play_state = animation_play_state(play_state)
 
+    # noinspection PyProtectedMember
     def printer(self) -> str:
         parts = " ".join((
             self.name._value.printer(),

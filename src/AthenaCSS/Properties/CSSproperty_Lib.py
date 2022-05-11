@@ -15,6 +15,7 @@ from .CSSproperty import CSSproperty
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class align_content(CSSproperty):
+    name="align-content"
     _value_logic = ValueLogic(
         default="stretch",
         value_choice={

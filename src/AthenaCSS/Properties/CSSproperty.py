@@ -15,9 +15,10 @@ from AthenaCSS.Properties.ValueLogic import ValueLogic
 # ----------------------------------------------------------------------------------------------------------------------
 
 class CSSproperty:
+    name:str
     _value:ValueLogic
     _value_logic=None
-    __slots__ = ("_value",)
+    __slots__ = ("_value","name")
 
     def __init__(self, value):
         # make a new instance of the _valyeFactory as all value Logicl is defined there
@@ -46,3 +47,12 @@ class CSSproperty:
     @property
     def default(self):
         return self._value.default
+
+    # ------------------------------------------------------------------------------------------------------------------
+    # - Printer -
+    # ------------------------------------------------------------------------------------------------------------------
+    def printer(self) -> str:
+        return f"{self.name}: {self._value.printer()}"
+
+    def __str__(self) -> str:
+        return self.printer()

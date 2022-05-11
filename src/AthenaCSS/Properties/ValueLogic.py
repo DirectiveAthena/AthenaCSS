@@ -28,9 +28,6 @@ class ValueLogic:
         self.value_choice = value_choice if value_choice is not None else dict()
         self.default = default # ALWAYS do this AFTER the setting of value_choice
 
-    def __str__(self):
-        return f"{self.default}, {self.value_choice}"
-
     def __repr__(self) -> str:
         # cane be done because the key of self.value_choice is alwyas a type!
         value_choice = {k.__name__:v for k,v in self.value_choice.items()}
@@ -63,7 +60,6 @@ class ValueLogic:
                 raise ValueError(f"the value {value!r} was not in the defined choice of {choice}")
         else:
             raise TypeError(f"the value {value!r} was not of an allowed type")
-
 
         # ! RETURN VALUE !
         return value
@@ -113,6 +109,22 @@ class ValueLogic:
             elif isinstance(key, type):
                 if key is not Any and not all(isinstance(v, key) for v in val):
                     raise SyntaxError("Not all items in the predefined options were of the allowed type")
+            else:
+                raise SyntaxError("value_choice did not consist out of a tuple or a type")
 
         self._value_choice = value
 
+    # ------------------------------------------------------------------------------------------------------------------
+    # - Printer -
+    # ------------------------------------------------------------------------------------------------------------------
+    def printer(self) -> str:
+        match self.value:
+            case None:
+                return "none"
+            case tuple(value):
+                return " ".join(str(v) for v in value)
+            case value: # catches all
+                return str(value)
+
+    def __str__(self) -> str:
+        return self.printer()

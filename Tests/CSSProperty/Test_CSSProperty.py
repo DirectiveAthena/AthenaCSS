@@ -8,7 +8,7 @@ from __future__ import annotations
 
 # Custom Packages
 from BulkTests import BulkTests
-from AthenaCSS.Properties.CSSproperty_Lib import align_content
+from AthenaCSS.Properties.CSSproperty_Lib import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -26,6 +26,8 @@ class CSSProperty(BulkTests):
             (Ac._valueFactory.default,              "stretch"),
             (align_content._valueFactory.default,   "stretch"),
         )
+        Ac.value = 'str', 1
+
 
         self.Subtest_Equality(cases)
 

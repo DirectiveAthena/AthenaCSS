@@ -5,10 +5,11 @@
 from __future__ import annotations
 
 # Custom Library
+from AthenaCSS.Properties.PropertyLibrary import *
+from AthenaLib.Types.Time import Second,MilliSecond
 
 # Custom Packages
 from BulkTests import BulkTests
-from AthenaCSS.Properties.CSSproperty_Lib import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -16,28 +17,59 @@ from AthenaCSS.Properties.CSSproperty_Lib import *
 
 class CSSProperty(BulkTests):
 
-    # noinspection PyUnreachableCode
-    def test_PropertySetup(self):
+    def test_AlignContent(self):
         # Define a CSSProperty Class with a defined name
 
-        Ac = align_content()
+        Ac = align_content
         cases = (
             #left                                   #right
-            (Ac._value_logic.default,               "stretch"),
-            (align_content._value_logic.default,    "stretch"),
-            (Ac.default,                            "stretch"),
+            (Ac().value_logic.default,              "stretch"),
+            (align_content.value_logic.default,     "stretch"),
+            (Ac().default,                          "stretch"),
         )
-
         self.Subtest_Equality(cases)
 
-        # Define a default value
-        self.fail()
+    def test_AnimationName(self):
+        # Define a CSSProperty Class with a defined name
 
-        # Define the Value range
-        self.fail()
+        An = animation_name
+        cases = (
+            #left                                   #right
+            (str(An()),                             "animation-name: none"),
+            (str(An("jelp")),                       "animation-name: jelp"),
+        )
+        self.Subtest_Equality(cases)
 
-        # Define a value
-        self.fail()
+    def test_AnimationDuration(self):
+        # Define a CSSProperty Class with a defined name
 
-        # Print the value
-        self.fail()
+        An = animation_duration
+        cases = (
+            #left                                   #right
+            (str(An()),                             "animation-duration: 0s"),
+            (str(An(Second(1))),                    "animation-duration: 1s"),
+            (str(An(MilliSecond(1))),               "animation-duration: 1ms"),
+        )
+        self.Subtest_Equality(cases)
+
+    def test_AnimationTimingFunction(self):
+        # Define a CSSProperty Class with a defined name
+
+        An = animation_timing_function
+        cases = (
+            #left                                   #right
+            (str(An()),                             "animation-timing-function: ease"),
+            (str(An("linear")),                     "animation-timing-function: linear"),
+            (str(An("ease-out")),                   "animation-timing-function: ease-out"),
+        )
+        self.Subtest_Equality(cases)
+
+    def test_Animation(self):
+        # Define a CSSProperty Class with a defined name
+
+        Ani = animation
+        cases = (
+            #left                                   #right
+            (str(Ani()),                            "animation: none 0s ease"),
+        )
+        self.Subtest_Equality(cases)

@@ -33,7 +33,7 @@ class ValueLogic:
         value_choice = {k.__name__:v for k,v in self.value_choice.items()}
         return f"ValueLogic(default={self.default!r}, value_choice={value_choice})"
 
-    def val_checker(self, value) -> Any:
+    def value_checker(self, value) -> Any:
         # don't need to check if the dict is empty or if there is a "catch all - Any"
         if not self.value_choice \
                 or value in INITIALINHERIT \
@@ -48,18 +48,17 @@ class ValueLogic:
                 # we know that the len of val_type and value is the same, no need to check again
                 for val, c in zip(value, choice):
                     if isinstance(c, type) and not isinstance(val, c):
-                        raise TypeError(f"the partial value {val!r} was not of the defined type of {c}")
+                        raise TypeError(f"the partial value {val} was not of the defined type of {c}")
                     elif isinstance(c, tuple) and val not in c:
-                        raise ValueError(f"the partial value {val!r} was not in the defined choice of {c}")
+                        raise ValueError(f"the partial value {val} was not in the defined choice of {c}")
                     # anything else is basically equivalent to TRUE, so don't check
-
         elif (val_type := type(value)) in self.value_choice:
             # Only a single value is inserted
             #   so the value of the key value pair could either be a None or a set of possible values
             if (choice := self.value_choice[val_type]) is not Any and value not in choice:
-                raise ValueError(f"the value {value!r} was not in the defined choice of {choice}")
+                raise ValueError(f"the value {value} was not in the defined choice of {choice}")
         else:
-            raise TypeError(f"the value {value!r} was not of an allowed type")
+            raise TypeError(f"the value {value} was not of an allowed type")
 
         # ! RETURN VALUE !
         return value
@@ -73,7 +72,7 @@ class ValueLogic:
 
     @value.setter
     def value(self, value):
-        self._value = self.val_checker(value)
+        self._value = self.value_checker(value)
 
     @value.deleter
     def value(self):
@@ -88,7 +87,7 @@ class ValueLogic:
 
     @default.setter
     def default(self, value):
-        self._default = self.val_checker(value)
+        self._default = self.value_checker(value)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - ValueChoice -
@@ -103,11 +102,13 @@ class ValueLogic:
             raise TypeError
         # If trhe dict is empty, the for loop won't even do anything, so no need to make an if statement here
         for key, val in value.items():
-            if isinstance(key, tuple):
+            if val is Any or key in (None,Any):
+                continue
+            elif isinstance(key, tuple):
                 if not all(isinstance(k, type) for k in key):
                     raise SyntaxError("Not all items in the tuple were types")
             elif isinstance(key, type):
-                if key is not Any and not all(isinstance(v, key) for v in val):
+                if not all(isinstance(v, key) for v in val):
                     raise SyntaxError("Not all items in the predefined options were of the allowed type")
             else:
                 raise SyntaxError("value_choice did not consist out of a tuple or a type")

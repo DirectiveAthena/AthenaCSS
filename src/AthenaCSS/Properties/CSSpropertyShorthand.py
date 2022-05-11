@@ -3,24 +3,23 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from typing import Any
+from abc import ABC, abstractmethod
 
 # Custom Library
 
 # Custom Packages
-from .ValueLogic import ValueLogic
-from .CSSproperty import CSSproperty
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class align_content(CSSproperty):
-    name="align-content"
-    _value_logic = ValueLogic(
-        default="stretch",
-        value_choice={
-            str: {"center", "fex-start", "flex-end", "space-between", "space-around", "stretch"},
-        },
-    )
-    def __init__(self, value=_value_logic.default):
-        super(align_content, self).__init__(value)
+class CSSpropertyShorthand(ABC):
+    name:str # don't rely on self.__class__.name, because of inheritance
+
+    # ------------------------------------------------------------------------------------------------------------------
+    # - Printer -
+    # ------------------------------------------------------------------------------------------------------------------
+    @abstractmethod
+    def printer(self) -> str:...
+
+    def __str__(self) -> str:
+        return self.printer()

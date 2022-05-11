@@ -13,16 +13,15 @@ from AthenaCSS.Properties.ValueLogic import ValueLogic
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-
 class CSSproperty:
-    name:str
+    name:str # don't rely on self.__class__.name, because of inheritance
     _value:ValueLogic
-    _value_logic=None
+    value_logic=None
     __slots__ = ("_value","name")
 
     def __init__(self, value):
         # make a new instance of the _valyeFactory as all value Logicl is defined there
-        self._value = copy.deepcopy(self._value_logic) if self._value_logic is not None else ValueLogic()
+        self._value = copy.deepcopy(self.value_logic) if self.value_logic is not None else ValueLogic()
         self.value = value
 
     # ------------------------------------------------------------------------------------------------------------------

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 # Custom Packages
 from BulkTests import BulkTests
-from AthenaCSS.Properties.CSSproperty import CSSproperty
+from AthenaCSS.Properties.CSSproperty_Lib import align_content
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -19,7 +19,15 @@ class CSSProperty(BulkTests):
     # noinspection PyUnreachableCode
     def test_PropertySetup(self):
         # Define a CSSProperty Class with a defined name
-        self.fail()
+
+        Ac = align_content()
+        cases = (
+            #left                                   #right
+            (Ac._valueFactory.default,              "stretch"),
+            (align_content._valueFactory.default,   "stretch"),
+        )
+
+        self.Subtest_Equality(cases)
 
         # Define a default value
         self.fail()

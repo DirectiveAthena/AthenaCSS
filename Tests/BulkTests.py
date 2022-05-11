@@ -13,10 +13,10 @@ import unittest
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class BulkTests(unittest.TestCase):
-    def Subtest_Equality(self, ObjectType:type, cases):
-        for value, result, value_printer in cases:
-            with self.subTest(ObjectType=ObjectType,value=value, result=result, value_printer=value_printer):
-                self.assertEqual(ObjectType(value), result)
+    def Subtest_Equality(self,cases):
+        for left, right in cases:
+            with self.subTest(left=left, right=right):
+                self.assertEqual(left, right)
 
     def Subtest_Fail(self, ObjectType:type, cases):
         for value, error in cases:

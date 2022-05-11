@@ -7,6 +7,7 @@ from typing import Any, Iterable
 import copy
 
 # Custom Library
+from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV
 
 # Custom Packages
 
@@ -122,6 +123,8 @@ class ValueLogic:
         match self.value:
             case None:
                 return "none"
+            case RGB()|RGBA()|HEX()|HEXA()|HSL()|HSV():
+                return f"{self.value.__class__.__name__.lower()}({self.value.export()})"
             case tuple(value):
                 return " ".join(str(v) for v in value)
             case value: # catches all

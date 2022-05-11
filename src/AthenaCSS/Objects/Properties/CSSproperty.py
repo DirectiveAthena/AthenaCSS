@@ -8,7 +8,7 @@ import copy
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Properties.ValueLogic import ValueLogic
+from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -

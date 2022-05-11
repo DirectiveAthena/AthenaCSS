@@ -5,9 +5,11 @@
 from __future__ import annotations
 
 # Custom Library
-from AthenaCSS.Properties.PropertyLibrary import *
+from AthenaCSS.Lib.PropertyLibrary import *
 from AthenaLib.Types.Time import Second,MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
+from AthenaLib.Types.AbsoluteLength import Pixel
+from AthenaLib.Types.RelativeLength import Percent
 
 # Custom Packages
 from BulkTests import BulkTests
@@ -86,3 +88,24 @@ class CSSProperty(BulkTests):
             (str(Bv("hidden")),                     "backface-visibility: hidden"),
         )
         self.Subtest_Equality(cases)
+
+    def test_BackgroundPosition(self):
+        # Define a CSSProperty Class with a defined name
+
+        Bp = background_position
+        cases = (
+            #left                                   #right
+            (str(Bp()),                             "background-position: 0% 0%"),
+            (str(Bp((Percent(1), Percent(1)))),"background-position: 1% 1%"),
+            (str(Bp((Pixel(1), Pixel(1)))),"background-position: 1px 1px"),
+            (str(Bp((Percent(1), "center"))),"background-position: 1% center"),
+            (str(Bp((Pixel(1), "center"))),"background-position: 1px center"),
+            (str(Bp("center")),"background-position: center"),
+        )
+        self.Subtest_Equality(cases)
+
+        casesFail=(
+            ((1,1), TypeError),
+            ((1,"center"), TypeError),
+        )
+        self.Subtest_Fail(Bp, casesFail)

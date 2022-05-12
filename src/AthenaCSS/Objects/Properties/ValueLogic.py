@@ -32,7 +32,7 @@ class ValueLogic:
 
     def __repr__(self) -> str:
         # cane be done because the key of self.value_choice is alwyas a type!
-        value_choice = {k.__name__:v for k,v in self.value_choice.items()}
+        value_choice = {k:v for k,v in self.value_choice.items()}
         return f"ValueLogic(default={self.default!r}, value_choice={value_choice})"
 
     def value_checker(self, value) -> Any:
@@ -64,6 +64,10 @@ class ValueLogic:
         elif isinstance(value, Iterable) \
                 and any(all(isinstance(v, vc) for v in value) for vc in self.value_choice):
             # it is an iterable, but the choices were made up out of parent classes instead of specific classes
+            pass #todo, wtf do I do here?
+                 #  the if statement contains the check ... so ... what now?
+
+        elif any(isinstance(value, vc) for vc in self.value_choice if not isinstance(vc, tuple)):
             pass #todo, wtf do I do here?
                  #  the if statement contains the check ... so ... what now?
 

@@ -41,7 +41,7 @@ class accent_color(CSSproperty):
             **COLORS_CHOICE
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class align_content(CSSproperty):
@@ -52,7 +52,7 @@ class align_content(CSSproperty):
             str: {"center", "fex-start", "flex-end", "space-between", "space-around", "space-evenly", "stretch"},
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class align_items(CSSproperty):
@@ -63,7 +63,7 @@ class align_items(CSSproperty):
             str: {"baseline","center", "fex-start", "flex-end", "stretch"},
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class align_self(CSSproperty):
@@ -74,7 +74,7 @@ class align_self(CSSproperty):
             str: {"auto","baseline","center", "fex-start", "flex-end", "stretch"},
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class property_all(CSSproperty):
@@ -86,7 +86,7 @@ class property_all(CSSproperty):
             str: {"unset"},
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_name(CSSproperty):
@@ -98,7 +98,7 @@ class animation_name(CSSproperty):
             None: None
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_duration(CSSproperty):
@@ -110,7 +110,7 @@ class animation_duration(CSSproperty):
             MilliSecond:Any
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_timing_function(CSSproperty):
@@ -122,7 +122,7 @@ class animation_timing_function(CSSproperty):
             CubicBezier: Any,
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_delay(CSSproperty):
@@ -134,7 +134,7 @@ class animation_delay(CSSproperty):
             MilliSecond:Any
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_iteration_count(CSSproperty):
@@ -146,7 +146,7 @@ class animation_iteration_count(CSSproperty):
             int:Any
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_direction(CSSproperty):
@@ -157,7 +157,7 @@ class animation_direction(CSSproperty):
             str: {"normal", "reverse", "alternate", "alternate-reverse"},
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_fill_mode(CSSproperty):
@@ -168,7 +168,7 @@ class animation_fill_mode(CSSproperty):
             str:{"forwards", "backwards", "both"}
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_play_state(CSSproperty):
@@ -179,7 +179,7 @@ class animation_play_state(CSSproperty):
             str:{"paused", "running"}
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation(CSSpropertyShorthand):
@@ -244,7 +244,7 @@ class backdrop_filter (CSSproperty):
             Url:Any,
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class backface_visibility (CSSproperty):
@@ -255,7 +255,7 @@ class backface_visibility (CSSproperty):
             str:{"visible", "hidden"}
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_attachment(CSSproperty):
@@ -266,7 +266,7 @@ class background_attachment(CSSproperty):
             str: {"scroll", "fixed", "local"}
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_blend_mode(CSSproperty):
@@ -277,7 +277,7 @@ class background_blend_mode(CSSproperty):
             str: BLENDMODES
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_clip(CSSproperty):
@@ -288,7 +288,18 @@ class background_clip(CSSproperty):
             str: {"border-box","padding-box","content-box"}
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
+class background_color(CSSproperty):
+    name="background-color"
+    value_logic = ValueLogic(
+        default="transparent",
+        value_choice={
+            str:{"transparent", *COLORS_STR},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_image(CSSproperty):
@@ -300,7 +311,7 @@ class background_image(CSSproperty):
             Url:Any
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_position(CSSproperty):
@@ -316,5 +327,5 @@ class background_position(CSSproperty):
             (str,str):(str_choices, str_choices),
         },
     )
-    def __init__(self, value=value_logic.default):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value)

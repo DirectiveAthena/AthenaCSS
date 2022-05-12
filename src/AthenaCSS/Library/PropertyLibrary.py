@@ -1401,6 +1401,32 @@ class FlexWrap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
+class Flex(CSSpropertyShorthand):
+    grow:   FlexGrow
+    shrink: FlexShrink
+    basis:  FlexBasis
+
+    __slots__ = [
+        "grow", "shrink", "basis"
+    ]
+    def __init__(
+            self,
+            grow=FlexGrow.value_logic.default,
+            shrink=FlexShrink.value_logic.default,
+            basis=FlexBasis.value_logic.default,
+    ):
+        self.grow =  FlexGrow(grow)
+        self.shrink = FlexShrink(shrink)
+        self.basis = FlexBasis(basis)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.grow._value.printer(),
+            self.shrink._value.printer(),
+            self.basis._value.printer(),
+        ))
+        return f"columns: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
 class Float(CSSproperty):
     name="flex-wrap"
     value_logic = ValueLogic(

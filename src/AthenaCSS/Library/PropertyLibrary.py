@@ -1128,3 +1128,65 @@ class column_gap(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class column_rule_color(CSSproperty):
+    name="column-rule-color"
+    value_logic = ValueLogic(
+        # default=None, # I know this is overrideen by ValueLogic to None, but thevalue cannot exsist
+        value_choice={
+            str: COLORS_STR,
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class column_rule_style(CSSproperty):
+    name="column-rule-style"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str:BORDERSTYLE
+        },
+    )
+    def __init__(self, value, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class column_rule_width(CSSproperty):
+    name="column-rule-width"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            str:BORDERWIDTH,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class column_rule(CSSpropertyShorthand):
+    width:  column_rule_width
+    style:  column_rule_style
+    color:  column_rule_color
+
+    __slots__ = [
+        "width", "style", "color"
+    ]
+    def __init__(
+            self,
+            width= column_rule_width.value_logic.default,
+            style= column_rule_style.value_logic.default,
+            color= column_rule_color.value_logic.default,
+    ):
+        self.width = column_rule_width(width)
+        self.style = column_rule_style(style)
+        self.color = column_rule_color(color)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.width._value.printer(),
+            self.style._value.printer(),
+            self.color._value.printer(),
+        ))
+        return f"column-rule: {parts}"

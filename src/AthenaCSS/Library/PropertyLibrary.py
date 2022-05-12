@@ -35,7 +35,7 @@ __all__=[
     "border_bottom_color", "border_right_color", "border_bottom_style", "border_bottom_right_radius", "border_bottom",
     "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse","border_color",
     "border_image_repeat", "border_image", "border_image_width", "border_image_outset", "border_image_source",
-    "border_image_slice", "border_radius", "border_spacing", "border_style", "border", "border_width"
+    "border_image_slice", "border_radius", "border_spacing", "border_style", "border", "border_width", "bottom",
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -948,4 +948,17 @@ class border(CSSpropertyShorthand):
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"border-right: {parts}"
+        return f"border: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class bottom(CSSproperty):
+    name="bottom"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            Percent: Any,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

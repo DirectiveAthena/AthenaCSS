@@ -1250,3 +1250,15 @@ class content(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class counter_increment(CSSproperty):
+    name="counter-increment"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            int:Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

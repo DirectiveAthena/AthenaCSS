@@ -16,7 +16,7 @@ from AthenaLib.Types.AbsoluteLength import Pixel
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
-from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES)
+from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX)
 import AthenaCSS.Library.FilterLibrary as Filters
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ __all__=[
     "animation_fill_mode", "animation", "animation_direction", "animation_delay", "animation_play_state",
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
     "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter",
-    "background_attachment", "background_clip", "background_blend_mode"
+    "background_attachment", "background_clip", "background_blend_mode", "background_color", "background_origin"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ class accent_color(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class align_content(CSSproperty):
     name="align-content"
@@ -53,7 +53,7 @@ class align_content(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class align_items(CSSproperty):
     name="align-items"
@@ -64,7 +64,7 @@ class align_items(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class align_self(CSSproperty):
     name="align-self"
@@ -75,7 +75,7 @@ class align_self(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class property_all(CSSproperty):
     name="all"
@@ -87,7 +87,7 @@ class property_all(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_name(CSSproperty):
     name="animation-name"
@@ -99,7 +99,7 @@ class animation_name(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_duration(CSSproperty):
     name="animation-duration"
@@ -111,7 +111,7 @@ class animation_duration(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_timing_function(CSSproperty):
     name="animation-timing-function"
@@ -123,7 +123,7 @@ class animation_timing_function(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_delay(CSSproperty):
     name="animation-delay"
@@ -135,7 +135,7 @@ class animation_delay(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_iteration_count(CSSproperty):
     name="animation-iteration-count"
@@ -147,7 +147,7 @@ class animation_iteration_count(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_direction(CSSproperty):
     name="animation-direction"
@@ -158,7 +158,7 @@ class animation_direction(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_fill_mode(CSSproperty):
     name="animation-fill-mode"
@@ -169,7 +169,7 @@ class animation_fill_mode(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation_play_state(CSSproperty):
     name="animation-play-state"
@@ -180,7 +180,7 @@ class animation_play_state(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class animation(CSSpropertyShorthand):
     name: animation_name
@@ -245,7 +245,7 @@ class backdrop_filter (CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class backface_visibility (CSSproperty):
     name="backface-visibility"
@@ -256,7 +256,7 @@ class backface_visibility (CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_attachment(CSSproperty):
     name="background-attachment"
@@ -267,7 +267,7 @@ class background_attachment(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_blend_mode(CSSproperty):
     name="background-blend-mode"
@@ -278,18 +278,18 @@ class background_blend_mode(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_clip(CSSproperty):
     name="background-clip"
     value_logic = ValueLogic(
         default="border-box",
         value_choice={
-            str: {"border-box","padding-box","content-box"}
+            str: BOX
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_color(CSSproperty):
     name="background-color"
@@ -300,7 +300,7 @@ class background_color(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_image(CSSproperty):
     name="background-image"
@@ -312,7 +312,18 @@ class background_image(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class background_origin(CSSproperty):
+    name="background-origin"
+    value_logic = ValueLogic(
+        default="padding-box",
+        value_choice={
+            str:BOX,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class background_position(CSSproperty):
     name="background-position"
@@ -328,4 +339,4 @@ class background_position(CSSproperty):
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
-        super().__init__(value)
+        super().__init__(value, **kwargs)

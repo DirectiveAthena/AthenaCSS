@@ -47,3 +47,5 @@ COLORS_STR = {
 BLENDMODES = {
     "normal", "multiply", "screen", "overlay", "darken", "ligthen", "color-dodge", "saturation", "color", "luminosity"
 }
+
+BOX = {"border-box","padding-box","content-box"}

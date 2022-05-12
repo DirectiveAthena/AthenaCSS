@@ -35,7 +35,7 @@ __all__=[
     "border_bottom_color", "border_right_color", "border_bottom_style", "border_bottom_right_radius", "border_bottom",
     "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse","border_color",
     "border_image_repeat", "border_image", "border_image_width", "border_image_outset", "border_image_source",
-    "border_image_slice", "border_radius", "border_spacing"
+    "border_image_slice", "border_radius", "border_spacing", "border_style"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -895,6 +895,18 @@ class border_spacing(CSSproperty):
                 repeat=2
             )},
             **{length: Any for length in (AbsoluteLength, RelativeLength, Percent)}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_style(CSSproperty):
+    name="border-style"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: BORDERSTYLE,
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

@@ -42,7 +42,7 @@ __all__=[
     "Clear", "Color", "CaretColor", "Cursor", "Columns", "ColumnWidth", "ColumnCount", "ColumnRuleWidth", "ColumnGap",
     "Content", "ColumnRule", "ColumnFill", "ColumnSpan", "ColumnRuleColor", "ColormRuleStyle", "ClipPath", "CaptionSide",
     "CounterReset", "CounterIncrement", "Display", "Direction", "EmptyCells", "FlexDirection", "FlexFlow", "FlexGrow",
-    "Float", "FlexWrap", "FlexShrink", "FlexBasis", "Filter"
+    "Float", "FlexWrap", "FlexShrink", "FlexBasis", "Filter", "Flex"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1296,7 +1296,7 @@ class Direction(CSSproperty):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class Display(CSSproperty):
-    name="direction"
+    name="display"
     value_logic = ValueLogic(
         value_choice={
             None:None,
@@ -1428,7 +1428,7 @@ class Flex(CSSpropertyShorthand):
         return f"columns: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Float(CSSproperty):
-    name="flex-wrap"
+    name="float"
     value_logic = ValueLogic(
         default=None,
         value_choice={

@@ -26,7 +26,8 @@ __all__=[
     "animation_fill_mode", "animation", "animation_direction", "animation_delay", "animation_play_state",
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
     "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter",
-    "background_attachment", "background_clip", "background_blend_mode", "background_color", "background_origin"
+    "background_attachment", "background_clip", "background_blend_mode", "background_color", "background_origin",
+    "background_repeat"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -336,6 +337,17 @@ class background_position(CSSproperty):
             (Percent,str): (Any, str_choices),
             (Pixel,str): (Any, str_choices),
             (str,str):(str_choices, str_choices),
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class background_repeat(CSSproperty):
+    name="background-repeat"
+    value_logic = ValueLogic(
+        default="repeat",
+        value_choice={
+            str: {"repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round"},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

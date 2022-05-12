@@ -18,7 +18,7 @@ from AthenaLib.Types.RelativeLength import RelativeLength
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
-from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS)
+from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION)
 import AthenaCSS.Library.FilterLibrary as Filters
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -969,6 +969,19 @@ class box_decoration_break(CSSproperty):
         default="slice",
         value_choice={
             str: {"slice", "clone"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class box_shadow(CSSproperty):
+    name="box-shadow"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            #h-shadow,  v-shadow,   blur,   spread, color
+            (Pixel,     Pixel,      Pixel,  Pixel,  COLORS_UNION):(Any,Any,Any,Any,Any),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

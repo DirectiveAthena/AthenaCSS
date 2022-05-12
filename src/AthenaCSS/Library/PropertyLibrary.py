@@ -1033,3 +1033,14 @@ class break_inside(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class caption_side(CSSproperty):
+    name="caption-side"
+    value_logic = ValueLogic(
+        default="top",
+        value_choice={
+            str: {"top", "bottom"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

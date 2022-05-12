@@ -1202,3 +1202,15 @@ class column_span(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class column_width(CSSproperty):
+    name="column-width"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:{"auto"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

@@ -518,4 +518,100 @@ class border_bottom(CSSpropertyShorthand):
             self.color._value.printer(),
         ))
         return f"border-bottom: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class border_top_color(CSSproperty):
+    name="border-top-color"
+    value_logic = ValueLogic(
+        default="transparent",
+        value_choice={
+            str:{"transparent", *COLORS_STR},
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_top_left_radius(CSSproperty):
+    name="border-top-left-radius"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int: {0},
+            Percent:Any,
+            **LENGTHS,
+            **{length_combo:Any for length_combo in itertools.product(
+                (AbsoluteLength, RelativeLength, Percent),
+                repeat=2
+            )}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_top_right_radius(CSSproperty):
+    name="border-top-right-radius"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int: {0},
+            Percent:Any,
+            **LENGTHS,
+            **{length_combo:Any for length_combo in itertools.product(
+                (AbsoluteLength, RelativeLength, Percent),
+                repeat=2
+            )}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_top_style(CSSproperty):
+    name="border-top-style"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: BORDERSTYLE,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_top_width(CSSproperty):
+    name="border-top-style"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            None:None,
+            str:BORDERWIDTH,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_top(CSSpropertyShorthand):
+    width:border_top_width
+    style:border_top_style
+    color:border_top_color
+    __slots__ = [
+        "width", "style", "color"
+    ]
+    def __init__(
+            self,
+            width=border_top_width.value_logic.default,
+            style=border_top_style.value_logic.default,
+            color=border_top_color.value_logic.default,
+    ):
+        self.width = border_top_width(width)
+        self.style = border_top_style(style)
+        self.color = border_top_color(color)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.color._value.printer(),
+            self.style._value.printer(),
+            self.color._value.printer(),
+        ))
+        return f"border-top: {parts}"
 

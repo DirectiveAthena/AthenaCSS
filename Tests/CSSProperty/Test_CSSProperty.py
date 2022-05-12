@@ -5,7 +5,7 @@
 from __future__ import annotations
 
 # Custom Library
-from AthenaCSS.Lib.PropertyLibrary import *
+from AthenaCSS.Library.PropertyLibrary import *
 from AthenaLib.Types.Time import Second,MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.AbsoluteLength import Pixel

@@ -9,15 +9,15 @@ from typing import Any
 from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.Url import Url
-from AthenaLib.Types.RelativeLength import Percent
+from AthenaLib.Types.Math import Percent
 from AthenaLib.Types.AbsoluteLength import Pixel
-
-from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
 
 # Custom Packages
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
+from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR)
+import AthenaCSS.Library.FilterLibrary as Filters
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
@@ -25,20 +25,8 @@ from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShortha
 __all__=[
     "animation_fill_mode", "animation", "animation_direction", "animation_delay", "animation_play_state",
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
-    "align_content", "align_self","backface_visibility", "background_position"
+    "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter"
 ]
-# ----------------------------------------------------------------------------------------------------------------------
-# - Support Code -
-# ----------------------------------------------------------------------------------------------------------------------
-COLORS = {
-    RGB: Any,
-    RGBA: Any,
-    HEX: Any,
-    HEXA: Any,
-    HSL: Any,
-    HSV: Any,
-    CMYK: Any
-}
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -48,8 +36,8 @@ class accent_color(CSSproperty):
     value_logic = ValueLogic(
         default="auto",
         value_choice={
-            str:{"auto"},
-            **COLORS
+            str:{"auto", *COLORS_STR},
+            **COLORS_CHOICE
         },
     )
     def __init__(self, value=value_logic.default):
@@ -242,8 +230,17 @@ class backdrop_filter (CSSproperty):
         default=None,
         value_choice={
             None:None,
+            Filters.blur:Any,
+            Filters.brightness:Any,
+            Filters.contrast:Any,
+            Filters.drop_shadow:Any,
+            Filters.grayscale:Any,
+            Filters.hue_rotate:Any,
+            Filters.invert:Any,
+            Filters.opacity:Any,
+            Filters.saturate:Any,
+            Filters.sepia:Any,
             Url:Any,
-            #TODO Filter!
         },
     )
     def __init__(self, value=value_logic.default):

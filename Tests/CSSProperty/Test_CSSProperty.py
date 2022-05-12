@@ -6,10 +6,12 @@ from __future__ import annotations
 
 # Custom Library
 from AthenaCSS.Library.PropertyLibrary import *
+import AthenaCSS.Library.FilterLibrary as Filters
+
 from AthenaLib.Types.Time import Second,MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.AbsoluteLength import Pixel
-from AthenaLib.Types.RelativeLength import Percent
+from AthenaLib.Types.Math import Percent
 
 # Custom Packages
 from BulkTests import BulkTests
@@ -109,3 +111,22 @@ class CSSProperty(BulkTests):
             ((1,"center"), TypeError),
         )
         self.Subtest_Fail(Bp, casesFail)
+
+    def test_BackdropFilter(self):
+        # Define a CSSProperty Class with a defined name
+
+        Bf = backdrop_filter
+        cases = (
+            #left                                   #right
+            (str(Bf()),                             "backdrop-filter: none"),
+            (str(Bf(Filters.blur(100))),            "backdrop-filter: blur(100px)"),
+            (str(Bf(Filters.brightness(58))),       "backdrop-filter: brightness(58%)"),
+            (str(Bf(Filters.contrast(58))),         "backdrop-filter: contrast(58%)"),
+            (str(Bf(Filters.grayscale(58))),        "backdrop-filter: grayscale(58%)"),
+            (str(Bf(Filters.hue_rotate(58))),       "backdrop-filter: hue-rotate(58deg)"),
+            (str(Bf(Filters.invert(58))),           "backdrop-filter: invert(58%)"),
+            (str(Bf(Filters.opacity(58))),          "backdrop-filter: opacity(58%)"),
+            (str(Bf(Filters.saturate(58))),         "backdrop-filter: saturate(58%)"),
+            (str(Bf(Filters.sepia(58))),            "backdrop-filter: sepia(58%)"),
+        )
+        self.Subtest_Equality(cases)

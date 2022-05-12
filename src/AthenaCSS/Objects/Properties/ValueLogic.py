@@ -4,6 +4,7 @@
 # General Packages
 from __future__ import annotations
 from typing import Any, Iterable
+from types import UnionType
 import copy
 
 # Custom Library
@@ -106,13 +107,13 @@ class ValueLogic:
             if val is Any or key in (None,Any):
                 continue
             elif isinstance(key, tuple):
-                if not all(isinstance(k, type) for k in key):
-                    raise SyntaxError("Not all items in the tuple were types")
+                if not all(isinstance(k, type) or isinstance(k,UnionType) for k in key):
+                    raise SyntaxError(f"Not all items in the tuple were types, in the value:{value}")
             elif isinstance(key, type):
                 if not all(isinstance(v, key) for v in val):
-                    raise SyntaxError("Not all items in the predefined options were of the allowed type")
+                    raise SyntaxError(f"Not all items in the predefined options were of the allowed type, in the value:{value}")
             else:
-                raise SyntaxError("value_choice did not consist out of a tuple or a type")
+                raise SyntaxError(f"value_choice did not consist out of a tuple or a type, in the value:{value}")
 
         self._value_choice = value
 

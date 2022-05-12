@@ -14,12 +14,11 @@ from AthenaLib.Types.Math import Percent
 from AthenaLib.Types.AbsoluteLength import Pixel, AbsoluteLength
 from AthenaLib.Types.RelativeLength import RelativeLength
 
-
 # Custom Packages
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
-from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX)
+from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS)
 import AthenaCSS.Library.FilterLibrary as Filters
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -423,3 +422,100 @@ class background(CSSpropertyShorthand):
             self.attachment._value.printer(),
         ))
         return f"background: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class border_bottom_color(CSSproperty):
+    name="border-bottom-color"
+    value_logic = ValueLogic(
+        default="transparent",
+        value_choice={
+            str:{"transparent", *COLORS_STR},
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_bottom_left_radius(CSSproperty):
+    name="border-bottom-left-radius"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int: {0},
+            Percent:Any,
+            **LENGTHS,
+            **{length_combo:Any for length_combo in itertools.product(
+                (AbsoluteLength, RelativeLength, Percent),
+                repeat=2
+            )}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_bottom_right_radius(CSSproperty):
+    name="border-bottom-right-radius"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int: {0},
+            Percent:Any,
+            **LENGTHS,
+            **{length_combo:Any for length_combo in itertools.product(
+                (AbsoluteLength, RelativeLength, Percent),
+                repeat=2
+            )}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_bottom_style(CSSproperty):
+    name="border-bottom-style"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: BORDERSTYLE,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_bottom_width(CSSproperty):
+    name="border-bottom-style"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            None:None,
+            str:BORDERWIDTH,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_bottom(CSSpropertyShorthand):
+    width:border_bottom_width
+    style:border_bottom_style
+    color:border_bottom_color
+    __slots__ = [
+        "width", "style", "color"
+    ]
+    def __init__(
+            self,
+            width=border_bottom_width.value_logic.default,
+            style=border_bottom_style.value_logic.default,
+            color=border_bottom_color.value_logic.default,
+    ):
+        self.width = border_bottom_width(width)
+        self.style = border_bottom_style(style)
+        self.color = border_bottom_color(color)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.color._value.printer(),
+            self.style._value.printer(),
+            self.color._value.printer(),
+        ))
+        return f"border-bottom: {parts}"
+

@@ -8,6 +8,9 @@ from typing import Any
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
 
+from AthenaLib.Types.AbsoluteLength import AbsoluteLength
+from AthenaLib.Types.RelativeLength import RelativeLength
+
 # Custom Packages
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -48,4 +51,9 @@ BLENDMODES = {
     "normal", "multiply", "screen", "overlay", "darken", "ligthen", "color-dodge", "saturation", "color", "luminosity"
 }
 
+LENGTHS = {AbsoluteLength:Any,RelativeLength:Any,}
+
 BOX = {"border-box","padding-box","content-box"}
+
+BORDERSTYLE = {"hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"}
+BORDERWIDTH = {"medium","thin", "thick"}

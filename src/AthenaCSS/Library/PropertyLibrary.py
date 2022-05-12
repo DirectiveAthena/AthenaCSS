@@ -1097,11 +1097,22 @@ class color(CSSproperty):
 class column_count(CSSproperty):
     name="column-count"
     value_logic = ValueLogic(
-        # default=None, # I know this is overrideen by ValueLogic to None, but thevalue cannot exsist
+        default="auto",
         value_choice={
             str: {"auto"},
             int: Any
         },
     )
-    def __init__(self, value, **kwargs):
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class column_fill(CSSproperty):
+    name="column-fill"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto", "balance"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)

@@ -19,7 +19,7 @@ from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
 from AthenaCSS.Library.Support import (
-    COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR
+    COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR
 )
 import AthenaCSS.Library.FilterLibrary as Filters
 
@@ -1285,14 +1285,8 @@ class cursor(CSSproperty):
         default="auto",
         value_choice={
             None:None,
-            Url:Any,
-            str:{
-                "alias","all-scroll","auto","cell","context-menu","col-resize","copy","crosshair","default",
-                "e-resize","ew-resize","grab","grabbing","help","move","n-resize","ne-resize","nesw-resize",
-                "ns-resize","nw-resize","nwse-resize","no-drop","none","not-allowed","pointer","progress",
-                "row-resize","s-resize","se-resize","sw-resize","text","vertical-text","w-resize","wait",
-                "zoom-in","zoom-out","initial","inherit"
-            }
+            (Url, str):(Any, CURSOR),
+            str: CURSOR
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

@@ -29,7 +29,11 @@ __all__=[
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
     "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter",
     "background_attachment", "background_clip", "background_blend_mode", "background_color", "background_origin",
-    "background_repeat", "background_size", "background"
+    "background_repeat", "background_size", "background", "border_bottom_width", "border_left", "border_left_width",
+    "border_bottom_left_radius", "border_right", "border_left_color", "border_top_left_radius", "border_top_color",
+    "border_left_style", "border_top_style", "border_top_width", "border_right_style", "border_right_width",
+    "border_bottom_color", "border_right_color", "border_bottom_style", "border_bottom_right_radius", "border_bottom",
+    "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse",
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -738,4 +742,14 @@ class border_right(CSSpropertyShorthand):
             self.color._value.printer(),
         ))
         return f"border-right: {parts}"
-
+# ----------------------------------------------------------------------------------------------------------------------
+class border_collapse(CSSproperty):
+    name="border-collapse"
+    value_logic = ValueLogic(
+        default="seperate",
+        value_choice={
+            str: {"seperate", "collapse"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

@@ -911,3 +911,15 @@ class border_style(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_width(CSSproperty):
+    name="border-width"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            str: BORDERWIDTH,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

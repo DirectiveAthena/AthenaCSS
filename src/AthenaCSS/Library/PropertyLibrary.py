@@ -26,7 +26,7 @@ __all__=[
     "animation_fill_mode", "animation", "animation_direction", "animation_delay", "animation_play_state",
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
     "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter",
-    "background_attachment"
+    "background_attachment", "background_clip", "background_blend_mode"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -275,6 +275,17 @@ class background_blend_mode(CSSproperty):
         default="normal",
         value_choice={
             str: BLENDMODES
+        },
+    )
+    def __init__(self, value=value_logic.default):
+        super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
+class background_clip(CSSproperty):
+    name="background-clip"
+    value_logic = ValueLogic(
+        default="border-box",
+        value_choice={
+            str: {"border-box","padding-box","content-box"}
         },
     )
     def __init__(self, value=value_logic.default):

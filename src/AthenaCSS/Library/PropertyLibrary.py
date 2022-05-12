@@ -30,7 +30,7 @@ __all__=[
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
     "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter",
     "background_attachment", "background_clip", "background_blend_mode", "background_color", "background_origin",
-    "background_repeat", "background_size"
+    "background_repeat", "background_size", "background"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -195,6 +195,9 @@ class animation(CSSpropertyShorthand):
     direction: animation_direction
     fill_mode: animation_fill_mode
     play_state: animation_play_state
+    __slots__ = [
+        "name", "duration", "timing_function", "delay", "iteration_count", "direction", "fill_mode", "play_state"
+    ]
     def __init__(
             self,
             name=animation_name.value_logic.default,
@@ -374,3 +377,49 @@ class background_size(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class background(CSSpropertyShorthand):
+    color: background_color
+    image: background_image
+    position:background_position
+    size:background_size
+    repeat:background_repeat
+    origin:background_origin
+    clip:background_clip
+    attachment:background_attachment
+    __slots__ = [
+        "color", "image", "position", "size", "repeat", "origin", "clip", "attachment"
+    ]
+    def __init__(
+            self,
+            color=background_color.value_logic.default,
+            image=background_image.value_logic.default,
+            position=background_position.value_logic.default,
+            size=background_size.value_logic.default,
+            repeat=background_repeat.value_logic.default,
+            origin=background_origin.value_logic.default,
+            clip=background_clip.value_logic.default,
+            attachment=background_attachment.value_logic.default,
+    ):
+        self.color = background_color(color)
+        self.image = background_image(image)
+        self.position = background_position(position)
+        self.size = background_size(size)
+        self.repeat = background_repeat(repeat)
+        self.origin = background_origin(origin)
+        self.clip = background_clip(clip)
+        self.attachment = background_attachment(attachment)
+
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.color._value.printer(),
+            self.image._value.printer(),
+            self.position._value.printer(),
+            self.size._value.printer(),
+            self.repeat._value.printer(),
+            self.origin._value.printer(),
+            self.clip._value.printer(),
+            self.attachment._value.printer(),
+        ))
+        return f"background: {parts}"

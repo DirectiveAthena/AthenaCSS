@@ -33,7 +33,7 @@ __all__=[
     "border_bottom_left_radius", "border_right", "border_left_color", "border_top_left_radius", "border_top_color",
     "border_left_style", "border_top_style", "border_top_width", "border_right_style", "border_right_width",
     "border_bottom_color", "border_right_color", "border_bottom_style", "border_bottom_right_radius", "border_bottom",
-    "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse",
+    "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse","border_color"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -765,3 +765,97 @@ class border_color(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_image_outset(CSSproperty):
+    name="border-image-outset"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int:Any,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_image_repeat(CSSproperty):
+    name="border-image-repeat"
+    value_logic = ValueLogic(
+        default="stretch",
+        value_choice={
+            str:{"stretch", "repeat", "round", "space"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_image_slice(CSSproperty):
+    name="border-image-lice"
+    value_logic = ValueLogic(
+        default=Percent(100),
+        value_choice={
+            str:{"fill"},
+            int:Any,
+            Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_image_source(CSSproperty):
+    name="border-image-source"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            Url:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_image_width(CSSproperty):
+    name="border-image-width"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            str: BORDERWIDTH,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_image(CSSpropertyShorthand):
+    source: border_image_source
+    slice:  border_image_slice
+    width:  border_image_width
+    outset: border_image_outset
+    repeat: border_image_repeat
+
+    __slots__ = [
+        "source"
+    ]
+    def __init__(
+            self,
+            source=border_image_source.value_logic.default,
+            slice=border_image_slice.value_logic.default,
+            width=border_image_width.value_logic.default,
+            outset=border_image_outset.value_logic.default,
+            repeat=border_image_repeat.value_logic.default,
+    ):
+        self.source = border_image_source(source)
+        self.slice  = border_image_slice(slice)
+        self.width  = border_image_width(width)
+        self.outset = border_image_outset(outset)
+        self.repeat = border_image_repeat(repeat)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.source._value.printer(),
+            self.slice._value.printer(),
+            self.width._value.printer(),
+            self.outset._value.printer(),
+            self.repeat._value.printer(),
+        ))
+        return f"border-right: {parts}"

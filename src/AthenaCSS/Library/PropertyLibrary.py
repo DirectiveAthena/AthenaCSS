@@ -35,7 +35,7 @@ __all__=[
     "border_bottom_color", "border_right_color", "border_bottom_style", "border_bottom_right_radius", "border_bottom",
     "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse","border_color",
     "border_image_repeat", "border_image", "border_image_width", "border_image_outset", "border_image_source",
-    "border_image_slice", "border_radius", "border_spacing", "border_style"
+    "border_image_slice", "border_radius", "border_spacing", "border_style", "border", "border_width"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -836,7 +836,7 @@ class border_image(CSSpropertyShorthand):
     repeat: border_image_repeat
 
     __slots__ = [
-        "source"
+        "source", "slice", "width", "outset", "repeat"
     ]
     def __init__(
             self,
@@ -923,3 +923,29 @@ class border_width(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border(CSSpropertyShorthand):
+    width:  border_width
+    style:  border_style
+    color:  border_color
+
+    __slots__ = [
+        "width", "style", "color"
+    ]
+    def __init__(
+            self,
+            width= border_width.value_logic.default,
+            style= border_style.value_logic.default,
+            color= border_color.value_logic.default,
+    ):
+        self.width = border_width(width)
+        self.style = border_style(style)
+        self.color = border_color(color)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.width._value.printer(),
+            self.style._value.printer(),
+            self.color._value.printer(),
+        ))
+        return f"border-right: {parts}"

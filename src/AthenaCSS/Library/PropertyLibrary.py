@@ -614,4 +614,128 @@ class border_top(CSSpropertyShorthand):
             self.color._value.printer(),
         ))
         return f"border-top: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class border_left_color(CSSproperty):
+    name="border-left-color"
+    value_logic = ValueLogic(
+        default="transparent",
+        value_choice={
+            str:{"transparent", *COLORS_STR},
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_left_style(CSSproperty):
+    name="border-left-style"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: BORDERSTYLE,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_left_width(CSSproperty):
+    name="border-left-style"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            None:None,
+            str:BORDERWIDTH,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_left(CSSpropertyShorthand):
+    width:border_left_width
+    style:border_left_style
+    color:border_left_color
+    __slots__ = [
+        "width", "style", "color"
+    ]
+    def __init__(
+            self,
+            width=border_left_width.value_logic.default,
+            style=border_left_style.value_logic.default,
+            color=border_left_color.value_logic.default,
+    ):
+        self.width = border_left_width(width)
+        self.style = border_left_style(style)
+        self.color = border_left_color(color)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.color._value.printer(),
+            self.style._value.printer(),
+            self.color._value.printer(),
+        ))
+        return f"border-left: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class border_right_color(CSSproperty):
+    name="border-right-color"
+    value_logic = ValueLogic(
+        default="transparent",
+        value_choice={
+            str:{"transparent", *COLORS_STR},
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_right_style(CSSproperty):
+    name="border-right-style"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: BORDERSTYLE,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_right_width(CSSproperty):
+    name="border-right-style"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            None:None,
+            str:BORDERWIDTH,
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_right(CSSpropertyShorthand):
+    width:border_right_width
+    style:border_right_style
+    color:border_right_color
+    __slots__ = [
+        "width", "style", "color"
+    ]
+    def __init__(
+            self,
+            width=border_right_width.value_logic.default,
+            style=border_right_style.value_logic.default,
+            color=border_right_color.value_logic.default,
+    ):
+        self.width = border_right_width(width)
+        self.style = border_right_style(style)
+        self.color = border_right_color(color)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.color._value.printer(),
+            self.style._value.printer(),
+            self.color._value.printer(),
+        ))
+        return f"border-right: {parts}"
 

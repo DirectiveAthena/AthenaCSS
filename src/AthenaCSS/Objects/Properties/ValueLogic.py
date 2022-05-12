@@ -101,7 +101,10 @@ class ValueLogic:
 
     @default.setter
     def default(self, value):
-        self._default = self.value_checker(value)
+        if value is None and None not in self.value_choice.keys():
+            self._default = None
+        else:
+            self._default = self.value_checker(value)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - ValueChoice -

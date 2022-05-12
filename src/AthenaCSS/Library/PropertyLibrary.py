@@ -1081,3 +1081,15 @@ class clip_path(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class color(CSSproperty):
+    name="color"
+    value_logic = ValueLogic(
+        # default=None, # I know this is overrideen by ValueLogic to None, but thevalue cannot exsist
+        value_choice={
+            str: COLORS_STR,
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value, **kwargs):
+        super().__init__(value, **kwargs)

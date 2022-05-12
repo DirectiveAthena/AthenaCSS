@@ -3,6 +3,7 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
+import itertools
 from typing import Any
 
 # Custom Library
@@ -10,7 +11,9 @@ from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.Url import Url
 from AthenaLib.Types.Math import Percent
-from AthenaLib.Types.AbsoluteLength import Pixel
+from AthenaLib.Types.AbsoluteLength import Pixel, AbsoluteLength
+from AthenaLib.Types.RelativeLength import RelativeLength
+
 
 # Custom Packages
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
@@ -27,7 +30,7 @@ __all__=[
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
     "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter",
     "background_attachment", "background_clip", "background_blend_mode", "background_color", "background_origin",
-    "background_repeat"
+    "background_repeat", "background_size"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -348,6 +351,25 @@ class background_repeat(CSSproperty):
         default="repeat",
         value_choice={
             str: {"repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class background_size(CSSproperty):
+    name="background-size"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto", "cover", "contain"},
+            (Percent, Percent): Any,
+            (Percent, str): (Any, "auto"),
+            (AbsoluteLength,str): (Any, "auto"),
+            (RelativeLength, str): (Any, "auto"),
+            **{length_combo:(Any, Any) for length_combo in itertools.product(
+                (AbsoluteLength, RelativeLength),
+                repeat=2
+            )}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

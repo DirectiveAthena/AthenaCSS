@@ -130,3 +130,16 @@ class CSSProperty(BulkTests):
             (str(Bf(Filters.sepia(58))),            "backdrop-filter: sepia(58%)"),
         )
         self.Subtest_Equality(cases)
+
+    def test_BackgroundSize(self):
+        # Define a CSSProperty Class with a defined name
+
+        Bs = background_size
+        cases = (
+            #left                                   #right
+            (str(Bs()),                             "background-size: auto"),
+            (str(Bs((Percent(100), "auto"))),       "background-size: 100% auto"),
+            (str(Bs((Pixel(100), "auto"))),         "background-size: 100px auto"),
+            (str(Bs((Pixel(100), Pixel(100)))),     "background-size: 100px 100px"),
+        )
+        self.Subtest_Equality(cases)

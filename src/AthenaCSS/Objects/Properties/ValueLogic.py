@@ -54,11 +54,19 @@ class ValueLogic:
                     elif isinstance(c, tuple) and val not in c:
                         raise ValueError(f"the partial value {val} was not in the defined choice of {c}")
                     # anything else is basically equivalent to TRUE, so don't check
+
         elif (val_type := type(value)) in self.value_choice:
             # Only a single value is inserted
             #   so the value of the key value pair could either be a None or a set of possible values
             if (choice := self.value_choice[val_type]) is not Any and value not in choice:
                 raise ValueError(f"the value {value} was not in the defined choice of {choice}")
+
+        elif isinstance(value, Iterable) \
+                and any(all(isinstance(v, vc) for v in value) for vc in self.value_choice):
+            # it is an iterable, but the choices were made up out of parent classes instead of specific classes
+            pass #todo, wtf do I do here?
+                 #  the if statement contains the check ... so ... what now?
+
         else:
             raise TypeError(f"the value {value} was not of an allowed type")
 

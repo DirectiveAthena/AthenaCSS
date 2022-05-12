@@ -16,7 +16,7 @@ from AthenaLib.Types.AbsoluteLength import Pixel
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
-from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR)
+from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES)
 import AthenaCSS.Library.FilterLibrary as Filters
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -264,6 +264,17 @@ class background_attachment(CSSproperty):
         default="scroll",
         value_choice={
             str: {"scroll", "fixed", "local"}
+        },
+    )
+    def __init__(self, value=value_logic.default):
+        super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
+class background_blend_mode(CSSproperty):
+    name="background-blend-mode"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: BLENDMODES
         },
     )
     def __init__(self, value=value_logic.default):

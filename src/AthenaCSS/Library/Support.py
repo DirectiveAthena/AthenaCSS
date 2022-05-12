@@ -43,3 +43,7 @@ COLORS_STR = {
     "seashell","sienna","skyblue","slateblue","slategray","slategrey","snow","springgreen","steelblue","tan","thistle",
     "tomato","turquoise","violet","wheat","whitesmoke","yellowgreen"
 }
+
+BLENDMODES = {
+    "normal", "multiply", "screen", "overlay", "darken", "ligthen", "color-dodge", "saturation", "color", "luminosity"
+}

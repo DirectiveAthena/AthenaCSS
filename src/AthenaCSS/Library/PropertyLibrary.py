@@ -1044,3 +1044,15 @@ class caption_side(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class caret_color(CSSproperty):
+    name="caption-side"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto", *COLORS_STR},
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

@@ -1093,3 +1093,15 @@ class color(CSSproperty):
     )
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class column_count(CSSproperty):
+    name="column-count"
+    value_logic = ValueLogic(
+        # default=None, # I know this is overrideen by ValueLogic to None, but thevalue cannot exsist
+        value_choice={
+            str: {"auto"},
+            int: Any
+        },
+    )
+    def __init__(self, value, **kwargs):
+        super().__init__(value, **kwargs)

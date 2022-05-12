@@ -962,3 +962,14 @@ class bottom(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class box_decoration_break(CSSproperty):
+    name="box-decoration-break"
+    value_logic = ValueLogic(
+        default="slice",
+        value_choice={
+            str: {"slice", "clone"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

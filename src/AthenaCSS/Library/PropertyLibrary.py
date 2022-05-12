@@ -986,3 +986,14 @@ class box_shadow(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class box_sizing(CSSproperty):
+    name="box-sizing"
+    value_logic = ValueLogic(
+        default="content-box",
+        value_choice={
+            str:{"content-box", "border-box"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

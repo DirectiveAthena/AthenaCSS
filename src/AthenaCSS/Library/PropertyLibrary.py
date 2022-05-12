@@ -38,7 +38,10 @@ __all__=[
     "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse","border_color",
     "border_image_repeat", "border_image", "border_image_width", "border_image_outset", "border_image_source",
     "border_image_slice", "border_radius", "border_spacing", "border_style", "border", "border_width", "bottom",
-    "break_inside", "break_after", "break_before", "box_sizing", "box_shadow", "box_decoration_break"
+    "break_inside", "break_after", "break_before", "box_sizing", "box_shadow", "box_decoration_break", "content",
+    "counter_reset", "counter_increment", "color", "caret_color", "column_width", "column_count", "column_rule_width",
+    "clear", "cursor","columns","column_fill","column_rule","column_rule_color","column_rule_style","column_gap",
+    "column_span","clip_path","caption_side"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------

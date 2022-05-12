@@ -28,6 +28,7 @@ class Filter(CSSproperty):
     def printer(self) -> str:
         return f"{self.name}({self._value.printer()})"
 
+# ----------------------------------------------------------------------------------------------------------------------
 class blur(Filter):
     name="blur"
     value_logic = ValueLogic(
@@ -40,6 +41,7 @@ class blur(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class brightness(Filter):
     name="brightness"
     value_logic = ValueLogic(
@@ -52,6 +54,7 @@ class brightness(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class contrast(Filter):
     name="contrast"
     value_logic = ValueLogic(
@@ -64,6 +67,7 @@ class contrast(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class drop_shadow(Filter):
     name="drop-shadow"
     value_logic = ValueLogic(
@@ -76,6 +80,7 @@ class drop_shadow(Filter):
     )
     def __init__(self, value=value_logic.default):
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class grayscale(Filter):
     name="grayscale"
     value_logic = ValueLogic(
@@ -88,6 +93,7 @@ class grayscale(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class hue_rotate(Filter):
     name="hue-rotate"
     value_logic = ValueLogic(
@@ -100,6 +106,7 @@ class hue_rotate(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class invert(Filter):
     name="invert"
     value_logic = ValueLogic(
@@ -112,6 +119,7 @@ class invert(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class opacity(Filter):
     name="opacity"
     value_logic = ValueLogic(
@@ -124,6 +132,7 @@ class opacity(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
 class saturate(Filter):
     name="saturate"
     value_logic = ValueLogic(
@@ -139,6 +148,7 @@ class saturate(Filter):
 
     def printer(self) -> str:
         return f"{self.name}({self._value.printer()})"
+# ----------------------------------------------------------------------------------------------------------------------
 class sepia(Filter):
     name="sepia"
     value_logic = ValueLogic(

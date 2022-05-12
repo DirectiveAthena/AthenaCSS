@@ -69,3 +69,6 @@ CURSOR = {
     "none","not-allowed","pointer","progress","row-resize","s-resize","se-resize","sw-resize","text","vertical-text",
     "w-resize","wait","zoom-in","zoom-out","initial","inherit"
 }
+
+FLEX_DIRECTION = {"row","row-reverse","column","column-reverse"}
+FLEX_WRAP = {"nowrap","wrap","wrap-reverse"}

@@ -18,7 +18,8 @@ from AthenaCSS.Library.Support import COLORS_UNION
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__ = [
-    "blur", "brightness", "contrast", "drop_shadow", "grayscale", "hue_rotate", "invert", "opacity", "saturate","sepia"
+    "Blur", "Brightness", "Contrast", "DropShadow", "Grayscale", "HueRotate", "Invert", "Opacity", "Saturate","Sepia",
+    "FILTERS"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -29,7 +30,7 @@ class Filter(CSSproperty):
         return f"{self.name}({self._value.printer()})"
 
 # ----------------------------------------------------------------------------------------------------------------------
-class blur(Filter):
+class Blur(Filter):
     name="blur"
     value_logic = ValueLogic(
         default=Pixel(0),
@@ -42,7 +43,7 @@ class blur(Filter):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class brightness(Filter):
+class Brightness(Filter):
     name="brightness"
     value_logic = ValueLogic(
         default=Percent(100),
@@ -55,7 +56,7 @@ class brightness(Filter):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class contrast(Filter):
+class Contrast(Filter):
     name="contrast"
     value_logic = ValueLogic(
         default=Percent(100),
@@ -68,7 +69,7 @@ class contrast(Filter):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class drop_shadow(Filter):
+class DropShadow(Filter):
     name="drop-shadow"
     value_logic = ValueLogic(
         default=None,
@@ -81,7 +82,7 @@ class drop_shadow(Filter):
     def __init__(self, value=value_logic.default):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class grayscale(Filter):
+class Grayscale(Filter):
     name="grayscale"
     value_logic = ValueLogic(
         default=Percent(0),
@@ -94,7 +95,7 @@ class grayscale(Filter):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class hue_rotate(Filter):
+class HueRotate(Filter):
     name="hue-rotate"
     value_logic = ValueLogic(
         default=Degree(0),
@@ -107,7 +108,7 @@ class hue_rotate(Filter):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class invert(Filter):
+class Invert(Filter):
     name="invert"
     value_logic = ValueLogic(
         default=Percent(0),
@@ -120,7 +121,7 @@ class invert(Filter):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class opacity(Filter):
+class Opacity(Filter):
     name="opacity"
     value_logic = ValueLogic(
         default=Percent(100),
@@ -133,7 +134,7 @@ class opacity(Filter):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class saturate(Filter):
+class Saturate(Filter):
     name="saturate"
     value_logic = ValueLogic(
         default=Percent(100),
@@ -149,7 +150,7 @@ class saturate(Filter):
     def printer(self) -> str:
         return f"{self.name}({self._value.printer()})"
 # ----------------------------------------------------------------------------------------------------------------------
-class sepia(Filter):
+class Sepia(Filter):
     name="sepia"
     value_logic = ValueLogic(
         default=Percent(0),
@@ -161,3 +162,19 @@ class sepia(Filter):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Support for Properties
+# ----------------------------------------------------------------------------------------------------------------------
+FILTERS = {
+    Blur: Any,
+    Brightness: Any,
+    Contrast: Any,
+    DropShadow: Any,
+    Grayscale: Any,
+    HueRotate: Any,
+    Invert: Any,
+    Opacity: Any,
+    Saturate: Any,
+    Sepia: Any,
+}

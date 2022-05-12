@@ -28,7 +28,7 @@ class CSSProperty(BulkTests):
             #left                                   #right
             (Ac().value_logic.default,              "stretch"),
             (align_content.value_logic.default,     "stretch"),
-            (Ac().default,                          "stretch"),
+            (repr(Ac()),                            "align_content(value='stretch')"),
         )
         self.Subtest_Equality(cases)
 
@@ -96,11 +96,11 @@ class CSSProperty(BulkTests):
         cases = (
             #left                                   #right
             (str(Bp()),                             "background-position: 0% 0%"),
-            (str(Bp((Percent(1), Percent(1)))),"background-position: 1% 1%"),
-            (str(Bp((Pixel(1), Pixel(1)))),"background-position: 1px 1px"),
-            (str(Bp((Percent(1), "center"))),"background-position: 1% center"),
-            (str(Bp((Pixel(1), "center"))),"background-position: 1px center"),
-            (str(Bp("center")),"background-position: center"),
+            (str(Bp((Percent(1), Percent(1)))),     "background-position: 1% 1%"),
+            (str(Bp((Pixel(1), Pixel(1)))),         "background-position: 1px 1px"),
+            (str(Bp((Percent(1), "center"))),       "background-position: 1% center"),
+            (str(Bp((Pixel(1), "center"))),         "background-position: 1px center"),
+            (str(Bp("center")),                     "background-position: center"),
         )
         self.Subtest_Equality(cases)
 

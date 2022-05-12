@@ -239,7 +239,7 @@ class animation(CSSpropertyShorthand):
 class backdrop_filter (CSSproperty):
     name="backdrop-filter"
     value_logic = ValueLogic(
-        default="visible",
+        default=None,
         value_choice={
             None:None,
             Url:Any,

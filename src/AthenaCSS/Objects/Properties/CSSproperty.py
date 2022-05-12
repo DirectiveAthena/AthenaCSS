@@ -24,6 +24,9 @@ class CSSproperty:
         self._value = copy.deepcopy(self.value_logic) if self.value_logic is not None else ValueLogic()
         self.value = value
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(value={self.value!r})"
+
     # ------------------------------------------------------------------------------------------------------------------
     # - Value -
     # ------------------------------------------------------------------------------------------------------------------

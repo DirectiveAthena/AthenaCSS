@@ -72,3 +72,5 @@ CURSOR = {
 
 FLEX_DIRECTION = {"row","row-reverse","column","column-reverse"}
 FLEX_WRAP = {"nowrap","wrap","wrap-reverse"}
+
+FONT_FAMILIES = {"calibri"}

@@ -20,7 +20,7 @@ from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
 from AthenaCSS.Library.Support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
-    FLEX_DIRECTION, FLEX_WRAP
+    FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES
 )
 from AthenaCSS.Library.FilterLibrary import FILTERS
 
@@ -1425,7 +1425,7 @@ class Flex(CSSpropertyShorthand):
             self.shrink._value.printer(),
             self.basis._value.printer(),
         ))
-        return f"columns: {parts}"
+        return f"flex: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Float(CSSproperty):
     name="float"
@@ -1438,3 +1438,160 @@ class Float(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontFamily(CSSproperty):
+    name="font-family"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: FONT_FAMILIES
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontFeatureSetting(CSSproperty):
+    name="font-feature-setting"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str:{"normal"},
+            (str, str): (Any,{"on","off"}),
+            (str, int): (Any,{1,0}),
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontKerning(CSSproperty):
+    name="font-kerning"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:{"normal", "auto"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontSize(CSSproperty):
+    name="font-size"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            str:{"medium","xx-small","x-small","small","large","x-large","xx-large","smaller","larger"},
+            **LENGTHS,
+            Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontSizeAdjust(CSSproperty):
+    name="font-size-adjust"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            int:Any,
+            float:Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontStretch(CSSproperty):
+    name="font-stretch"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {
+                "ultra-condensed","extra-condensed","condensed","semi-condensed","normal","semi-expanded","expanded",
+                "extra-expanded","ultra-expanded"
+            },
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontStyle(CSSproperty):
+    name="font-style"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal", "italic", "oblique"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontVariant(CSSproperty):
+    name="font-variant"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal", "small-caps"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontVariantCaps(CSSproperty):
+    name="font-variant-caps"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {
+                "normal","small-caps","all-small-caps","petite-caps","all-petite-caps","unicase","titling-caps","unset"
+            },
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class FontWeigth(CSSproperty):
+    name="font-weigth"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal","bold","bolder","lighter"},
+            int: {100,200,300,400,500,600,700,800,900}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Font(CSSpropertyShorthand):
+    style: FontStyle
+    variant: FontVariant
+    weight: FontWeigth
+    size: FontSize
+    family: FontFamily
+
+    __slots__ = [
+        "style","variant","weight","size","family",
+    ]
+    def __init__(
+            self,
+            style=FontStyle.value_logic.default,
+            variant=FontVariant.value_logic.default,
+            weight=FontWeigth.value_logic.default,
+            size=FontSize.value_logic.default,
+            family=FontFamily.value_logic.default,
+    ):
+        self.style  =FontStyle(style)
+        self.variant=FontVariant(variant)
+        self.weight =FontWeigth(weight)
+        self.size   =FontSize(size)
+        self.family =FontFamily(family)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.style._value.printer(),
+            self.variant._value.printer(),
+            self.weight._value.printer(),
+            self.size._value.printer(),
+            self.family._value.printer(),
+        ))
+        return f"font: {parts}"

@@ -1150,7 +1150,7 @@ class column_rule_style(CSSproperty):
             str:BORDERSTYLE
         },
     )
-    def __init__(self, value, **kwargs):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class column_rule_width(CSSproperty):
@@ -1162,7 +1162,7 @@ class column_rule_width(CSSproperty):
             **LENGTHS,
         },
     )
-    def __init__(self, value, **kwargs):
+    def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class column_rule(CSSpropertyShorthand):
@@ -1190,3 +1190,15 @@ class column_rule(CSSpropertyShorthand):
             self.color._value.printer(),
         ))
         return f"column-rule: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class column_span(CSSproperty):
+    name="column-span"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str:{"all"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

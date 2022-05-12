@@ -122,7 +122,7 @@ class ValueLogic:
             if val is Any or key in (None,Any):
                 continue
             elif isinstance(key, tuple):
-                if not all(isinstance(k, type) or isinstance(k,UnionType) for k in key):
+                if not all(isinstance(k, type) or isinstance(k,UnionType) for k in key if k is not None):
                     raise SyntaxError(f"Not all items in the tuple were types, in the value:{value}")
             elif isinstance(key, type):
                 if not all(isinstance(v, key) for v in val):

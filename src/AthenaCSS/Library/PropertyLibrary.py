@@ -1262,3 +1262,16 @@ class counter_increment(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class counter_reset(CSSproperty):
+    name="counter-reset"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            (None,int):(Any,Any),
+            (str,int):(Any,Any),
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

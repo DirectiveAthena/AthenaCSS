@@ -1214,3 +1214,25 @@ class column_width(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class columns(CSSpropertyShorthand):
+    width:  column_width
+    count:  column_count
+
+    __slots__ = [
+        "width", "count"
+    ]
+    def __init__(
+            self,
+            width= column_width.value_logic.default,
+            count= column_count.value_logic.default,
+    ):
+        self.width = column_width(width)
+        self.count = column_count(count)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.width._value.printer(),
+            self.count._value.printer(),
+        ))
+        return f"columns: {parts}"

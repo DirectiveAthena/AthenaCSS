@@ -25,7 +25,8 @@ import AthenaCSS.Library.FilterLibrary as Filters
 __all__=[
     "animation_fill_mode", "animation", "animation_direction", "animation_delay", "animation_play_state",
     "animation_duration", "animation_name", "animation_iteration_count", "animation_timing_function", "align_items",
-    "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter"
+    "align_content", "align_self","backface_visibility", "background_position", "background_image", "backdrop_filter",
+    "background_attachment"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -252,6 +253,17 @@ class backface_visibility (CSSproperty):
         default="visible",
         value_choice={
             str:{"visible", "hidden"}
+        },
+    )
+    def __init__(self, value=value_logic.default):
+        super().__init__(value)
+# ----------------------------------------------------------------------------------------------------------------------
+class background_attachment(CSSproperty):
+    name="background-attachment"
+    value_logic = ValueLogic(
+        default="scroll",
+        value_choice={
+            str: {"scroll", "fixed", "local"}
         },
     )
     def __init__(self, value=value_logic.default):

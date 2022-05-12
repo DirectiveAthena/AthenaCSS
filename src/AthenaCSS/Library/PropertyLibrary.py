@@ -18,7 +18,9 @@ from AthenaLib.Types.RelativeLength import RelativeLength
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
-from AthenaCSS.Library.Support import (COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION)
+from AthenaCSS.Library.Support import (
+    COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR
+)
 import AthenaCSS.Library.FilterLibrary as Filters
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -993,6 +995,28 @@ class box_sizing(CSSproperty):
         default="content-box",
         value_choice={
             str:{"content-box", "border-box"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class break_after(CSSproperty):
+    name="break-after"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:BREAK_STR
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class break_before(CSSproperty):
+    name="break-before"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:BREAK_STR
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

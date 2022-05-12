@@ -57,3 +57,8 @@ BOX = {"border-box","padding-box","content-box"}
 
 BORDERSTYLE = {"hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"}
 BORDERWIDTH = {"medium","thin", "thick"}
+
+BREAK_STR = {
+    "auto","all","always","avoid","avoid-column","avoid-page","avoid-region","column","left","page","recto","region",
+    "right","verso"
+}

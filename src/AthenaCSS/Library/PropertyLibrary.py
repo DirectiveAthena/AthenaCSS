@@ -1068,3 +1068,16 @@ class clear(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class clip_path(CSSproperty):
+    name="clip-path"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: {"border-box","padding-box","content-box", "margin-box", "fill-box", "stroke-box", "view-box"},
+            Url:Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

@@ -4,7 +4,7 @@
 # General Packages
 from __future__ import annotations
 import itertools
-from typing import Any
+from typing import Any, AnyStr
 
 # Custom Library
 from AthenaLib.Types.Time import Second, MilliSecond
@@ -1236,3 +1236,17 @@ class columns(CSSpropertyShorthand):
             self.count._value.printer(),
         ))
         return f"columns: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class content(CSSproperty):
+    name="content"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            None:None,
+            str:{"normal", "counter", "open-quote", "close-quote", "no-open-quote", "no-close-quote"},
+            Url:Any,
+            AnyStr:Any # as long as an object has a __str__, this should be fine
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

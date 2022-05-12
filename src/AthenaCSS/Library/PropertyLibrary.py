@@ -38,6 +38,7 @@ __all__=[
     "border_top_right_radius", "border_top", "accent_color", "property_all","border_collapse","border_color",
     "border_image_repeat", "border_image", "border_image_width", "border_image_outset", "border_image_source",
     "border_image_slice", "border_radius", "border_spacing", "border_style", "border", "border_width", "bottom",
+    "break_inside", "break_after", "break_before", "box_sizing", "box_shadow", "box_decoration_break"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1013,6 +1014,17 @@ class break_after(CSSproperty):
 # ----------------------------------------------------------------------------------------------------------------------
 class break_before(CSSproperty):
     name="break-before"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:BREAK_STR
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class break_inside(CSSproperty):
+    name="break-inside"
     value_logic = ValueLogic(
         default="auto",
         value_choice={

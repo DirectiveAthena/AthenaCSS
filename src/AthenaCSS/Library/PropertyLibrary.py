@@ -753,3 +753,15 @@ class border_collapse(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class border_color(CSSproperty):
+    name="border-color"
+    value_logic = ValueLogic(
+        default="transparent",
+        value_choice={
+            str:{"transparent", *COLORS_STR},
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

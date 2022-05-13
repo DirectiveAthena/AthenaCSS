@@ -60,7 +60,7 @@ class CSSProperty(BulkTests):
     def test_AnimationTimingFunction(self):
         # Define a CSSProperty Class with a defined name
 
-        An = AnitmationTimingFunction
+        An = AnimationTimingFunction
         cases = (
             #left                                   #right
             (str(An()),                             "animation-timing-function: ease"),

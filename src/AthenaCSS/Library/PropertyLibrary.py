@@ -28,9 +28,9 @@ from AthenaCSS.Library.FilterLibrary import FILTERS
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
-    "All", "AnitmationName", "Animation", "AnitmationDirection", "AnitmationDelay", "AnitmationDuration",
-    "AccentColor", "AlignSelf", "AlignContent", "AlignItems", "AnitmationFillMode", "AnitmationPlayState",
-    "AnitmationIterationCount", "AnitmationTimingFunction", "Border", "BorderColor", "BorderStyle", "BorderWidth",
+    "All", "AnimationName", "Animation", "AnimationDirection", "AnimationDelay", "AnimationDuration",
+    "AccentColor", "AlignSelf", "AlignContent", "AlignItems", "AnimationFillMode", "AnimationPlayState",
+    "AnimationIterationCount", "AnimationTimingFunction", "Border", "BorderColor", "BorderStyle", "BorderWidth",
     "Bottom", "BorderBottom", "BorderBottomColor", "BorderBottomStyle", "BorderBottomWidth", "BorderBottomLeftRadius",
     "BackgroundClip","Background", "BackgroundRepeat", "BackgroundOrigin", "BackgroundAttachment", "BackgroundSize",
     "BackgroundColor", "BackgroundPosition", "BackgroundImage", "BorderImage", "BorderImageOutset", "BorderImageRepeat",
@@ -112,7 +112,7 @@ class All(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationName(CSSproperty):
+class AnimationName(CSSproperty):
     name="animation-name"
     value_logic = ValueLogic(
         default=None,
@@ -124,7 +124,7 @@ class AnitmationName(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationDuration(CSSproperty):
+class AnimationDuration(CSSproperty):
     name="animation-duration"
     value_logic = ValueLogic(
         default=Second(0),
@@ -136,7 +136,7 @@ class AnitmationDuration(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationTimingFunction(CSSproperty):
+class AnimationTimingFunction(CSSproperty):
     name="animation-timing-function"
     value_logic = ValueLogic(
         default="ease",
@@ -148,7 +148,7 @@ class AnitmationTimingFunction(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationDelay(CSSproperty):
+class AnimationDelay(CSSproperty):
     name="animation-delay"
     value_logic = ValueLogic(
         default=Second(0),
@@ -160,7 +160,7 @@ class AnitmationDelay(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationIterationCount(CSSproperty):
+class AnimationIterationCount(CSSproperty):
     name="animation-iteration-count"
     value_logic = ValueLogic(
         default=1,
@@ -172,7 +172,7 @@ class AnitmationIterationCount(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationDirection(CSSproperty):
+class AnimationDirection(CSSproperty):
     name="animation-direction"
     value_logic = ValueLogic(
         default="normal",
@@ -183,7 +183,7 @@ class AnitmationDirection(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationFillMode(CSSproperty):
+class AnimationFillMode(CSSproperty):
     name="animation-fill-mode"
     value_logic = ValueLogic(
         value_choice={
@@ -194,7 +194,7 @@ class AnitmationFillMode(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnitmationPlayState(CSSproperty):
+class AnimationPlayState(CSSproperty):
     name="animation-play-state"
     value_logic = ValueLogic(
         default="running",
@@ -206,36 +206,36 @@ class AnitmationPlayState(CSSproperty):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class Animation(CSSpropertyShorthand):
-    name: AnitmationName
-    duration: AnitmationDuration
-    timing_function: AnitmationTimingFunction
-    delay:AnitmationDelay
-    iteration_count: AnitmationIterationCount
-    direction: AnitmationDirection
-    fill_mode: AnitmationFillMode
-    play_state: AnitmationPlayState
+    name: AnimationName
+    duration: AnimationDuration
+    timing_function: AnimationTimingFunction
+    delay:AnimationDelay
+    iteration_count: AnimationIterationCount
+    direction: AnimationDirection
+    fill_mode: AnimationFillMode
+    play_state: AnimationPlayState
     __slots__ = [
         "name", "duration", "timing_function", "delay", "iteration_count", "direction", "fill_mode", "play_state"
     ]
     def __init__(
             self,
-            name=AnitmationName.value_logic.default,
-            duration=AnitmationDuration.value_logic.default,
-            timing_function=AnitmationTimingFunction.value_logic.default,
-            delay=AnitmationDelay.value_logic.default,
-            iteration_count=AnitmationIterationCount.value_logic.default,
-            direction=AnitmationDirection.value_logic.default,
-            fill_mode=AnitmationFillMode.value_logic.default,
-            play_state=AnitmationPlayState.value_logic.default
+            name=AnimationName.value_logic.default,
+            duration=AnimationDuration.value_logic.default,
+            timing_function=AnimationTimingFunction.value_logic.default,
+            delay=AnimationDelay.value_logic.default,
+            iteration_count=AnimationIterationCount.value_logic.default,
+            direction=AnimationDirection.value_logic.default,
+            fill_mode=AnimationFillMode.value_logic.default,
+            play_state=AnimationPlayState.value_logic.default
     ):
-        self.name = AnitmationName(name)
-        self.duration = AnitmationDuration(duration)
-        self.timing_function = AnitmationTimingFunction(timing_function)
-        self.delay = AnitmationDelay(delay)
-        self.iteration_count = AnitmationIterationCount(iteration_count)
-        self.direction = AnitmationDirection(direction)
-        self.fill_mode = AnitmationFillMode(fill_mode)
-        self.play_state = AnitmationPlayState(play_state)
+        self.name = AnimationName(name)
+        self.duration = AnimationDuration(duration)
+        self.timing_function = AnimationTimingFunction(timing_function)
+        self.delay = AnimationDelay(delay)
+        self.iteration_count = AnimationIterationCount(iteration_count)
+        self.direction = AnimationDirection(direction)
+        self.fill_mode = AnimationFillMode(fill_mode)
+        self.play_state = AnimationPlayState(play_state)
 
     # noinspection PyProtectedMember
     def printer(self) -> str:
@@ -2318,6 +2318,18 @@ class MixBlendMode(CSSproperty):
         default="normal",
         value_choice={
             str: BLENDMODES
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ObjectFit(CSSproperty):
+    name="object-fit"
+    value_logic = ValueLogic(
+        default="fill",
+        value_choice={
+            None:None,
+            str: {"fill", "contain", "cover", "scale-down"}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

@@ -24,6 +24,7 @@ from AthenaCSS.Library.Support import (
 )
 from AthenaCSS.Library.FilterLibrary import FILTERS
 from AthenaCSS.Library.TransfromLibrary import TRANSFORMS
+from AthenaCSS.Library.OtherLibrary import Steps
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
@@ -2928,6 +2929,112 @@ class Transform(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TransformOrigin(CSSproperty):
+    name="transform-origin"
+    value_logic = ValueLogic(
+        default=(Percent(50), Percent(50), Pixel(0)),
+        value_choice={
+            (str,str): ({"left", "right", "center"}, {"top", "center", "bottom"}),
+            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (AbsoluteLength, RelativeLength, Percent)},
+            **{(str, val): ({"left", "right", "center"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
+            **{(str, str, val): ({"left", "right", "center"}, {"top", "center", "bottom"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
+            **{(val, str, val): (Any, {"top", "center", "bottom"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
+            **{(str, val, val): ({"left", "right", "center"}, Any, Any) for val in (AbsoluteLength, RelativeLength, Percent)}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TransformStyle(CSSproperty):
+    name="transform-style"
+    value_logic = ValueLogic(
+        default="flat",
+        value_choice={
+            str:{"flat","preserve-3d"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TransitionDelay(CSSproperty):
+    name="transition-delay"
+    value_logic = ValueLogic(
+        default=Second(0),
+        value_choice={
+            Second: Any,
+            MilliSecond: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TransitionDuration(CSSproperty):
+    name="transition-duration"
+    value_logic = ValueLogic(
+        default=Second(0),
+        value_choice={
+            Second: Any,
+            MilliSecond: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TransitionProperty(CSSproperty):
+    name="transition-property"
+    value_logic = ValueLogic(
+        default="all",
+        value_choice={
+            str: Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TransitionTimingFunction(CSSproperty):
+    name="transition-timing-function"
+    value_logic = ValueLogic(
+        default="ease",
+        value_choice={
+            str: {"ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start","step-end"},
+            CubicBezier: Any,
+            Steps: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Transition(CSSpropertyShorthand):
+    property: TransitionProperty
+    duration: TransitionDuration
+    timing_function: TransitionTimingFunction
+    delay: TransitionDelay
+
+    __slots__ = [
+        "property","duration","timing_function", "delay"
+    ]
+    def __init__(
+            self,
+            property_=TransitionProperty.value_logic.default,
+            duration=TransitionDuration.value_logic.default,
+            timing_function=TransitionTimingFunction.value_logic.default,
+            delay=TransitionDelay.value_logic.default,
+    ):
+        self.property=TransitionProperty(property_)
+        self.duration=TransitionDuration(duration)
+        self.timing_function=TransitionTimingFunction(timing_function)
+        self.delay=TransitionDelay(delay)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.property._value.printer(),
+            self.duration._value.printer(),
+            self.timing_function._value.printer(),
+            self.delay._value.printer(),
+        ))
+        return f"transition: {parts}"
+
 
 
 

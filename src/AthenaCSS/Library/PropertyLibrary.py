@@ -52,7 +52,16 @@ __all__=[
     "LetterSpacing", "Height", "LineHeight", "HangingPunctuation", "Hyphens", "Isolation", "JustifyContent", "Left",
     "ListStyleImage", "ListStylePosition", "ListStyle", "ListStyleType", "MarginLeft","MarginRight", "MarginBottom",
     "MarginTop", "Margin", "MaskRepeat", "MaskOrigin", "MaskMode", "MaskSize", "MaskImage", "MaskPosition",
-    "MaxWidth", "MinWidth", "MixBlendMode", "MinHeight", "MaxHeight", "ObjectFit"
+    "MaxWidth", "MinWidth", "MixBlendMode", "MinHeight", "MaxHeight", "ObjectFit", "OutlineWidth", "OutlineColor",
+    "OutlineStyle", "Outline", "Perspective", "PerspectiveOrigin", "Padding", "PaddingTop", "PaddingLeft",
+    "PaddingRight", "PaddingBottom", "Position", "PointerEvents", "PageBreakBefore", "PageBreakAfter", "PageBreakInside",
+    "Quotes", "Right", "Resize", "RowGap", "ScrollBehavior", "TransitionDelay", "TransitionDuration", "Transition",
+    "TransitionProperty", "TransitionTimingFunction", "Transform", "TextTransform", "TransformOrigin", "TransformStyle",
+    "Top", "TextDecorationThickness", "TextDecorationStyle", "TextDecorationColor", "TextDecorationLine",
+    "TextDecoration", "TextAlign", "TextAlignLast","TextIndent", "TextShadow", "TextJustify","TextOverflow", "TabSize",
+    "TableLayout", "UserSelect", "UnicodeBidi", "Visibility", "VerticalAlign", "Order", "Orphans", "Overflow",
+    "OverflowX","OverflowY","OverflowWrap", "Opacity", "OutlineOffset", "ObjectPosition", "WordWrap", "WordSpacing",
+    "WritingMode", "Width", "Widows", "WordBreak", "WhiteSpace", "ZIndex"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------

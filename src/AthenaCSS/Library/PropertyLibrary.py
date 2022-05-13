@@ -2501,6 +2501,85 @@ class OverflowY(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PaddingBottom(CSSproperty):
+    name="padding-bottom"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            Percent: Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PaddingTop(CSSproperty):
+    name="padding-top"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            Percent: Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PaddingLeft(CSSproperty):
+    name="padding-left"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            Percent: Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PaddingRight(CSSproperty):
+    name="padding-right"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            Percent: Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Padding(CSSpropertyShorthand):
+    top: PaddingTop
+    right: PaddingRight
+    bottom: PaddingBottom
+    left: PaddingLeft
+
+    __slots__ = [
+        "top","right","bottom", "left"
+    ]
+    def __init__(
+            self,
+            top=PaddingTop.value_logic.default,
+            right=PaddingRight.value_logic.default,
+            bottom=PaddingBottom.value_logic.default,
+            left=PaddingLeft.value_logic.default,
+    ):
+        self.top=PaddingTop(top)
+        self.right=PaddingRight(right)
+        self.bottom=PaddingBottom(bottom)
+        self.left=PaddingLeft(left)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.top._value.printer(),
+            self.right._value.printer(),
+            self.bottom._value.printer(),
+            self.left._value.printer(),
+        ))
+        return f"padding: {parts}"
+
 
 
 

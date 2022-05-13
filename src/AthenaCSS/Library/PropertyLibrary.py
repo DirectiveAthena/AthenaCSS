@@ -1928,4 +1928,4 @@ class Grid(CSSpropertyShorthand):
             self.auto_columns._value.printer(),
             self.auto_flow._value.printer(),
         ))
-        return f"grid-area: {parts}"
+        return f"grid: {parts}"

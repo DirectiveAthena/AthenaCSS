@@ -49,7 +49,8 @@ __all__=[
     "GridTemplateColumns", "GridTemplateAreas", "GridTemplate", "GridArea", "GridGap", "GridRow", "ImageRendering",
     "LetterSpacing", "Height", "LineHeight", "HangingPunctuation", "Hyphens", "Isolation", "JustifyContent", "Left",
     "ListStyleImage", "ListStylePosition", "ListStyle", "ListStyleType", "MarginLeft","MarginRight", "MarginBottom",
-    "MarginTop", "Margin", "MaskRepeat", "MaskOrigin", "MaskMode", "MaskSize", "MaskImage", "MaskPosition"
+    "MarginTop", "Margin", "MaskRepeat", "MaskOrigin", "MaskMode", "MaskSize", "MaskImage", "MaskPosition",
+    "MaxWidth", "MinWidth", "MixBlendMode", "MinHeight", "MaxHeight", "ObjectFit"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2334,3 +2335,19 @@ class ObjectFit(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ObjectPosition(CSSproperty):
+    name="object-position"
+    value_logic = ValueLogic(
+        default=(Percent(50), Percent(50)),
+        value_choice={
+            str:{"left", "right", "center"},
+            **{length_combo: (Any, Any) for length_combo in itertools.product(
+                (Pixel, Percent),
+                repeat=2
+            )}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+

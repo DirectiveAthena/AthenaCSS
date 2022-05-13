@@ -24,11 +24,13 @@ class ValueLogic:
     _value:Any
     _default:None
     _value_choice:dict
-    __slots__ = ("_value","_default", "_value_choice")
+    printer_space:str
+    __slots__ = ("_value","_default", "_value_choice", "printer_space")
 
-    def __init__(self, *, default=None,value_choice=None):
+    def __init__(self, *, default=None,value_choice=None, printer_space=" "):
         self.value_choice = value_choice if value_choice is not None else dict()
         self.default = default # ALWAYS do this AFTER the setting of value_choice
+        self.printer_space = printer_space
 
     def __repr__(self) -> str:
         # cane be done because the key of self.value_choice is alwyas a type!
@@ -142,7 +144,7 @@ class ValueLogic:
             case RGB()|RGBA()|HEX()|HEXA()|HSL()|HSV():
                 return f"{type(self.value).__name__.lower()}({self.value.export()})"
             case tuple(value):
-                return " ".join(str(v) for v in value)
+                return self.printer_space.join(str(v) for v in value)
             case value: # catches all
                 return str(value)
 

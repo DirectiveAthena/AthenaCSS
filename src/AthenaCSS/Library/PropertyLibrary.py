@@ -23,6 +23,7 @@ from AthenaCSS.Library.Support import (
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES
 )
 from AthenaCSS.Library.FilterLibrary import FILTERS
+from AthenaCSS.Library.TransfromLibrary import TRANSFORMS
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
@@ -2767,13 +2768,12 @@ class TextAlignLast(CSSproperty):
 class TextDecorationColor(CSSproperty):
     name="text-decoration-color"
     value_logic = ValueLogic(
-        default="left",
         value_choice={
             str:COLORS_STR,
             **COLORS_CHOICE
         },
     )
-    def __init__(self, value=value_logic.default, **kwargs):
+    def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class TextDecorationLine(CSSproperty):
@@ -2887,6 +2887,43 @@ class TextShadow(CSSproperty):
             None: None,
             # h-shadow,  v-shadow,   blur,   spread, color
             (Pixel, Pixel, Pixel, Pixel, COLORS_UNION): (Any, Any, Any, Any, Any),
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextTransform(CSSproperty):
+    name="text-transform"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str:{"capitalize","uppercase","lowercase"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Top(CSSproperty):
+    name="top"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:{"auto"},
+            **LENGTHS,
+            Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Transform(CSSproperty):
+    name="transform"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            **TRANSFORMS
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

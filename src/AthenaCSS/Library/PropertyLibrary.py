@@ -22,9 +22,7 @@ from AthenaCSS.Library.Support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES
 )
-from AthenaCSS.Library.FilterLibrary import FILTERS
-from AthenaCSS.Library.TransfromLibrary import TRANSFORMS
-from AthenaCSS.Library.OtherLibrary import Steps
+from AthenaCSS.Library.SubPropertyLibrary import FILTERS, TRANSFORMS, Steps
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -

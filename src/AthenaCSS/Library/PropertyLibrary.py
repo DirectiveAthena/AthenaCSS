@@ -3081,6 +3081,17 @@ class Visibility(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class WhiteSpace(CSSproperty):
+    name="white-space"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"nowrap", "pre", "pre-line", "pre-wrap"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

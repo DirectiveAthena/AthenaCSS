@@ -49,7 +49,7 @@ __all__=[
     "GridTemplateColumns", "GridTemplateAreas", "GridTemplate", "GridArea", "GridGap", "GridRow", "ImageRendering",
     "LetterSpacing", "Height", "LineHeight", "HangingPunctuation", "Hyphens", "Isolation", "JustifyContent", "Left",
     "ListStyleImage", "ListStylePosition", "ListStyle", "ListStyleType", "MarginLeft","MarginRight", "MarginBottom",
-    "MarginTop", "Margin"
+    "MarginTop", "Margin", "MaskRepeat", "MaskOrigin", "MaskMode", "MaskSize", "MaskImage", "MaskPosition"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2185,3 +2185,77 @@ class Margin(CSSpropertyShorthand):
             self.left._value.printer(),
         ))
         return f"margin: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class MaskImage(CSSproperty):
+    name="mask-image"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            Url:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MaskMode(CSSproperty):
+    name="mask-mode"
+    value_logic = ValueLogic(
+        default="match-source",
+        value_choice={
+            str: {"match-source","luminance","alpha"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MaskOrigin(CSSproperty):
+    name="mask-origin"
+    value_logic = ValueLogic(
+        default="border-box",
+        value_choice={
+            str: {"border-box","content-box","padding-box","margin-box","fill-box","stroke-box","view-box"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MaskPosition(CSSproperty):
+    name="mask-position"
+    value_logic = ValueLogic(
+        default=(Percent(0), Percent(0)),
+        value_choice={
+            (Percent, Percent):(Any, Any),
+            (str,str): ({"left", "right", "center"},{"top", "center", "botoom"}),
+            **{length_combo: (Any, Any) for length_combo in itertools.product(
+                (AbsoluteLength, RelativeLength),
+                repeat=2
+            )}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MaskRepeat(CSSproperty):
+    name="mask-repeat"
+    value_logic = ValueLogic(
+        default="repeat",
+        value_choice={
+            str: {"repeat","repeat-x","repeat-y","space","round","no-repeat"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MaskSize(CSSproperty):
+    name="mask-size"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto", "contain", "cover"},
+            Percent:Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

@@ -2090,11 +2090,11 @@ class ListStyle(CSSpropertyShorthand):
     ]
     def __init__(
             self,
-            type=ListStyleType.value_logic.default,
+            type_=ListStyleType.value_logic.default,
             position=ListStylePosition.value_logic.default,
             image=ListStyleImage.value_logic.default,
     ):
-        self.type=ListStyleType(type)
+        self.type=ListStyleType(type_)
         self.position=ListStylePosition(position)
         self.image=ListStyleImage(image)
     # noinspection PyProtectedMember

@@ -16,15 +16,17 @@ from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 class CSSproperty:
     name:str # don't rely on self.__class__.name, because of inheritance
     important:bool
+    value_wrapped:bool
     _value:ValueLogic
     value_logic=None
-    __slots__ = ("_value","name", "important")
+    __slots__ = ("_value","name", "important", "value_wrapped")
 
-    def __init__(self, value, *, important:bool=False):
+    def __init__(self, value, *, important:bool=False, value_wrapped=False):
         # make a new instance of the _valyeFactory as all value Logicl is defined there
         self._value = copy.deepcopy(self.value_logic) if self.value_logic is not None else ValueLogic()
         self.value = value
         self.important = important
+        self.value_wrapped =value_wrapped
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(value={self.value!r})"
@@ -56,10 +58,14 @@ class CSSproperty:
     # - Printer -
     # ------------------------------------------------------------------------------------------------------------------
     def printer(self) -> str:
+        value = self._value.printer()
+        if self.value_wrapped:
+            value = f'"{value}"'
+
         if self.important:
-            return f"{self.name}: {self._value.printer()} !important"
+            return f"{self.name}: {value} !important"
         else:
-            return f"{self.name}: {self._value.printer()}"
+            return f"{self.name}: {value}"
 
 
     def __str__(self) -> str:

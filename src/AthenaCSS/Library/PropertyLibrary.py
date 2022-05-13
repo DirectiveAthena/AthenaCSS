@@ -2661,6 +2661,17 @@ class Position(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Quotes(CSSproperty):
+    name="quotes"
+    value_logic = ValueLogic(
+        value_choice={
+            Any:Any
+        },
+    )
+    def __init__(self, value, **kwargs):
+        super().__init__(value, **kwargs)
+
 
 
 

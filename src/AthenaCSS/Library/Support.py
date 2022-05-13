@@ -11,6 +11,7 @@ from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
 from AthenaLib.Types.AbsoluteLength import AbsoluteLength, Pixel
 from AthenaLib.Types.RelativeLength import RelativeLength
 from AthenaLib.Types.Math import Percent, Degree
+from AthenaLib.Types.Time import Second
 
 # Custom Packages
 
@@ -83,3 +84,18 @@ PIXEL = {Pixel:Any}
 ANY = {Any:Any}
 
 TRANSFORM_SPACING=", "
+
+PERCENT_EMPTY = Percent(0)
+PERCENT_FULL = Percent(100)
+DEGREE_EMPTY = Degree(0)
+PIXEL_EMPTY = Pixel(0)
+SECOND_EMPTY = Second(0)
+
+AUTO = "auto"
+NORMAL = "normal"
+MEDIUM = "medium"
+VISIBLE = "visible"
+TRANSPARENT = "transparent"
+STRETCH = "stretch"
+LEFT = "left"
+RIGHT = "right"

@@ -2671,6 +2671,18 @@ class Quotes(CSSproperty):
     )
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Resize(CSSproperty):
+    name="resize"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: {"both","horizontal","vertical"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

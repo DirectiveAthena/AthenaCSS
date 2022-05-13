@@ -3127,3 +3127,15 @@ class WordBreak(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class WordSpacing(CSSproperty):
+    name="word-spacing"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal"},
+            **LENGTHS,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

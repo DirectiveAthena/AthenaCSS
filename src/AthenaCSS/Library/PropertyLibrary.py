@@ -2259,3 +2259,55 @@ class MaskSize(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MaxHeight(CSSproperty):
+    name="max-height"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            Percent:Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MaxWidth(CSSproperty):
+    name="max-width"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            Percent:Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MinHeight(CSSproperty):
+    name="min-height"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            Percent:Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MinWidth(CSSproperty):
+    name="min-width"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            Percent:Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

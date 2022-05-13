@@ -2644,7 +2644,19 @@ class PointerEvents(CSSproperty):
         default="auto",
         value_choice={
             None:None,
-            str:"auto"
+            str: {"auto"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Position(CSSproperty):
+    name="position"
+    value_logic = ValueLogic(
+        default="static",
+        value_choice={
+            None:None,
+            str: {"static", "absolute", "fixed", "relative", "sticky"}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

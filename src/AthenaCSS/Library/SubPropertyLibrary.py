@@ -11,58 +11,47 @@ from AthenaLib.Types.Math import Percent, Degree
 from AthenaLib.Types.AbsoluteLength import Pixel
 
 # Custom Packages
-from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
+from AthenaCSS.Objects.Properties.CSSproperty import SubProp
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
-from AthenaCSS.Library.Support import COLORS_UNION
+from AthenaCSS.Library.Support import COLORS_UNION, PERCENT, DEGREE,NUMBERS, PIXEL, ANY, TRANSFORM_SPACING
 
 # ----------------------------------------------------------------------------------------------------------------------
-# - Filter -
+# - Filters -
 # ----------------------------------------------------------------------------------------------------------------------
-class Filter(CSSproperty):
-    def printer(self) -> str:
-        return f"{self.name}({self._value.printer()})"
-
-# ----------------------------------------------------------------------------------------------------------------------
-class Blur(Filter):
+class Blur(SubProp):
     name="blur"
     value_logic = ValueLogic(
         default=Pixel(0),
-        value_choice={
-            Pixel:Any,
-        },
+        value_choice=PIXEL,
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Brightness(Filter):
+class Brightness(SubProp):
     name="brightness"
     value_logic = ValueLogic(
         default=Percent(100),
-        value_choice={
-            Percent:Any,
-        },
+        value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Contrast(Filter):
+class Contrast(SubProp):
     name="contrast"
     value_logic = ValueLogic(
         default=Percent(100),
-        value_choice={
-            Percent:Any,
-        },
+        value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class DropShadow(Filter):
+class DropShadow(SubProp):
     name="drop-shadow"
     value_logic = ValueLogic(
         default=None,
@@ -75,103 +64,70 @@ class DropShadow(Filter):
     def __init__(self, value=value_logic.default):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Grayscale(Filter):
+class Grayscale(SubProp):
     name="grayscale"
     value_logic = ValueLogic(
         default=Percent(0),
-        value_choice={
-            Percent:Any,
-        },
+        value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class HueRotate(Filter):
+class HueRotate(SubProp):
     name="hue-rotate"
     value_logic = ValueLogic(
         default=Degree(0),
-        value_choice={
-            Degree:Any,
-        },
+        value_choice=DEGREE
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Invert(Filter):
+class Invert(SubProp):
     name="invert"
     value_logic = ValueLogic(
         default=Percent(0),
-        value_choice={
-            Percent:Any,
-        },
+        value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Opacity(Filter):
+class Opacity(SubProp):
     name="opacity"
     value_logic = ValueLogic(
         default=Percent(100),
-        value_choice={
-            Percent:Any,
-        },
+        value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Saturate(Filter):
+class Saturate(SubProp):
     name="saturate"
     value_logic = ValueLogic(
         default=Percent(100),
-        value_choice={
-            Percent:Any,
-        },
+        value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
-
-    def printer(self) -> str:
-        return f"{self.name}({self._value.printer()})"
 # ----------------------------------------------------------------------------------------------------------------------
-class Sepia(Filter):
+class Sepia(SubProp):
     name="sepia"
     value_logic = ValueLogic(
         default=Percent(0),
-        value_choice={
-            Percent:Any,
-        },
+        value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
         if isinstance(value, (int, float)):
             value = type(self.value_logic.default)(value)
-        super().__init__(value)
-
-# ----------------------------------------------------------------------------------------------------------------------
-# - Steps -
-# ----------------------------------------------------------------------------------------------------------------------
-class Other(CSSproperty):
-    def printer(self) -> str:
-        return f"{self.name}({self._value.printer()})"
-
-# ----------------------------------------------------------------------------------------------------------------------
-class Steps(Other):
-    name="steps"
-    value_logic = ValueLogic(
-        value_choice={
-            (int,str):(Any, {"end", "start", ""})
-        },
-    )
-    def __init__(self, value=value_logic.default):
         super().__init__(value)
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -189,16 +145,23 @@ FILTERS = {
     Saturate: Any,
     Sepia: Any,
 }
+# ----------------------------------------------------------------------------------------------------------------------
+# - Steps -
+# ----------------------------------------------------------------------------------------------------------------------
+class Steps(SubProp):
+    name="steps"
+    value_logic = ValueLogic(
+        value_choice={
+            (int,str):(Any, {"end", "start", ""})
+        },
+    )
+    def __init__(self, value=value_logic.default):
+        super().__init__(value)
 
 # ----------------------------------------------------------------------------------------------------------------------
-# - Code -
+# - Transform -
 # ----------------------------------------------------------------------------------------------------------------------
-class Transform(CSSproperty):
-    def printer(self) -> str:
-        return f"{self.name}({self._value.printer()})"
-
-# ----------------------------------------------------------------------------------------------------------------------
-class Matrix(Transform):
+class Matrix(SubProp):
     name="matrix"
     value_logic = ValueLogic(
         value_choice={
@@ -207,12 +170,12 @@ class Matrix(Transform):
                 repeat=6
             )}
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Matrix3D(Transform):
+class Matrix3D(SubProp):
     name="matrix3d"
     value_logic = ValueLogic(
         value_choice={
@@ -221,12 +184,12 @@ class Matrix3D(Transform):
                 repeat=16
             )}
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Translate(Transform):
+class Translate(SubProp):
     name="translate"
     value_logic = ValueLogic(
         value_choice={
@@ -235,12 +198,12 @@ class Translate(Transform):
                 repeat=2
             )}
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Translate3D(Transform):
+class Translate3D(SubProp):
     name="translate3d"
     value_logic = ValueLogic(
         value_choice={
@@ -249,48 +212,39 @@ class Translate3D(Transform):
                 repeat=3
             )}
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class TranslateX(Transform):
+class TranslateX(SubProp):
     name="translateX"
     value_logic = ValueLogic(
-        value_choice={
-            int:Any,
-            float:Any
-        },
-        printer_space=", "
+        value_choice=NUMBERS,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class TranslateY(Transform):
+class TranslateY(SubProp):
     name="translateY"
     value_logic = ValueLogic(
-        value_choice={
-            int:Any,
-            float:Any
-        },
-        printer_space=", "
+        value_choice=NUMBERS,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class TranslateZ(Transform):
+class TranslateZ(SubProp):
     name="translateZ"
     value_logic = ValueLogic(
-        value_choice={
-            int:Any,
-            float:Any
-        },
-        printer_space=", "
+        value_choice=NUMBERS,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Scale(Transform):
+class Scale(SubProp):
     name="scale"
     value_logic = ValueLogic(
         value_choice={
@@ -299,12 +253,12 @@ class Scale(Transform):
                 repeat=2
             )}
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Scale3D(Transform):
+class Scale3D(SubProp):
     name="scale3d"
     value_logic = ValueLogic(
         value_choice={
@@ -313,59 +267,48 @@ class Scale3D(Transform):
                 repeat=3
             )}
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class ScaleX(Transform):
+class ScaleX(SubProp):
     name="scaleX"
     value_logic = ValueLogic(
-        value_choice={
-            int:Any,
-            float:Any
-        },
-        printer_space=", "
+        value_choice=NUMBERS,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class ScaleY(Transform):
+class ScaleY(SubProp):
     name="scaleY"
     value_logic = ValueLogic(
-        value_choice={
-            int:Any,
-            float:Any
-        },
-        printer_space=", "
+        value_choice=NUMBERS,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class ScaleZ(Transform):
+class ScaleZ(SubProp):
     name="scaleZ"
     value_logic = ValueLogic(
-        value_choice={
-            int:Any,
-            float:Any
-        },
-        printer_space=", "
+        value_choice=NUMBERS,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Rotate(Transform):
+class Rotate(SubProp):
     name="rotate"
     value_logic = ValueLogic(
-        value_choice={
-            Degree: Any
-        },
-        printer_space=", "
+        value_choice=DEGREE,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Rotate3D(Transform):
+class Rotate3D(SubProp):
     name="rotate3d"
     value_logic = ValueLogic(
         value_choice={
@@ -374,84 +317,72 @@ class Rotate3D(Transform):
                 repeat=3
             )}
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class RotateX(Transform):
+class RotateX(SubProp):
     name="rotateX"
     value_logic = ValueLogic(
-        value_choice={
-            Degree: Any
-        },
-        printer_space=", "
+        value_choice=DEGREE,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class RotateY(Transform):
+class RotateY(SubProp):
     name="rotateY"
     value_logic = ValueLogic(
-        value_choice={
-            Degree: Any
-        },
-        printer_space=", "
+        value_choice=DEGREE,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class RotateZ(Transform):
+class RotateZ(SubProp):
     name="rotateZ"
     value_logic = ValueLogic(
-        value_choice={
-            Degree: Any
-        },
-        printer_space=", "
+        value_choice=DEGREE,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Skew(Transform):
+class Skew(SubProp):
     name="skew"
     value_logic = ValueLogic(
         value_choice={
             (Degree, Degree): Any
         },
-        printer_space=", "
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class SkewX(Transform):
+class SkewX(SubProp):
     name="skewX"
     value_logic = ValueLogic(
-        value_choice={
-            Degree: Any
-        },
-        printer_space=", "
+        value_choice=DEGREE,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class SkewY(Transform):
+class SkewY(SubProp):
     name="skewY"
     value_logic = ValueLogic(
-        value_choice={
-            Degree: Any
-        },
-        printer_space=", "
+        value_choice=DEGREE,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Perspective(Transform):
+class Perspective(SubProp):
     name="perspective"
     value_logic = ValueLogic(
-        value_choice={
-            Any: Any
-        },
-        printer_space=", "
+        value_choice=ANY,
+        printer_space=TRANSFORM_SPACING
     )
     def __init__(self, value):
         super().__init__(value)

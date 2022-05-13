@@ -2579,6 +2579,39 @@ class Padding(CSSpropertyShorthand):
             self.left._value.printer(),
         ))
         return f"padding: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class PageBreakAfter(CSSproperty):
+    name="page-break-after"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:{"auto","always","avoid","left","right"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PageBreakBefore(CSSproperty):
+    name="page-break-before"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:{"auto","always","avoid","left","right"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PageBreakInside(CSSproperty):
+    name="page-break-inside"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:{"auto","always","avoid","left","right"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

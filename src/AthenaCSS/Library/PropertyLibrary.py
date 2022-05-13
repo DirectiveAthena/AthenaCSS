@@ -3139,3 +3139,37 @@ class WordSpacing(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class WordWrap(CSSproperty):
+    name="word-wrap"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal", "break-word"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class WritingMode(CSSproperty):
+    name="writing-mode"
+    value_logic = ValueLogic(
+        default="horizontal-tb",
+        value_choice={
+            str: {"horizontal-tb", "vertical-rl", "vertical-lr"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ZIndex(CSSproperty):
+    name="z-index"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            int:Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

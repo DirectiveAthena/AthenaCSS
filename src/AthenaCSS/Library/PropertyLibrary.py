@@ -42,9 +42,9 @@ __all__=[
     "BorderBottomRightRadius", "BorderRadius", "BorderSpacing", "BreakAfter", "BreakBefore", "BreakInside",
     "BoxDecorationBreak", "BoxShadow", "BoxSizing", "BackdropFilter", "BackfaceVisibility", "BackgroundBlendMode",
     "Clear", "Color", "CaretColor", "Cursor", "Columns", "ColumnWidth", "ColumnCount", "ColumnRuleWidth", "ColumnGap",
-    "Content", "ColumnRule", "ColumnFill", "ColumnSpan", "ColumnRuleColor", "ColormRuleStyle", "ClipPath", "CaptionSide",
+    "Content", "ColumnRule", "ColumnFill", "ColumnSpan", "ColumnRuleColor", "ColumnRuleStyle", "ClipPath", "CaptionSide",
     "CounterReset", "CounterIncrement", "Display", "Direction", "EmptyCells", "FlexDirection", "FlexFlow", "FlexGrow",
-    "Float", "FlexWrap", "FlexShrink", "FlexBasis", "Filter", "Flex", "FontFamily", "FontSize", "FontWeigth",
+    "Float", "FlexWrap", "FlexShrink", "FlexBasis", "Filter", "Flex", "FontFamily", "FontSize", "FontWeight",
     "FontStyle", "Font", "FontVariant", "FontKerning", "FontStretch", "FontVariantCaps", "FontFeatureSetting",
     "FontSizeAdjust", "Gap", "GridColumnEnd", "GridColumnStart", "GridColumn", "GridColumnGap", "GridAutoColumns",
     "GridAutoFlow", "GridAutoRows", "Grid", "GridRowStart", "GridRowEnd", "GridRowGap", "GridTemplateRows",
@@ -756,9 +756,9 @@ class BorderRight(CSSpropertyShorthand):
 class BorderCollapse(CSSproperty):
     name="border-collapse"
     value_logic = ValueLogic(
-        default="seperate",
+        default="separate",
         value_choice={
-            str: {"seperate", "collapse"},
+            str: {"separate", "collapse"},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -871,7 +871,7 @@ class BorderImage(CSSpropertyShorthand):
         return f"border-right: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderRadius(CSSproperty):
-    name="border-rasius"
+    name="border-radius"
     value_logic = ValueLogic(
         default=Pixel(0),
         value_choice={
@@ -1090,7 +1090,7 @@ class ClipPath(CSSproperty):
 class Color(CSSproperty):
     name="color"
     value_logic = ValueLogic(
-        # default=None, # I know this is overrideen by ValueLogic to None, but thevalue cannot exsist
+        # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
         value_choice={
             str: COLORS_STR,
             **COLORS_CHOICE
@@ -1137,7 +1137,7 @@ class ColumnGap(CSSproperty):
 class ColumnRuleColor(CSSproperty):
     name="column-rule-color"
     value_logic = ValueLogic(
-        # default=None, # I know this is overrideen by ValueLogic to None, but thevalue cannot exsist
+        # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
         value_choice={
             str: COLORS_STR,
             **COLORS_CHOICE
@@ -1146,7 +1146,7 @@ class ColumnRuleColor(CSSproperty):
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColormRuleStyle(CSSproperty):
+class ColumnRuleStyle(CSSproperty):
     name="column-rule-style"
     value_logic = ValueLogic(
         default=None,
@@ -1172,7 +1172,7 @@ class ColumnRuleWidth(CSSproperty):
 # ----------------------------------------------------------------------------------------------------------------------
 class ColumnRule(CSSpropertyShorthand):
     width:  ColumnRuleWidth
-    style:  ColormRuleStyle
+    style:  ColumnRuleStyle
     color:  ColumnRuleColor
 
     __slots__ = [
@@ -1181,11 +1181,11 @@ class ColumnRule(CSSpropertyShorthand):
     def __init__(
             self,
             width= ColumnRuleWidth.value_logic.default,
-            style= ColormRuleStyle.value_logic.default,
+            style= ColumnRuleStyle.value_logic.default,
             color= ColumnRuleColor.value_logic.default,
     ):
         self.width = ColumnRuleWidth(width)
-        self.style = ColormRuleStyle(style)
+        self.style = ColumnRuleStyle(style)
         self.color = ColumnRuleColor(color)
     # noinspection PyProtectedMember
     def printer(self) -> str:
@@ -1560,8 +1560,8 @@ class FontVariantCaps(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontWeigth(CSSproperty):
-    name="font-weigth"
+class FontWeight(CSSproperty):
+    name="font-weight"
     value_logic = ValueLogic(
         default="normal",
         value_choice={
@@ -1575,7 +1575,7 @@ class FontWeigth(CSSproperty):
 class Font(CSSpropertyShorthand):
     style: FontStyle
     variant: FontVariant
-    weight: FontWeigth
+    weight: FontWeight
     size: FontSize
     family: FontFamily
 
@@ -1586,13 +1586,13 @@ class Font(CSSpropertyShorthand):
             self,
             style=FontStyle.value_logic.default,
             variant=FontVariant.value_logic.default,
-            weight=FontWeigth.value_logic.default,
+            weight=FontWeight.value_logic.default,
             size=FontSize.value_logic.default,
             family=FontFamily.value_logic.default,
     ):
         self.style  =FontStyle(style)
         self.variant=FontVariant(variant)
-        self.weight =FontWeigth(weight)
+        self.weight =FontWeight(weight)
         self.size   =FontSize(size)
         self.family =FontFamily(family)
     # noinspection PyProtectedMember
@@ -2229,7 +2229,7 @@ class MaskPosition(CSSproperty):
         default=(Percent(0), Percent(0)),
         value_choice={
             (Percent, Percent):(Any, Any),
-            (str,str): ({"left", "right", "center"},{"top", "center", "botoom"}),
+            (str,str): ({"left", "right", "center"},{"top", "center", "bottom"}),
             **{length_combo: (Any, Any) for length_combo in itertools.product(
                 (AbsoluteLength, RelativeLength),
                 repeat=2
@@ -3066,6 +3066,17 @@ class VerticalAlign(CSSproperty):
             str: {"baseline","sub","super","top","text-top","middle","bottom","text-bottom"},
             **LENGTHS,
             Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Visibility(CSSproperty):
+    name="visibility"
+    value_logic = ValueLogic(
+        default="visible",
+        value_choice={
+            str: {"visible", "hidden", "collapse"},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

@@ -2940,7 +2940,8 @@ class TransformOrigin(CSSproperty):
             **{(str, val): ({"left", "right", "center"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
             **{(str, str, val): ({"left", "right", "center"}, {"top", "center", "bottom"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
             **{(val, str, val): (Any, {"top", "center", "bottom"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{(str, val, val): ({"left", "right", "center"}, Any, Any) for val in (AbsoluteLength, RelativeLength, Percent)}
+            **{(str, val, val): ({"left", "right", "center"}, Any, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
+            **{val_combination: (Any,Any,Any) for val_combination in itertools.product((AbsoluteLength, RelativeLength, Percent), repeat=3)},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3087,7 +3088,7 @@ class WhiteSpace(CSSproperty):
     value_logic = ValueLogic(
         default="normal",
         value_choice={
-            str: {"nowrap", "pre", "pre-line", "pre-wrap"},
+            str: {"normal","nowrap", "pre", "pre-line", "pre-wrap"},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

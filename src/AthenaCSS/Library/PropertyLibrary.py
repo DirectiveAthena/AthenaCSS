@@ -3092,6 +3092,19 @@ class WhiteSpace(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Width(CSSproperty):
+    name="width"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            **LENGTHS,
+            Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

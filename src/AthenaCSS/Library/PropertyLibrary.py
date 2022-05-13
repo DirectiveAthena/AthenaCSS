@@ -1795,4 +1795,68 @@ class GridGap(CSSpropertyShorthand):
             self.row_gap._value.printer(),
             self.column_gap._value.printer(),
         ))
-        return f"font: {parts}"
+        return f"grid-gap: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class GridTemplateAreas(CSSproperty):
+    name="grid-template-areas"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridTemplateColumns(CSSproperty):
+    name="grid-template-columns"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: {"auto", "max-content", "min-content"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridTemplateRows(CSSproperty):
+    name="grid-template-rows"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: {"auto", "max-content", "min-content"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridTemplate(CSSpropertyShorthand):
+    rows: GridTemplateRows
+    columns: GridTemplateColumns
+    areas: GridTemplateAreas
+
+    __slots__ = [
+        "rows","columns","areas"
+    ]
+    def __init__(
+            self,
+            rows=GridTemplateRows.value_logic.default,
+            columns=GridTemplateColumns.value_logic.default,
+            areas=GridTemplateAreas.value_logic.default,
+    ):
+        self.rows=GridTemplateRows(rows)
+        self.columns=GridTemplateColumns(columns)
+        self.areas=GridTemplateAreas(areas)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.rows._value.printer(),
+            self.columns._value.printer(),
+            self.areas._value.printer(),
+        ))
+        return f"grid-template: {parts}"

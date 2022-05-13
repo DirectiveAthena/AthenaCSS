@@ -2612,6 +2612,32 @@ class PageBreakInside(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Perspective(CSSproperty):
+    name="perspective"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PerspectiveOrigin(CSSproperty):
+    name="perspective-origin"
+    value_logic = ValueLogic(
+        default=(Percent(50), Percent(50)),
+        value_choice={
+            (str,str): (x_:={"left", "right", "center"}, y_:={"top", "center", "bottom"}),
+            **{ (val, str): (Any, y_) for val in (AbsoluteLength, RelativeLength, Percent)},
+            **{ (str, val): (x_, Any) for val in (AbsoluteLength, RelativeLength, Percent)}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+
 
 
 

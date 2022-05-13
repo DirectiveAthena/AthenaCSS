@@ -3093,6 +3093,17 @@ class WhiteSpace(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
+class Widows(CSSproperty):
+    name="widows"
+    value_logic = ValueLogic(
+        default=2,
+        value_choice={
+            int: Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
 class Width(CSSproperty):
     name="width"
     value_logic = ValueLogic(
@@ -3105,40 +3116,14 @@ class Width(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ----------------------------------------------------------------------------------------------------------------------
-class Widows(CSSproperty):
-    name="widows"
+class WordBreak(CSSproperty):
+    name="word-break"
     value_logic = ValueLogic(
-        default=2,
+        default="normal",
         value_choice={
-            int: Any,
+            str: {"normal","break-all","keep-all","break-word"},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
-

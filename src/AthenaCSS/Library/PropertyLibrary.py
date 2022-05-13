@@ -2637,6 +2637,18 @@ class PerspectiveOrigin(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class PointerEvents(CSSproperty):
+    name="pointer-events"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            None:None,
+            str:"auto"
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

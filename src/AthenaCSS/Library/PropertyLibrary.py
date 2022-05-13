@@ -2468,6 +2468,39 @@ class Overflow(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class OverflowWrap(CSSproperty):
+    name="overflow-wrap"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"anywhere","normal","break-word"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class OverflowX(CSSproperty):
+    name="overflow-x"
+    value_logic = ValueLogic(
+        default="visible",
+        value_choice={
+            str: {"visible","hidden","scroll","auto"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class OverflowY(CSSproperty):
+    name="overflow-y"
+    value_logic = ValueLogic(
+        default="visible",
+        value_choice={
+            str: {"visible","hidden","scroll","auto"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

@@ -44,7 +44,8 @@ __all__=[
     "CounterReset", "CounterIncrement", "Display", "Direction", "EmptyCells", "FlexDirection", "FlexFlow", "FlexGrow",
     "Float", "FlexWrap", "FlexShrink", "FlexBasis", "Filter", "Flex", "FontFamily", "FontSize", "FontWeigth",
     "FontStyle", "Font", "FontVariant", "FontKerning", "FontStretch", "FontVariantCaps", "FontFeatureSetting",
-    "FontSizeAdjust", "Gap"
+    "FontSizeAdjust", "Gap", "GridColumnEnd", "GridColumnStart", "GridColumn", "GridColumnGap", "GridAutoColumns",
+    "GridAutoFlow", "GridAutoRows"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------

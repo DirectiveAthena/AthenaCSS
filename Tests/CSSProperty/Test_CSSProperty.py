@@ -6,7 +6,7 @@ from __future__ import annotations
 
 # Custom Library
 from AthenaCSS.Library.PropertyLibrary import *
-import AthenaCSS.Library.FilterLibrary as Filters
+import AthenaCSS.Library.SubPropertyLibrary as Filters
 
 from AthenaLib.Types.Time import Second,MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier

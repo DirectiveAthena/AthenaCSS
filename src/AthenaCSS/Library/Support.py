@@ -8,8 +8,10 @@ from typing import Any
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
 
-from AthenaLib.Types.AbsoluteLength import AbsoluteLength
+from AthenaLib.Types.AbsoluteLength import AbsoluteLength, Pixel
 from AthenaLib.Types.RelativeLength import RelativeLength
+from AthenaLib.Types.Math import Percent, Degree
+from AthenaLib.Types.Time import Second
 
 # Custom Packages
 
@@ -74,3 +76,26 @@ FLEX_DIRECTION = {"row","row-reverse","column","column-reverse"}
 FLEX_WRAP = {"nowrap","wrap","wrap-reverse"}
 
 FONT_FAMILIES = {"calibri"}
+
+PERCENT = {Percent:Any}
+DEGREE = {Degree:Any}
+NUMBERS = {int:Any, float:Any}
+PIXEL = {Pixel:Any}
+ANY = {Any:Any}
+
+TRANSFORM_SPACING=", "
+
+PERCENT_EMPTY = Percent(0)
+PERCENT_FULL = Percent(100)
+DEGREE_EMPTY = Degree(0)
+PIXEL_EMPTY = Pixel(0)
+SECOND_EMPTY = Second(0)
+
+AUTO = "auto"
+NORMAL = "normal"
+MEDIUM = "medium"
+VISIBLE = "visible"
+TRANSPARENT = "transparent"
+STRETCH = "stretch"
+LEFT = "left"
+RIGHT = "right"

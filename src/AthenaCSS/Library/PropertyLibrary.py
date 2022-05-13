@@ -2456,7 +2456,18 @@ class Outline(CSSpropertyShorthand):
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"margin: {parts}"
+        return f"outline: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class Overflow(CSSproperty):
+    name="overflow"
+    value_logic = ValueLogic(
+        default="visible",
+        value_choice={
+            str: {"visible","hidden","clip","scroll","auto"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

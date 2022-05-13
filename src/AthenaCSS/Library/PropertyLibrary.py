@@ -45,7 +45,9 @@ __all__=[
     "Float", "FlexWrap", "FlexShrink", "FlexBasis", "Filter", "Flex", "FontFamily", "FontSize", "FontWeigth",
     "FontStyle", "Font", "FontVariant", "FontKerning", "FontStretch", "FontVariantCaps", "FontFeatureSetting",
     "FontSizeAdjust", "Gap", "GridColumnEnd", "GridColumnStart", "GridColumn", "GridColumnGap", "GridAutoColumns",
-    "GridAutoFlow", "GridAutoRows"
+    "GridAutoFlow", "GridAutoRows", "Grid", "GridRowStart", "GridRowEnd", "GridRowGap", "GridTemplateRows",
+    "GridTemplateColumns", "GridTemplateAreas", "GridTemplate", "GridArea", "GridGap", "GridRow", "ImageRendering",
+    "LetterSpacing", "Height", "LineHeight", "HangingPunctuation", "Hyphens", "Isolation", "JustifyContent", "Left",
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1929,3 +1931,113 @@ class Grid(CSSpropertyShorthand):
             self.auto_flow._value.printer(),
         ))
         return f"grid: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class HangingPunctuation(CSSproperty):
+    name="hanging-punctuation"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: {"first","last","allow-end","force-end"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Height(CSSproperty):
+    name="height"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Hyphens(CSSproperty):
+    name="hyphens"
+    value_logic = ValueLogic(
+        default="manual",
+        value_choice={
+            None:None,
+            str: {"manual", "auto"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ImageRendering(CSSproperty):
+    name="image-rendering"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            None:None,
+            str: {"auto","smooth","high-quality","crisp-edges","pixelated"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Isolation(CSSproperty):
+    name="isolation"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            None:None,
+            str: {"auto","isolate"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class JustifyContent(CSSproperty):
+    name="justify-content"
+    value_logic = ValueLogic(
+        default="flex-start",
+        value_choice={
+            None:None,
+            str: {"flex-start","flex-end","center","space-between","space-around","space-evenly"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Left(CSSproperty):
+    name="left"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class LetterSpacing(CSSproperty):
+    name="letter-spacing"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class LineHeight(CSSproperty):
+    name="line-height"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal"},
+            int: Any,
+            Percent: Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

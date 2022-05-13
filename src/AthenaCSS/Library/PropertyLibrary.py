@@ -2630,9 +2630,9 @@ class PerspectiveOrigin(CSSproperty):
     value_logic = ValueLogic(
         default=(Percent(50), Percent(50)),
         value_choice={
-            (str,str): (x_:={"left", "right", "center"}, y_:={"top", "center", "bottom"}),
-            **{ (val, str): (Any, y_) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{ (str, val): (x_, Any) for val in (AbsoluteLength, RelativeLength, Percent)}
+            (str,str): ({"left", "right", "center"}, {"top", "center", "bottom"}),
+            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (AbsoluteLength, RelativeLength, Percent)},
+            **{(str, val): ({"left", "right", "center"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

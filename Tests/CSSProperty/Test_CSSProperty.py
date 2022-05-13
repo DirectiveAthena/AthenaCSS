@@ -37,7 +37,7 @@ class CSSProperty(BulkTests):
     def test_AnimationName(self):
         # Define a CSSProperty Class with a defined name
 
-        An = AnitmationName
+        An = AnimationName
         cases = (
             #left                                   #right
             (str(An()),                             "animation-name: none"),
@@ -48,7 +48,7 @@ class CSSProperty(BulkTests):
     def test_AnimationDuration(self):
         # Define a CSSProperty Class with a defined name
 
-        An = AnitmationDuration
+        An = AnimationDuration
         cases = (
             #left                                   #right
             (str(An()),                             "animation-duration: 0s"),

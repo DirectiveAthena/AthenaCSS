@@ -3045,6 +3045,18 @@ class UnicodeBidi(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class UserSelect(CSSproperty):
+    name="user-select"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            None:None,
+            str: {"auto", "text"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

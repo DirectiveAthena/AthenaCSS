@@ -3057,6 +3057,20 @@ class UserSelect(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class VerticalAlign(CSSproperty):
+    name="vertical-align"
+    value_logic = ValueLogic(
+        default="baseline",
+        value_choice={
+            str: {"baseline","sub","super","top","text-top","middle","bottom","text-bottom"},
+            **LENGTHS,
+            Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+
 
 
 

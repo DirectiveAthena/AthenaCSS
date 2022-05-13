@@ -1903,7 +1903,7 @@ class Grid(CSSpropertyShorthand):
 
 
     __slots__ = [
-        "row_start","column_start","row_end","column_end"
+        "template_rows","template_columns","template_areas","auto_rows","auto_columns","auto_flow"
     ]
     def __init__(
             self,
@@ -2041,3 +2041,67 @@ class LineHeight(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ListStyleImage(CSSproperty):
+    name="list-style-image"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            Url: Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ListStylePosition(CSSproperty):
+    name="list-style-position"
+    value_logic = ValueLogic(
+        default="outside",
+        value_choice={
+            str: {"inside", "outside"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ListStyleType(CSSproperty):
+    name="list-style-position"
+    value_logic = ValueLogic(
+        default="disc",
+        value_choice={
+            str: {
+                "disc", "armenian", "circle", "cjk-ideographic", "decimal", "decimal-leading-zero", "georgian",
+                "hebrew", "hiragana", "hiragana-iroha", "katakana", "katakana-iroha", "lower-alpha", "lower-greek" ,
+                "lower-latin", "lower-roman", "square", "upper-alpha", "upper-greek", "upper-latin", "upper-roman"
+            }
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ListStyle(CSSpropertyShorthand):
+    type: ListStyleType
+    position: ListStylePosition
+    image: ListStyleImage
+
+    __slots__ = [
+        "type","position","image"
+    ]
+    def __init__(
+            self,
+            type=ListStyleType.value_logic.default,
+            position=ListStylePosition.value_logic.default,
+            image=ListStyleImage.value_logic.default,
+    ):
+        self.type=ListStyleType(type)
+        self.position=ListStylePosition(position)
+        self.image=ListStyleImage(image)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.type._value.printer(),
+            self.position._value.printer(),
+            self.image._value.printer(),
+        ))
+        return f"grid-template: {parts}"

@@ -2708,6 +2708,61 @@ class RowGap(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class ScrollBehavior(CSSproperty):
+    name="scroll-behavior"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto", "smooth"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TabSize(CSSproperty):
+    name="tab-size"
+    value_logic = ValueLogic(
+        default=8,
+        value_choice={
+            int:Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TableLayout(CSSproperty):
+    name="table-layout"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str:{"auto", "fixed"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextAlign(CSSproperty):
+    name="text-align"
+    value_logic = ValueLogic(
+        default="left",
+        value_choice={
+            str:{"left", "right", "center", "justify"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextAlignLast(CSSproperty):
+    name="text-align-last"
+    value_logic = ValueLogic(
+        default="left",
+        value_choice={
+            str:{"left", "right", "center", "justify", "start", "end"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

@@ -2311,3 +2311,14 @@ class MinWidth(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MixBlendMode(CSSproperty):
+    name="mix-blend-mode"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: BLENDMODES
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)

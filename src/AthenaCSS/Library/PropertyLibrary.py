@@ -2350,4 +2350,16 @@ class ObjectPosition(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Opacity(CSSproperty):
+    name="opacity"
+    value_logic = ValueLogic(
+        default=1,
+        value_choice={
+            int: {0,1},
+            float: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 

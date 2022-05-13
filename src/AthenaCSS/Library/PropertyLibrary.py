@@ -48,6 +48,8 @@ __all__=[
     "GridAutoFlow", "GridAutoRows", "Grid", "GridRowStart", "GridRowEnd", "GridRowGap", "GridTemplateRows",
     "GridTemplateColumns", "GridTemplateAreas", "GridTemplate", "GridArea", "GridGap", "GridRow", "ImageRendering",
     "LetterSpacing", "Height", "LineHeight", "HangingPunctuation", "Hyphens", "Isolation", "JustifyContent", "Left",
+    "ListStyleImage", "ListStylePosition", "ListStyle", "ListStyleType", "MarginLeft","MarginRight", "MarginBottom",
+    "MarginTop", "Margin"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2104,4 +2106,82 @@ class ListStyle(CSSpropertyShorthand):
             self.position._value.printer(),
             self.image._value.printer(),
         ))
-        return f"grid-template: {parts}"
+        return f"list-style: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class MarginBottom(CSSproperty):
+    name="margin-bottom"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            str: {"auto"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MarginLeft(CSSproperty):
+    name="margin-left"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            str: {"auto"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MarginRight(CSSproperty):
+    name="margin-right"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            str: {"auto"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class MarginTop(CSSproperty):
+    name="margin-top"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            str: {"auto"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Margin(CSSpropertyShorthand):
+    top: MarginTop
+    right: MarginRight
+    bottom: MarginBottom
+    left: MarginLeft
+
+    __slots__ = [
+        "top","right","bottom", "left"
+    ]
+    def __init__(
+            self,
+            top=MarginTop.value_logic.default,
+            right=MarginRight.value_logic.default,
+            bottom=MarginBottom.value_logic.default,
+            left=MarginLeft.value_logic.default,
+    ):
+        self.top=MarginTop(top)
+        self.right=MarginRight(right)
+        self.bottom=MarginBottom(bottom)
+        self.left=MarginLeft(left)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.top._value.printer(),
+            self.right._value.printer(),
+            self.bottom._value.printer(),
+            self.left._value.printer(),
+        ))
+        return f"margin: {parts}"

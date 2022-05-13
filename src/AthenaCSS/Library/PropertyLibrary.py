@@ -1713,4 +1713,86 @@ class GridColumn(CSSpropertyShorthand):
             self.start._value.printer(),
             self.end._value.printer(),
         ))
+        return f"grid-column: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class GridRowEnd(CSSproperty):
+    name="grid-row-end"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            (str, int): ({"span"},Any),
+            int: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridRowGap(CSSproperty):
+    name="grid-row-gap"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int: Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridRowStart(CSSproperty):
+    name="grid-row-start"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            (str, int): ({"span"},Any),
+            int: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridRow(CSSpropertyShorthand):
+    start: GridRowStart
+    end: GridRowEnd
+
+    __slots__ = [
+        "start","end",
+    ]
+    def __init__(
+            self,
+            start=GridRowStart.value_logic.default,
+            end=GridRowEnd.value_logic.default,
+    ):
+        self.start=GridRowStart(start)
+        self.end=GridRowEnd(end)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.start._value.printer(),
+            self.end._value.printer(),
+        ))
+        return f"grid-row: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class GridGap(CSSpropertyShorthand):
+    row_gap: GridRowGap
+    column_gap: GridColumnGap
+
+    __slots__ = [
+        "row_gap","column_gap",
+    ]
+    def __init__(
+            self,
+            start=GridRowGap.value_logic.default,
+            end=GridColumnGap.value_logic.default,
+    ):
+        self.row_gap=GridRowGap(start)
+        self.column_gap=GridColumnGap(end)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.row_gap._value.printer(),
+            self.column_gap._value.printer(),
+        ))
         return f"font: {parts}"

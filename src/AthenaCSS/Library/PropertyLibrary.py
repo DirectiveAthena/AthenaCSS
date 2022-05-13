@@ -1860,3 +1860,72 @@ class GridTemplate(CSSpropertyShorthand):
             self.areas._value.printer(),
         ))
         return f"grid-template: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class GridArea(CSSpropertyShorthand):
+    row_start: GridRowStart
+    column_start: GridColumnStart
+    row_end: GridRowEnd
+    column_end: GridColumnEnd
+
+    __slots__ = [
+        "row_start","column_start","row_end","column_end"
+    ]
+    def __init__(
+            self,
+            row_start=GridRowStart.value_logic.default,
+            column_start=GridColumnStart.value_logic.default,
+            row_end=GridRowEnd.value_logic.default,
+            column_end=GridColumnEnd.value_logic.default,
+    ):
+        self.row_start=GridRowStart(row_start)
+        self.column_start=GridColumnStart(column_start)
+        self.row_end=GridRowEnd(row_end)
+        self.column_end=GridColumnEnd(column_end)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.row_start._value.printer(),
+            self.column_start._value.printer(),
+            self.row_end._value.printer(),
+            self.column_end._value.printer(),
+        ))
+        return f"grid-area: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class Grid(CSSpropertyShorthand):
+    template_rows: GridTemplateRows
+    template_columns: GridTemplateColumns
+    template_areas: GridTemplateAreas
+    auto_rows: GridAutoRows
+    auto_columns: GridAutoColumns
+    auto_flow: GridAutoFlow
+
+
+    __slots__ = [
+        "row_start","column_start","row_end","column_end"
+    ]
+    def __init__(
+            self,
+            template_rows=GridTemplateRows.value_logic.default,
+            template_columns=GridTemplateColumns.value_logic.default,
+            template_areas=GridTemplateAreas.value_logic.default,
+            auto_rows=GridAutoRows.value_logic.default,
+            auto_columns=GridAutoColumns.value_logic.default,
+            auto_flow=GridAutoFlow.value_logic.default,
+    ):
+        self.template_rows=GridTemplateRows(template_rows)
+        self.template_columns=GridTemplateColumns(template_columns)
+        self.template_areas=GridTemplateAreas(template_areas)
+        self.auto_rows=GridAutoRows(auto_rows)
+        self.auto_columns=GridAutoColumns(auto_columns)
+        self.auto_flow=GridAutoFlow(auto_flow)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.template_rows._value.printer(),
+            self.template_columns._value.printer(),
+            self.template_areas._value.printer(),
+            self.auto_rows._value.printer(),
+            self.auto_columns._value.printer(),
+            self.auto_flow._value.printer(),
+        ))
+        return f"grid-area: {parts}"

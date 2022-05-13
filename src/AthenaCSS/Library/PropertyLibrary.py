@@ -2373,4 +2373,117 @@ class Order(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Orphans(CSSproperty):
+    name="orphans"
+    value_logic = ValueLogic(
+        default=2,
+        value_choice={
+            int: Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class OutlineColor(CSSproperty):
+    name="outline-color"
+    value_logic = ValueLogic(
+        value_choice={
+            str: {"invert", *COLORS_STR},
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class OutlineOffset(CSSproperty):
+    name="outline-offset"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class OutlineStyle(CSSproperty):
+    name="outline-style"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: BORDERSTYLE,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class OutlineWidth(CSSproperty):
+    name="outline-style"
+    value_logic = ValueLogic(
+        default="medium",
+        value_choice={
+            str: BORDERWIDTH,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Outline(CSSpropertyShorthand):
+    width: OutlineWidth
+    style: OutlineStyle
+    color: OutlineColor
+
+    __slots__ = [
+        "width","style","color",
+    ]
+    def __init__(
+            self,
+            width=MarginTop.value_logic.default,
+            style=MarginRight.value_logic.default,
+            color=MarginBottom.value_logic.default,
+    ):
+        self.width=OutlineWidth(width)
+        self.style=OutlineStyle(style)
+        self.color=OutlineColor(color)
+
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.width._value.printer(),
+            self.style._value.printer(),
+            self.color._value.printer(),
+        ))
+        return f"margin: {parts}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+class Widows(CSSproperty):
+    name="widows"
+    value_logic = ValueLogic(
+        default=2,
+        value_choice={
+            int: Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 

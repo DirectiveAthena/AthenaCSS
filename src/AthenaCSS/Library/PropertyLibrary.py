@@ -2843,6 +2843,55 @@ class TextDecoration(CSSpropertyShorthand):
             self.thickness._value.printer(),
         ))
         return f"text-decoration: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class TextIndent(CSSproperty):
+    name="text-indent"
+    value_logic = ValueLogic(
+        default=Pixel(0),
+        value_choice={
+            **LENGTHS,
+            Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextJustify(CSSproperty):
+    name="text-justify"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            None:None,
+            str:{"auto", "inter-word", "inter-character"}
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextOverflow(CSSproperty):
+    name="text-overflow"
+    value_logic = ValueLogic(
+        default="clip",
+        value_choice={
+            str:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextShadow(CSSproperty):
+    name="text-shadow"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None: None,
+            # h-shadow,  v-shadow,   blur,   spread, color
+            (Pixel, Pixel, Pixel, Pixel, COLORS_UNION): (Any, Any, Any, Any, Any),
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+
 
 
 

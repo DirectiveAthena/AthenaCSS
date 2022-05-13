@@ -3034,6 +3034,17 @@ class Transition(CSSpropertyShorthand):
             self.delay._value.printer(),
         ))
         return f"transition: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class UnicodeBidi(CSSproperty):
+    name="unicode-bidi"
+    value_logic = ValueLogic(
+        default="normal",
+        value_choice={
+            str: {"normal", "embed", "bidi-override"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 
 
 

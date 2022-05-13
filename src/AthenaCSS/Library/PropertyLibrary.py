@@ -2362,4 +2362,15 @@ class Opacity(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class Order(CSSproperty):
+    name="order"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int: Any,
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
 

@@ -6,13 +6,10 @@ from __future__ import annotations
 from typing import Any
 
 # Custom Library
-from AthenaLib.Types.Math import Percent, Degree
-from AthenaLib.Types.AbsoluteLength import Pixel
 
 # Custom Packages
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
-from AthenaCSS.Library.Support import COLORS_UNION
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -

@@ -44,7 +44,7 @@ __all__=[
     "CounterReset", "CounterIncrement", "Display", "Direction", "EmptyCells", "FlexDirection", "FlexFlow", "FlexGrow",
     "Float", "FlexWrap", "FlexShrink", "FlexBasis", "Filter", "Flex", "FontFamily", "FontSize", "FontWeigth",
     "FontStyle", "Font", "FontVariant", "FontKerning", "FontStretch", "FontVariantCaps", "FontFeatureSetting",
-    "FontSizeAdjust"
+    "FontSizeAdjust", "Gap"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1595,5 +1595,121 @@ class Font(CSSpropertyShorthand):
             self.weight._value.printer(),
             self.size._value.printer(),
             self.family._value.printer(),
+        ))
+        return f"font: {parts}"
+# ----------------------------------------------------------------------------------------------------------------------
+class Gap(CSSproperty):
+    name="gap"
+    value_logic = ValueLogic(
+        default=("normal", "normal"),
+        value_choice={
+            (AbsoluteLength, str): (Any, "normal"),
+            (RelativeLength, str): (Any, "normal"),
+            (str, AbsoluteLength): ("normal", Any),
+            (str, RelativeLength): ("normal", Any),
+            (str,str):("normal","normal"),
+            **{
+                length_product:(Any,Any)
+                for length_product in itertools.product(
+                    (AbsoluteLength, RelativeLength),
+                    repeat=2)
+            }
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridAutoColumns(CSSproperty):
+    name="grid-auto-columns"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto","max-content","min-content"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridAutoFlow(CSSproperty):
+    name="grid-auto-flow"
+    value_logic = ValueLogic(
+        default="row",
+        value_choice={
+            str: {"row","column", "dense", "row dense", "column dense"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridAutoRows(CSSproperty):
+    name="grid-auto-rows"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto","max-content","min-content"},
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridColumnEnd(CSSproperty):
+    name="grid-column-end"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            (str, int): ({"span"},Any),
+            int: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridColumnGap(CSSproperty):
+    name="grid-column-gap"
+    value_logic = ValueLogic(
+        default=0,
+        value_choice={
+            int: Any,
+            **LENGTHS
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridColumnStart(CSSproperty):
+    name="grid-column-start"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            str: {"auto"},
+            (str, int): ({"span"},Any),
+            int: Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class GridColumn(CSSpropertyShorthand):
+    start: GridColumnStart
+    end: GridColumnEnd
+
+    __slots__ = [
+        "start","end",
+    ]
+    def __init__(
+            self,
+            start=GridColumnStart.value_logic.default,
+            end=GridColumnEnd.value_logic.default,
+    ):
+        self.start=GridColumnStart(start)
+        self.end=GridColumnEnd(end)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.start._value.printer(),
+            self.end._value.printer(),
         ))
         return f"font: {parts}"

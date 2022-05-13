@@ -2763,6 +2763,87 @@ class TextAlignLast(CSSproperty):
     )
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextDecorationColor(CSSproperty):
+    name="text-decoration-color"
+    value_logic = ValueLogic(
+        default="left",
+        value_choice={
+            str:COLORS_STR,
+            **COLORS_CHOICE
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextDecorationLine(CSSproperty):
+    name="text-decoration-line"
+    value_logic = ValueLogic(
+        default=None,
+        value_choice={
+            None:None,
+            str: {"underline", "overline", "line-through"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextDecorationStyle(CSSproperty):
+    name="text-decoration-style"
+    value_logic = ValueLogic(
+        default="solid",
+        value_choice={
+            None:None,
+            str: {"solid", "double", "dotted", "dashed", "wavy"},
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextDecorationThickness(CSSproperty):
+    name="text-decoration-thickness"
+    value_logic = ValueLogic(
+        default="auto",
+        value_choice={
+            None:None,
+            str: {"auto", "from-font"},
+            **LENGTHS,
+            Percent:Any
+        },
+    )
+    def __init__(self, value=value_logic.default, **kwargs):
+        super().__init__(value, **kwargs)
+# ----------------------------------------------------------------------------------------------------------------------
+class TextDecoration(CSSpropertyShorthand):
+    line: TextDecorationLine
+    color: TextDecorationColor
+    style: TextDecorationStyle
+    thickness: TextDecorationThickness
+
+    __slots__ = [
+        "line","color","style", "thickness"
+    ]
+    def __init__(
+            self,
+            line=TextDecorationLine.value_logic.default,
+            color=TextDecorationColor.value_logic.default,
+            style=TextDecorationStyle.value_logic.default,
+            thickness=TextDecorationThickness.value_logic.default,
+    ):
+        self.line=TextDecorationLine(line)
+        self.color=TextDecorationColor(color)
+        self.style=TextDecorationStyle(style)
+        self.thickness=TextDecorationThickness(thickness)
+    # noinspection PyProtectedMember
+    def printer(self) -> str:
+        parts = " ".join((
+            self.line._value.printer(),
+            self.color._value.printer(),
+            self.style._value.printer(),
+            self.thickness._value.printer(),
+        ))
+        return f"text-decoration: {parts}"
+
 
 
 

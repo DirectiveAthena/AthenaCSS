@@ -17,7 +17,7 @@ from AthenaLib.Types.RelativeLength import RelativeLength
 # Custom Packages
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
-from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
+from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 from AthenaCSS.Library.Support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, PERCENT_EMPTY, PERCENT_FULL,PIXEL_EMPTY, AUTO, NORMAL,
@@ -216,7 +216,7 @@ class AnimationPlayState(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Animation(CSSpropertyShorthand):
+class Animation(CSSPropertyShorthand):
     name: AnimationName
     duration: AnimationDuration
     timing_function: AnimationTimingFunction
@@ -399,7 +399,7 @@ class BackgroundSize(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Background(CSSpropertyShorthand):
+class Background(CSSPropertyShorthand):
     color: BackgroundColor
     image: BackgroundImage
     position:BackgroundPosition
@@ -516,7 +516,7 @@ class BorderBottomWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderBottom(CSSpropertyShorthand):
+class BorderBottom(CSSPropertyShorthand):
     width:BorderBottomWidth
     style:BorderBottomStyle
     color:BorderBottomColor
@@ -612,7 +612,7 @@ class BorderTopWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderTop(CSSpropertyShorthand):
+class BorderTop(CSSPropertyShorthand):
     width:BorderTopWidth
     style:BorderTopStyle
     color:BorderTopColor
@@ -674,7 +674,7 @@ class BorderLeftWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderLeft(CSSpropertyShorthand):
+class BorderLeft(CSSPropertyShorthand):
     width:BorderLeftWidth
     style:BorderLeftStyle
     color:BorderLeftColor
@@ -736,7 +736,7 @@ class BorderRightWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderRight(CSSpropertyShorthand):
+class BorderRight(CSSPropertyShorthand):
     width:BorderRightWidth
     style:BorderRightStyle
     color:BorderRightColor
@@ -844,7 +844,7 @@ class BorderImageWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderImage(CSSpropertyShorthand):
+class BorderImage(CSSPropertyShorthand):
     source: BorderImageSource
     slice:  BorderImageSlice
     width:  BorderImageWidth
@@ -940,7 +940,7 @@ class BorderWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Border(CSSpropertyShorthand):
+class Border(CSSPropertyShorthand):
     width:  BorderWidth
     style:  BorderStyle
     color:  BorderColor
@@ -1178,7 +1178,7 @@ class ColumnRuleWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnRule(CSSpropertyShorthand):
+class ColumnRule(CSSPropertyShorthand):
     width:  ColumnRuleWidth
     style:  ColumnRuleStyle
     color:  ColumnRuleColor
@@ -1228,7 +1228,7 @@ class ColumnWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Columns(CSSpropertyShorthand):
+class Columns(CSSPropertyShorthand):
     width:  ColumnWidth
     count:  ColumnCount
 
@@ -1419,7 +1419,7 @@ class FlexWrap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Flex(CSSpropertyShorthand):
+class Flex(CSSPropertyShorthand):
     grow:   FlexGrow
     shrink: FlexShrink
     basis:  FlexBasis
@@ -1580,7 +1580,7 @@ class FontWeight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Font(CSSpropertyShorthand):
+class Font(CSSPropertyShorthand):
     style: FontStyle
     variant: FontVariant
     weight: FontWeight
@@ -1708,7 +1708,7 @@ class GridColumnStart(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridColumn(CSSpropertyShorthand):
+class GridColumn(CSSPropertyShorthand):
     start: GridColumnStart
     end: GridColumnEnd
 
@@ -1768,7 +1768,7 @@ class GridRowStart(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridRow(CSSpropertyShorthand):
+class GridRow(CSSPropertyShorthand):
     start: GridRowStart
     end: GridRowEnd
 
@@ -1790,7 +1790,7 @@ class GridRow(CSSpropertyShorthand):
         ))
         return f"grid-row: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class GridGap(CSSpropertyShorthand):
+class GridGap(CSSPropertyShorthand):
     row_gap: GridRowGap
     column_gap: GridColumnGap
 
@@ -1850,7 +1850,7 @@ class GridTemplateRows(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridTemplate(CSSpropertyShorthand):
+class GridTemplate(CSSPropertyShorthand):
     rows: GridTemplateRows
     columns: GridTemplateColumns
     areas: GridTemplateAreas
@@ -1876,7 +1876,7 @@ class GridTemplate(CSSpropertyShorthand):
         ))
         return f"grid-template: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class GridArea(CSSpropertyShorthand):
+class GridArea(CSSPropertyShorthand):
     row_start: GridRowStart
     column_start: GridColumnStart
     row_end: GridRowEnd
@@ -1906,7 +1906,7 @@ class GridArea(CSSpropertyShorthand):
         ))
         return f"grid-area: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class Grid(CSSpropertyShorthand):
+class Grid(CSSPropertyShorthand):
     template_rows: GridTemplateRows
     template_columns: GridTemplateColumns
     template_areas: GridTemplateAreas
@@ -2093,7 +2093,7 @@ class ListStyleType(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ListStyle(CSSpropertyShorthand):
+class ListStyle(CSSPropertyShorthand):
     type: ListStyleType
     position: ListStylePosition
     image: ListStyleImage
@@ -2167,7 +2167,7 @@ class MarginTop(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Margin(CSSpropertyShorthand):
+class Margin(CSSPropertyShorthand):
     top: MarginTop
     right: MarginRight
     bottom: MarginBottom
@@ -2441,7 +2441,7 @@ class OutlineWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Outline(CSSpropertyShorthand):
+class Outline(CSSPropertyShorthand):
     width: OutlineWidth
     style: OutlineStyle
     color: OutlineColor
@@ -2560,7 +2560,7 @@ class PaddingRight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Padding(CSSpropertyShorthand):
+class Padding(CSSPropertyShorthand):
     top: PaddingTop
     right: PaddingRight
     bottom: PaddingBottom
@@ -2821,7 +2821,7 @@ class TextDecorationThickness(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextDecoration(CSSpropertyShorthand):
+class TextDecoration(CSSPropertyShorthand):
     line: TextDecorationLine
     color: TextDecorationColor
     style: TextDecorationStyle
@@ -3012,7 +3012,7 @@ class TransitionTimingFunction(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Transition(CSSpropertyShorthand):
+class Transition(CSSPropertyShorthand):
     property: TransitionProperty
     duration: TransitionDuration
     timing_function: TransitionTimingFunction

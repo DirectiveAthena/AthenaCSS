@@ -13,7 +13,7 @@ from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class CSSproperty:
+class CSSProperty:
     name:str # don't rely on self.__class__.name, because of inheritance
     important:bool
     value_wrapped:bool
@@ -74,6 +74,6 @@ class CSSproperty:
 # ----------------------------------------------------------------------------------------------------------------------
 # - SubProperty -
 # ----------------------------------------------------------------------------------------------------------------------
-class SubProp(CSSproperty):
+class SubProp(CSSProperty):
     def printer(self) -> str:
         return f"{self.name}({self._value.printer()})"

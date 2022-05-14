@@ -16,8 +16,8 @@ from AthenaLib.Types.RelativeLength import RelativeLength
 
 # Custom Packages
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
-from AthenaCSS.Objects.Properties.CSSproperty import CSSproperty
-from AthenaCSS.Objects.Properties.CSSpropertyShorthand import CSSpropertyShorthand
+from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
+from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 from AthenaCSS.Library.Support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, PERCENT_EMPTY, PERCENT_FULL,PIXEL_EMPTY, AUTO, NORMAL,
@@ -66,7 +66,7 @@ __all__=[
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class AccentColor(CSSproperty):
+class AccentColor(CSSProperty):
     name="accent-color"
     value_logic = ValueLogic(
         default=AUTO,
@@ -78,7 +78,7 @@ class AccentColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AlignContent(CSSproperty):
+class AlignContent(CSSProperty):
     name="align-content"
     value_logic = ValueLogic(
         default=STRETCH,
@@ -89,7 +89,7 @@ class AlignContent(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AlignItems(CSSproperty):
+class AlignItems(CSSProperty):
     name="align-items"
     value_logic = ValueLogic(
         default=STRETCH,
@@ -100,7 +100,7 @@ class AlignItems(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AlignSelf(CSSproperty):
+class AlignSelf(CSSProperty):
     name="align-self"
     value_logic = ValueLogic(
         default=AUTO,
@@ -111,7 +111,7 @@ class AlignSelf(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class All(CSSproperty):
+class All(CSSProperty):
     name="all"
     value_logic = ValueLogic(
         default=None,
@@ -123,7 +123,7 @@ class All(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationName(CSSproperty):
+class AnimationName(CSSProperty):
     name="animation-name"
     value_logic = ValueLogic(
         default=None,
@@ -135,7 +135,7 @@ class AnimationName(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationDuration(CSSproperty):
+class AnimationDuration(CSSProperty):
     name="animation-duration"
     value_logic = ValueLogic(
         default=SECOND_EMPTY,
@@ -147,7 +147,7 @@ class AnimationDuration(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationTimingFunction(CSSproperty):
+class AnimationTimingFunction(CSSProperty):
     name="animation-timing-function"
     value_logic = ValueLogic(
         default="ease",
@@ -159,7 +159,7 @@ class AnimationTimingFunction(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationDelay(CSSproperty):
+class AnimationDelay(CSSProperty):
     name="animation-delay"
     value_logic = ValueLogic(
         default=SECOND_EMPTY,
@@ -171,7 +171,7 @@ class AnimationDelay(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationIterationCount(CSSproperty):
+class AnimationIterationCount(CSSProperty):
     name="animation-iteration-count"
     value_logic = ValueLogic(
         default=1,
@@ -183,7 +183,7 @@ class AnimationIterationCount(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationDirection(CSSproperty):
+class AnimationDirection(CSSProperty):
     name="animation-direction"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -194,7 +194,7 @@ class AnimationDirection(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationFillMode(CSSproperty):
+class AnimationFillMode(CSSProperty):
     name="animation-fill-mode"
     value_logic = ValueLogic(
         value_choice={
@@ -205,7 +205,7 @@ class AnimationFillMode(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class AnimationPlayState(CSSproperty):
+class AnimationPlayState(CSSProperty):
     name="animation-play-state"
     value_logic = ValueLogic(
         default="running",
@@ -216,7 +216,7 @@ class AnimationPlayState(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Animation(CSSpropertyShorthand):
+class Animation(CSSPropertyShorthand):
     name: AnimationName
     duration: AnimationDuration
     timing_function: AnimationTimingFunction
@@ -262,7 +262,7 @@ class Animation(CSSpropertyShorthand):
         ))
         return f"animation: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class BackdropFilter(CSSproperty):
+class BackdropFilter(CSSProperty):
     name="backdrop-filter"
     value_logic = ValueLogic(
         default=None,
@@ -275,7 +275,7 @@ class BackdropFilter(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackfaceVisibility(CSSproperty):
+class BackfaceVisibility(CSSProperty):
     name="backface-visibility"
     value_logic = ValueLogic(
         default=VISIBLE,
@@ -286,7 +286,7 @@ class BackfaceVisibility(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundAttachment(CSSproperty):
+class BackgroundAttachment(CSSProperty):
     name="background-attachment"
     value_logic = ValueLogic(
         default="scroll",
@@ -297,7 +297,7 @@ class BackgroundAttachment(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundBlendMode(CSSproperty):
+class BackgroundBlendMode(CSSProperty):
     name="background-blend-mode"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -308,7 +308,7 @@ class BackgroundBlendMode(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundClip(CSSproperty):
+class BackgroundClip(CSSProperty):
     name="background-clip"
     value_logic = ValueLogic(
         default="border-box",
@@ -319,7 +319,7 @@ class BackgroundClip(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundColor(CSSproperty):
+class BackgroundColor(CSSProperty):
     name="background-color"
     value_logic = ValueLogic(
         default=TRANSPARENT,
@@ -330,7 +330,7 @@ class BackgroundColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundImage(CSSproperty):
+class BackgroundImage(CSSProperty):
     name="background-image"
     value_logic = ValueLogic(
         default=None,
@@ -342,7 +342,7 @@ class BackgroundImage(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundOrigin(CSSproperty):
+class BackgroundOrigin(CSSProperty):
     name="background-origin"
     value_logic = ValueLogic(
         default="padding-box",
@@ -353,7 +353,7 @@ class BackgroundOrigin(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundPosition(CSSproperty):
+class BackgroundPosition(CSSProperty):
     name="background-position"
     value_logic = ValueLogic(
         default=(PERCENT_EMPTY, PERCENT_EMPTY),
@@ -369,7 +369,7 @@ class BackgroundPosition(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundRepeat(CSSproperty):
+class BackgroundRepeat(CSSProperty):
     name="background-repeat"
     value_logic = ValueLogic(
         default="repeat",
@@ -380,7 +380,7 @@ class BackgroundRepeat(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BackgroundSize(CSSproperty):
+class BackgroundSize(CSSProperty):
     name="background-size"
     value_logic = ValueLogic(
         default=AUTO,
@@ -399,7 +399,7 @@ class BackgroundSize(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Background(CSSpropertyShorthand):
+class Background(CSSPropertyShorthand):
     color: BackgroundColor
     image: BackgroundImage
     position:BackgroundPosition
@@ -445,7 +445,7 @@ class Background(CSSpropertyShorthand):
         ))
         return f"background: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderBottomColor(CSSproperty):
+class BorderBottomColor(CSSProperty):
     name="border-bottom-color"
     value_logic = ValueLogic(
         default=TRANSPARENT,
@@ -457,7 +457,7 @@ class BorderBottomColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderBottomLeftRadius(CSSproperty):
+class BorderBottomLeftRadius(CSSProperty):
     name="border-bottom-left-radius"
     value_logic = ValueLogic(
         default=0,
@@ -474,7 +474,7 @@ class BorderBottomLeftRadius(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderBottomRightRadius(CSSproperty):
+class BorderBottomRightRadius(CSSProperty):
     name="border-bottom-right-radius"
     value_logic = ValueLogic(
         default=0,
@@ -491,7 +491,7 @@ class BorderBottomRightRadius(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderBottomStyle(CSSproperty):
+class BorderBottomStyle(CSSProperty):
     name="border-bottom-style"
     value_logic = ValueLogic(
         default=None,
@@ -503,7 +503,7 @@ class BorderBottomStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderBottomWidth(CSSproperty):
+class BorderBottomWidth(CSSProperty):
     name="border-bottom-style"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -516,7 +516,7 @@ class BorderBottomWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderBottom(CSSpropertyShorthand):
+class BorderBottom(CSSPropertyShorthand):
     width:BorderBottomWidth
     style:BorderBottomStyle
     color:BorderBottomColor
@@ -541,7 +541,7 @@ class BorderBottom(CSSpropertyShorthand):
         ))
         return f"border-bottom: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderTopColor(CSSproperty):
+class BorderTopColor(CSSProperty):
     name="border-top-color"
     value_logic = ValueLogic(
         default=TRANSPARENT,
@@ -553,7 +553,7 @@ class BorderTopColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderTopLeftRadius(CSSproperty):
+class BorderTopLeftRadius(CSSProperty):
     name="border-top-left-radius"
     value_logic = ValueLogic(
         default=0,
@@ -570,7 +570,7 @@ class BorderTopLeftRadius(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderTopRightRadius(CSSproperty):
+class BorderTopRightRadius(CSSProperty):
     name="border-top-right-radius"
     value_logic = ValueLogic(
         default=0,
@@ -587,7 +587,7 @@ class BorderTopRightRadius(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderTopStyle(CSSproperty):
+class BorderTopStyle(CSSProperty):
     name="border-top-style"
     value_logic = ValueLogic(
         default=None,
@@ -599,7 +599,7 @@ class BorderTopStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderTopWidth(CSSproperty):
+class BorderTopWidth(CSSProperty):
     name="border-top-style"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -612,7 +612,7 @@ class BorderTopWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderTop(CSSpropertyShorthand):
+class BorderTop(CSSPropertyShorthand):
     width:BorderTopWidth
     style:BorderTopStyle
     color:BorderTopColor
@@ -637,7 +637,7 @@ class BorderTop(CSSpropertyShorthand):
         ))
         return f"border-top: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderLeftColor(CSSproperty):
+class BorderLeftColor(CSSProperty):
     name="border-left-color"
     value_logic = ValueLogic(
         default=TRANSPARENT,
@@ -649,7 +649,7 @@ class BorderLeftColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderLeftStyle(CSSproperty):
+class BorderLeftStyle(CSSProperty):
     name="border-left-style"
     value_logic = ValueLogic(
         default=None,
@@ -661,7 +661,7 @@ class BorderLeftStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderLeftWidth(CSSproperty):
+class BorderLeftWidth(CSSProperty):
     name="border-left-style"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -674,7 +674,7 @@ class BorderLeftWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderLeft(CSSpropertyShorthand):
+class BorderLeft(CSSPropertyShorthand):
     width:BorderLeftWidth
     style:BorderLeftStyle
     color:BorderLeftColor
@@ -699,7 +699,7 @@ class BorderLeft(CSSpropertyShorthand):
         ))
         return f"border-left: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderRightColor(CSSproperty):
+class BorderRightColor(CSSProperty):
     name="border-right-color"
     value_logic = ValueLogic(
         default=TRANSPARENT,
@@ -711,7 +711,7 @@ class BorderRightColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderRightStyle(CSSproperty):
+class BorderRightStyle(CSSProperty):
     name="border-right-style"
     value_logic = ValueLogic(
         default=None,
@@ -723,7 +723,7 @@ class BorderRightStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderRightWidth(CSSproperty):
+class BorderRightWidth(CSSProperty):
     name="border-right-style"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -736,7 +736,7 @@ class BorderRightWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderRight(CSSpropertyShorthand):
+class BorderRight(CSSPropertyShorthand):
     width:BorderRightWidth
     style:BorderRightStyle
     color:BorderRightColor
@@ -761,7 +761,7 @@ class BorderRight(CSSpropertyShorthand):
         ))
         return f"border-right: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderCollapse(CSSproperty):
+class BorderCollapse(CSSProperty):
     name="border-collapse"
     value_logic = ValueLogic(
         default="separate",
@@ -772,7 +772,7 @@ class BorderCollapse(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderColor(CSSproperty):
+class BorderColor(CSSProperty):
     name="border-color"
     value_logic = ValueLogic(
         default=TRANSPARENT,
@@ -784,7 +784,7 @@ class BorderColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderImageOutset(CSSproperty):
+class BorderImageOutset(CSSProperty):
     name="border-image-outset"
     value_logic = ValueLogic(
         default=0,
@@ -796,7 +796,7 @@ class BorderImageOutset(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderImageRepeat(CSSproperty):
+class BorderImageRepeat(CSSProperty):
     name="border-image-repeat"
     value_logic = ValueLogic(
         default=STRETCH,
@@ -807,7 +807,7 @@ class BorderImageRepeat(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderImageSlice(CSSproperty):
+class BorderImageSlice(CSSProperty):
     name="border-image-lice"
     value_logic = ValueLogic(
         default=PERCENT_FULL,
@@ -820,7 +820,7 @@ class BorderImageSlice(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderImageSource(CSSproperty):
+class BorderImageSource(CSSProperty):
     name="border-image-source"
     value_logic = ValueLogic(
         default=None,
@@ -832,7 +832,7 @@ class BorderImageSource(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderImageWidth(CSSproperty):
+class BorderImageWidth(CSSProperty):
     name="border-image-width"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -844,7 +844,7 @@ class BorderImageWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderImage(CSSpropertyShorthand):
+class BorderImage(CSSPropertyShorthand):
     source: BorderImageSource
     slice:  BorderImageSlice
     width:  BorderImageWidth
@@ -878,7 +878,7 @@ class BorderImage(CSSpropertyShorthand):
         ))
         return f"border-right: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderRadius(CSSproperty):
+class BorderRadius(CSSProperty):
     name="border-radius"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -901,7 +901,7 @@ class BorderRadius(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderSpacing(CSSproperty):
+class BorderSpacing(CSSProperty):
     name="border-spacing"
     value_logic = ValueLogic(
         default=Pixel(2),
@@ -916,7 +916,7 @@ class BorderSpacing(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderStyle(CSSproperty):
+class BorderStyle(CSSProperty):
     name="border-style"
     value_logic = ValueLogic(
         default=None,
@@ -928,7 +928,7 @@ class BorderStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BorderWidth(CSSproperty):
+class BorderWidth(CSSProperty):
     name="border-width"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -940,7 +940,7 @@ class BorderWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Border(CSSpropertyShorthand):
+class Border(CSSPropertyShorthand):
     width:  BorderWidth
     style:  BorderStyle
     color:  BorderColor
@@ -966,7 +966,7 @@ class Border(CSSpropertyShorthand):
         ))
         return f"border: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class Bottom(CSSproperty):
+class Bottom(CSSProperty):
     name="bottom"
     value_logic = ValueLogic(
         default=AUTO,
@@ -979,7 +979,7 @@ class Bottom(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BoxDecorationBreak(CSSproperty):
+class BoxDecorationBreak(CSSProperty):
     name="box-decoration-break"
     value_logic = ValueLogic(
         default="slice",
@@ -990,7 +990,7 @@ class BoxDecorationBreak(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BoxShadow(CSSproperty):
+class BoxShadow(CSSProperty):
     name="box-shadow"
     value_logic = ValueLogic(
         default=None,
@@ -1003,7 +1003,7 @@ class BoxShadow(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BoxSizing(CSSproperty):
+class BoxSizing(CSSProperty):
     name="box-sizing"
     value_logic = ValueLogic(
         default="content-box",
@@ -1014,7 +1014,7 @@ class BoxSizing(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BreakAfter(CSSproperty):
+class BreakAfter(CSSProperty):
     name="break-after"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1025,7 +1025,7 @@ class BreakAfter(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BreakBefore(CSSproperty):
+class BreakBefore(CSSProperty):
     name="break-before"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1036,7 +1036,7 @@ class BreakBefore(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class BreakInside(CSSproperty):
+class BreakInside(CSSProperty):
     name="break-inside"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1047,7 +1047,7 @@ class BreakInside(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class CaptionSide(CSSproperty):
+class CaptionSide(CSSProperty):
     name="caption-side"
     value_logic = ValueLogic(
         default="top",
@@ -1058,7 +1058,7 @@ class CaptionSide(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class CaretColor(CSSproperty):
+class CaretColor(CSSProperty):
     name="caret-color"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1070,7 +1070,7 @@ class CaretColor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Clear(CSSproperty):
+class Clear(CSSProperty):
     name="clear"
     value_logic = ValueLogic(
         default=None,
@@ -1082,7 +1082,7 @@ class Clear(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ClipPath(CSSproperty):
+class ClipPath(CSSProperty):
     name="clip-path"
     value_logic = ValueLogic(
         default=None,
@@ -1095,7 +1095,7 @@ class ClipPath(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Color(CSSproperty):
+class Color(CSSProperty):
     name="color"
     value_logic = ValueLogic(
         # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
@@ -1107,7 +1107,7 @@ class Color(CSSproperty):
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnCount(CSSproperty):
+class ColumnCount(CSSProperty):
     name="column-count"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1119,7 +1119,7 @@ class ColumnCount(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnFill(CSSproperty):
+class ColumnFill(CSSProperty):
     name="column-fill"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1130,7 +1130,7 @@ class ColumnFill(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnGap(CSSproperty):
+class ColumnGap(CSSProperty):
     name="column-gap"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1142,7 +1142,7 @@ class ColumnGap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnRuleColor(CSSproperty):
+class ColumnRuleColor(CSSProperty):
     name="column-rule-color"
     value_logic = ValueLogic(
         # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
@@ -1154,7 +1154,7 @@ class ColumnRuleColor(CSSproperty):
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnRuleStyle(CSSproperty):
+class ColumnRuleStyle(CSSProperty):
     name="column-rule-style"
     value_logic = ValueLogic(
         default=None,
@@ -1166,7 +1166,7 @@ class ColumnRuleStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnRuleWidth(CSSproperty):
+class ColumnRuleWidth(CSSProperty):
     name="column-rule-width"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -1178,7 +1178,7 @@ class ColumnRuleWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnRule(CSSpropertyShorthand):
+class ColumnRule(CSSPropertyShorthand):
     width:  ColumnRuleWidth
     style:  ColumnRuleStyle
     color:  ColumnRuleColor
@@ -1204,7 +1204,7 @@ class ColumnRule(CSSpropertyShorthand):
         ))
         return f"column-rule: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnSpan(CSSproperty):
+class ColumnSpan(CSSProperty):
     name="column-span"
     value_logic = ValueLogic(
         default=None,
@@ -1216,7 +1216,7 @@ class ColumnSpan(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ColumnWidth(CSSproperty):
+class ColumnWidth(CSSProperty):
     name="column-width"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1228,7 +1228,7 @@ class ColumnWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Columns(CSSpropertyShorthand):
+class Columns(CSSPropertyShorthand):
     width:  ColumnWidth
     count:  ColumnCount
 
@@ -1250,7 +1250,7 @@ class Columns(CSSpropertyShorthand):
         ))
         return f"columns: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class Content(CSSproperty):
+class Content(CSSProperty):
     name="content"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1264,7 +1264,7 @@ class Content(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class CounterIncrement(CSSproperty):
+class CounterIncrement(CSSProperty):
     name="counter-increment"
     value_logic = ValueLogic(
         default=None,
@@ -1276,7 +1276,7 @@ class CounterIncrement(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class CounterReset(CSSproperty):
+class CounterReset(CSSProperty):
     name="counter-reset"
     value_logic = ValueLogic(
         default=None,
@@ -1289,7 +1289,7 @@ class CounterReset(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Cursor(CSSproperty):
+class Cursor(CSSProperty):
     name="cursor"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1302,7 +1302,7 @@ class Cursor(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Direction(CSSproperty):
+class Direction(CSSProperty):
     name="direction"
     value_logic = ValueLogic(
         default="ltr",
@@ -1313,7 +1313,7 @@ class Direction(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Display(CSSproperty):
+class Display(CSSProperty):
     name="display"
     value_logic = ValueLogic(
         value_choice={
@@ -1328,7 +1328,7 @@ class Display(CSSproperty):
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class EmptyCells(CSSproperty):
+class EmptyCells(CSSProperty):
     name="empty-cells"
     value_logic = ValueLogic(
         default="show",
@@ -1339,7 +1339,7 @@ class EmptyCells(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Filter(CSSproperty):
+class Filter(CSSProperty):
     name="filter"
     value_logic = ValueLogic(
         default=None,
@@ -1351,7 +1351,7 @@ class Filter(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FlexBasis(CSSproperty):
+class FlexBasis(CSSProperty):
     name="flex-basis"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1364,7 +1364,7 @@ class FlexBasis(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FlexDirection(CSSproperty):
+class FlexDirection(CSSProperty):
     name="flex-direction"
     value_logic = ValueLogic(
         default="row",
@@ -1375,7 +1375,7 @@ class FlexDirection(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FlexFlow(CSSproperty):
+class FlexFlow(CSSProperty):
     name="flex-flow"
     value_logic = ValueLogic(
         default=("row", "nowrap"),
@@ -1386,7 +1386,7 @@ class FlexFlow(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FlexGrow(CSSproperty):
+class FlexGrow(CSSProperty):
     name="flex-grow"
     value_logic = ValueLogic(
         default=0,
@@ -1397,7 +1397,7 @@ class FlexGrow(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FlexShrink(CSSproperty):
+class FlexShrink(CSSProperty):
     name="flex-shrink"
     value_logic = ValueLogic(
         default=1,
@@ -1408,7 +1408,7 @@ class FlexShrink(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FlexWrap(CSSproperty):
+class FlexWrap(CSSProperty):
     name="flex-wrap"
     value_logic = ValueLogic(
         default="nowrap",
@@ -1419,7 +1419,7 @@ class FlexWrap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Flex(CSSpropertyShorthand):
+class Flex(CSSPropertyShorthand):
     grow:   FlexGrow
     shrink: FlexShrink
     basis:  FlexBasis
@@ -1445,7 +1445,7 @@ class Flex(CSSpropertyShorthand):
         ))
         return f"flex: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class Float(CSSproperty):
+class Float(CSSProperty):
     name="float"
     value_logic = ValueLogic(
         default=None,
@@ -1457,7 +1457,7 @@ class Float(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontFamily(CSSproperty):
+class FontFamily(CSSProperty):
     name="font-family"
     value_logic = ValueLogic(
         default=None,
@@ -1469,7 +1469,7 @@ class FontFamily(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontFeatureSetting(CSSproperty):
+class FontFeatureSetting(CSSProperty):
     name="font-feature-setting"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1482,7 +1482,7 @@ class FontFeatureSetting(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontKerning(CSSproperty):
+class FontKerning(CSSProperty):
     name="font-kerning"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1493,7 +1493,7 @@ class FontKerning(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontSize(CSSproperty):
+class FontSize(CSSProperty):
     name="font-size"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -1506,7 +1506,7 @@ class FontSize(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontSizeAdjust(CSSproperty):
+class FontSizeAdjust(CSSProperty):
     name="font-size-adjust"
     value_logic = ValueLogic(
         default=None,
@@ -1519,7 +1519,7 @@ class FontSizeAdjust(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontStretch(CSSproperty):
+class FontStretch(CSSProperty):
     name="font-stretch"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1533,7 +1533,7 @@ class FontStretch(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontStyle(CSSproperty):
+class FontStyle(CSSProperty):
     name="font-style"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1544,7 +1544,7 @@ class FontStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontVariant(CSSproperty):
+class FontVariant(CSSProperty):
     name="font-variant"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1555,7 +1555,7 @@ class FontVariant(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontVariantCaps(CSSproperty):
+class FontVariantCaps(CSSProperty):
     name="font-variant-caps"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1568,7 +1568,7 @@ class FontVariantCaps(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class FontWeight(CSSproperty):
+class FontWeight(CSSProperty):
     name="font-weight"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -1580,7 +1580,7 @@ class FontWeight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Font(CSSpropertyShorthand):
+class Font(CSSPropertyShorthand):
     style: FontStyle
     variant: FontVariant
     weight: FontWeight
@@ -1614,7 +1614,7 @@ class Font(CSSpropertyShorthand):
         ))
         return f"font: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class Gap(CSSproperty):
+class Gap(CSSProperty):
     name="gap"
     value_logic = ValueLogic(
         default=(NORMAL, NORMAL),
@@ -1635,7 +1635,7 @@ class Gap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridAutoColumns(CSSproperty):
+class GridAutoColumns(CSSProperty):
     name="grid-auto-columns"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1647,7 +1647,7 @@ class GridAutoColumns(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridAutoFlow(CSSproperty):
+class GridAutoFlow(CSSProperty):
     name="grid-auto-flow"
     value_logic = ValueLogic(
         default="row",
@@ -1658,7 +1658,7 @@ class GridAutoFlow(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridAutoRows(CSSproperty):
+class GridAutoRows(CSSProperty):
     name="grid-auto-rows"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1670,7 +1670,7 @@ class GridAutoRows(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridColumnEnd(CSSproperty):
+class GridColumnEnd(CSSProperty):
     name="grid-column-end"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1683,7 +1683,7 @@ class GridColumnEnd(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridColumnGap(CSSproperty):
+class GridColumnGap(CSSProperty):
     name="grid-column-gap"
     value_logic = ValueLogic(
         default=0,
@@ -1695,7 +1695,7 @@ class GridColumnGap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridColumnStart(CSSproperty):
+class GridColumnStart(CSSProperty):
     name="grid-column-start"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1708,7 +1708,7 @@ class GridColumnStart(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridColumn(CSSpropertyShorthand):
+class GridColumn(CSSPropertyShorthand):
     start: GridColumnStart
     end: GridColumnEnd
 
@@ -1730,7 +1730,7 @@ class GridColumn(CSSpropertyShorthand):
         ))
         return f"grid-column: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class GridRowEnd(CSSproperty):
+class GridRowEnd(CSSProperty):
     name="grid-row-end"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1743,7 +1743,7 @@ class GridRowEnd(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridRowGap(CSSproperty):
+class GridRowGap(CSSProperty):
     name="grid-row-gap"
     value_logic = ValueLogic(
         default=0,
@@ -1755,7 +1755,7 @@ class GridRowGap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridRowStart(CSSproperty):
+class GridRowStart(CSSProperty):
     name="grid-row-start"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1768,7 +1768,7 @@ class GridRowStart(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridRow(CSSpropertyShorthand):
+class GridRow(CSSPropertyShorthand):
     start: GridRowStart
     end: GridRowEnd
 
@@ -1790,7 +1790,7 @@ class GridRow(CSSpropertyShorthand):
         ))
         return f"grid-row: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class GridGap(CSSpropertyShorthand):
+class GridGap(CSSPropertyShorthand):
     row_gap: GridRowGap
     column_gap: GridColumnGap
 
@@ -1812,7 +1812,7 @@ class GridGap(CSSpropertyShorthand):
         ))
         return f"grid-gap: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class GridTemplateAreas(CSSproperty):
+class GridTemplateAreas(CSSProperty):
     name="grid-template-areas"
     value_logic = ValueLogic(
         default=None,
@@ -1824,7 +1824,7 @@ class GridTemplateAreas(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridTemplateColumns(CSSproperty):
+class GridTemplateColumns(CSSProperty):
     name="grid-template-columns"
     value_logic = ValueLogic(
         default=None,
@@ -1837,7 +1837,7 @@ class GridTemplateColumns(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridTemplateRows(CSSproperty):
+class GridTemplateRows(CSSProperty):
     name="grid-template-rows"
     value_logic = ValueLogic(
         default=None,
@@ -1850,7 +1850,7 @@ class GridTemplateRows(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class GridTemplate(CSSpropertyShorthand):
+class GridTemplate(CSSPropertyShorthand):
     rows: GridTemplateRows
     columns: GridTemplateColumns
     areas: GridTemplateAreas
@@ -1876,7 +1876,7 @@ class GridTemplate(CSSpropertyShorthand):
         ))
         return f"grid-template: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class GridArea(CSSpropertyShorthand):
+class GridArea(CSSPropertyShorthand):
     row_start: GridRowStart
     column_start: GridColumnStart
     row_end: GridRowEnd
@@ -1906,7 +1906,7 @@ class GridArea(CSSpropertyShorthand):
         ))
         return f"grid-area: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class Grid(CSSpropertyShorthand):
+class Grid(CSSPropertyShorthand):
     template_rows: GridTemplateRows
     template_columns: GridTemplateColumns
     template_areas: GridTemplateAreas
@@ -1945,7 +1945,7 @@ class Grid(CSSpropertyShorthand):
         ))
         return f"grid: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class HangingPunctuation(CSSproperty):
+class HangingPunctuation(CSSProperty):
     name="hanging-punctuation"
     value_logic = ValueLogic(
         default=None,
@@ -1957,7 +1957,7 @@ class HangingPunctuation(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Height(CSSproperty):
+class Height(CSSProperty):
     name="height"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1969,7 +1969,7 @@ class Height(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Hyphens(CSSproperty):
+class Hyphens(CSSProperty):
     name="hyphens"
     value_logic = ValueLogic(
         default="manual",
@@ -1981,7 +1981,7 @@ class Hyphens(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ImageRendering(CSSproperty):
+class ImageRendering(CSSProperty):
     name="image-rendering"
     value_logic = ValueLogic(
         default=AUTO,
@@ -1993,7 +1993,7 @@ class ImageRendering(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Isolation(CSSproperty):
+class Isolation(CSSProperty):
     name="isolation"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2005,7 +2005,7 @@ class Isolation(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class JustifyContent(CSSproperty):
+class JustifyContent(CSSProperty):
     name="justify-content"
     value_logic = ValueLogic(
         default="flex-start",
@@ -2017,7 +2017,7 @@ class JustifyContent(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Left(CSSproperty):
+class Left(CSSProperty):
     name=LEFT
     value_logic = ValueLogic(
         default=AUTO,
@@ -2029,7 +2029,7 @@ class Left(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class LetterSpacing(CSSproperty):
+class LetterSpacing(CSSProperty):
     name="letter-spacing"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -2041,7 +2041,7 @@ class LetterSpacing(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class LineHeight(CSSproperty):
+class LineHeight(CSSProperty):
     name="line-height"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -2055,7 +2055,7 @@ class LineHeight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ListStyleImage(CSSproperty):
+class ListStyleImage(CSSProperty):
     name="list-style-image"
     value_logic = ValueLogic(
         default=None,
@@ -2067,7 +2067,7 @@ class ListStyleImage(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ListStylePosition(CSSproperty):
+class ListStylePosition(CSSProperty):
     name="list-style-position"
     value_logic = ValueLogic(
         default="outside",
@@ -2078,7 +2078,7 @@ class ListStylePosition(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ListStyleType(CSSproperty):
+class ListStyleType(CSSProperty):
     name="list-style-position"
     value_logic = ValueLogic(
         default="disc",
@@ -2093,7 +2093,7 @@ class ListStyleType(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ListStyle(CSSpropertyShorthand):
+class ListStyle(CSSPropertyShorthand):
     type: ListStyleType
     position: ListStylePosition
     image: ListStyleImage
@@ -2119,7 +2119,7 @@ class ListStyle(CSSpropertyShorthand):
         ))
         return f"list-style: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class MarginBottom(CSSproperty):
+class MarginBottom(CSSProperty):
     name="margin-bottom"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2131,7 +2131,7 @@ class MarginBottom(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MarginLeft(CSSproperty):
+class MarginLeft(CSSProperty):
     name="margin-left"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2143,7 +2143,7 @@ class MarginLeft(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MarginRight(CSSproperty):
+class MarginRight(CSSProperty):
     name="margin-right"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2155,7 +2155,7 @@ class MarginRight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MarginTop(CSSproperty):
+class MarginTop(CSSProperty):
     name="margin-top"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2167,7 +2167,7 @@ class MarginTop(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Margin(CSSpropertyShorthand):
+class Margin(CSSPropertyShorthand):
     top: MarginTop
     right: MarginRight
     bottom: MarginBottom
@@ -2197,7 +2197,7 @@ class Margin(CSSpropertyShorthand):
         ))
         return f"margin: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class MaskImage(CSSproperty):
+class MaskImage(CSSProperty):
     name="mask-image"
     value_logic = ValueLogic(
         default=None,
@@ -2209,7 +2209,7 @@ class MaskImage(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MaskMode(CSSproperty):
+class MaskMode(CSSProperty):
     name="mask-mode"
     value_logic = ValueLogic(
         default="match-source",
@@ -2220,7 +2220,7 @@ class MaskMode(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MaskOrigin(CSSproperty):
+class MaskOrigin(CSSProperty):
     name="mask-origin"
     value_logic = ValueLogic(
         default="border-box",
@@ -2231,7 +2231,7 @@ class MaskOrigin(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MaskPosition(CSSproperty):
+class MaskPosition(CSSProperty):
     name="mask-position"
     value_logic = ValueLogic(
         default=(PERCENT_EMPTY, PERCENT_EMPTY),
@@ -2247,7 +2247,7 @@ class MaskPosition(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MaskRepeat(CSSproperty):
+class MaskRepeat(CSSProperty):
     name="mask-repeat"
     value_logic = ValueLogic(
         default="repeat",
@@ -2258,7 +2258,7 @@ class MaskRepeat(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MaskSize(CSSproperty):
+class MaskSize(CSSProperty):
     name="mask-size"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2271,7 +2271,7 @@ class MaskSize(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MaxHeight(CSSproperty):
+class MaxHeight(CSSProperty):
     name="max-height"
     value_logic = ValueLogic(
         default=None,
@@ -2284,7 +2284,7 @@ class MaxHeight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MaxWidth(CSSproperty):
+class MaxWidth(CSSProperty):
     name="max-width"
     value_logic = ValueLogic(
         default=None,
@@ -2297,7 +2297,7 @@ class MaxWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MinHeight(CSSproperty):
+class MinHeight(CSSProperty):
     name="min-height"
     value_logic = ValueLogic(
         default=None,
@@ -2310,7 +2310,7 @@ class MinHeight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MinWidth(CSSproperty):
+class MinWidth(CSSProperty):
     name="min-width"
     value_logic = ValueLogic(
         default=None,
@@ -2323,7 +2323,7 @@ class MinWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class MixBlendMode(CSSproperty):
+class MixBlendMode(CSSProperty):
     name="mix-blend-mode"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -2334,7 +2334,7 @@ class MixBlendMode(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ObjectFit(CSSproperty):
+class ObjectFit(CSSProperty):
     name="object-fit"
     value_logic = ValueLogic(
         default="fill",
@@ -2346,7 +2346,7 @@ class ObjectFit(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ObjectPosition(CSSproperty):
+class ObjectPosition(CSSProperty):
     name="object-position"
     value_logic = ValueLogic(
         default=(Percent(50), Percent(50)),
@@ -2361,7 +2361,7 @@ class ObjectPosition(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Opacity(CSSproperty):
+class Opacity(CSSProperty):
     name="opacity"
     value_logic = ValueLogic(
         default=1,
@@ -2373,7 +2373,7 @@ class Opacity(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Order(CSSproperty):
+class Order(CSSProperty):
     name="order"
     value_logic = ValueLogic(
         default=0,
@@ -2384,7 +2384,7 @@ class Order(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Orphans(CSSproperty):
+class Orphans(CSSProperty):
     name="orphans"
     value_logic = ValueLogic(
         default=2,
@@ -2395,7 +2395,7 @@ class Orphans(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class OutlineColor(CSSproperty):
+class OutlineColor(CSSProperty):
     name="outline-color"
     value_logic = ValueLogic(
         value_choice={
@@ -2406,7 +2406,7 @@ class OutlineColor(CSSproperty):
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class OutlineOffset(CSSproperty):
+class OutlineOffset(CSSProperty):
     name="outline-offset"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2417,7 +2417,7 @@ class OutlineOffset(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class OutlineStyle(CSSproperty):
+class OutlineStyle(CSSProperty):
     name="outline-style"
     value_logic = ValueLogic(
         default=None,
@@ -2429,7 +2429,7 @@ class OutlineStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class OutlineWidth(CSSproperty):
+class OutlineWidth(CSSProperty):
     name="outline-style"
     value_logic = ValueLogic(
         default=MEDIUM,
@@ -2441,7 +2441,7 @@ class OutlineWidth(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Outline(CSSpropertyShorthand):
+class Outline(CSSPropertyShorthand):
     width: OutlineWidth
     style: OutlineStyle
     color: OutlineColor
@@ -2468,7 +2468,7 @@ class Outline(CSSpropertyShorthand):
         ))
         return f"outline: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class Overflow(CSSproperty):
+class Overflow(CSSProperty):
     name="overflow"
     value_logic = ValueLogic(
         default=VISIBLE,
@@ -2479,7 +2479,7 @@ class Overflow(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class OverflowWrap(CSSproperty):
+class OverflowWrap(CSSProperty):
     name="overflow-wrap"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -2490,7 +2490,7 @@ class OverflowWrap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class OverflowX(CSSproperty):
+class OverflowX(CSSProperty):
     name="overflow-x"
     value_logic = ValueLogic(
         default=VISIBLE,
@@ -2501,7 +2501,7 @@ class OverflowX(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class OverflowY(CSSproperty):
+class OverflowY(CSSProperty):
     name="overflow-y"
     value_logic = ValueLogic(
         default=VISIBLE,
@@ -2512,7 +2512,7 @@ class OverflowY(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PaddingBottom(CSSproperty):
+class PaddingBottom(CSSProperty):
     name="padding-bottom"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2524,7 +2524,7 @@ class PaddingBottom(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PaddingTop(CSSproperty):
+class PaddingTop(CSSProperty):
     name="padding-top"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2536,7 +2536,7 @@ class PaddingTop(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PaddingLeft(CSSproperty):
+class PaddingLeft(CSSProperty):
     name="padding-left"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2548,7 +2548,7 @@ class PaddingLeft(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PaddingRight(CSSproperty):
+class PaddingRight(CSSProperty):
     name="padding-right"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2560,7 +2560,7 @@ class PaddingRight(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Padding(CSSpropertyShorthand):
+class Padding(CSSPropertyShorthand):
     top: PaddingTop
     right: PaddingRight
     bottom: PaddingBottom
@@ -2590,7 +2590,7 @@ class Padding(CSSpropertyShorthand):
         ))
         return f"padding: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class PageBreakAfter(CSSproperty):
+class PageBreakAfter(CSSProperty):
     name="page-break-after"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2601,7 +2601,7 @@ class PageBreakAfter(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PageBreakBefore(CSSproperty):
+class PageBreakBefore(CSSProperty):
     name="page-break-before"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2612,7 +2612,7 @@ class PageBreakBefore(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PageBreakInside(CSSproperty):
+class PageBreakInside(CSSProperty):
     name="page-break-inside"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2623,7 +2623,7 @@ class PageBreakInside(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Perspective(CSSproperty):
+class Perspective(CSSProperty):
     name="perspective"
     value_logic = ValueLogic(
         default=None,
@@ -2635,7 +2635,7 @@ class Perspective(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PerspectiveOrigin(CSSproperty):
+class PerspectiveOrigin(CSSProperty):
     name="perspective-origin"
     value_logic = ValueLogic(
         default=(Percent(50), Percent(50)),
@@ -2648,7 +2648,7 @@ class PerspectiveOrigin(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class PointerEvents(CSSproperty):
+class PointerEvents(CSSProperty):
     name="pointer-events"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2660,7 +2660,7 @@ class PointerEvents(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Position(CSSproperty):
+class Position(CSSProperty):
     name="position"
     value_logic = ValueLogic(
         default="static",
@@ -2672,7 +2672,7 @@ class Position(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Quotes(CSSproperty):
+class Quotes(CSSProperty):
     name="quotes"
     value_logic = ValueLogic(
         value_choice=ANY,
@@ -2680,7 +2680,7 @@ class Quotes(CSSproperty):
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Resize(CSSproperty):
+class Resize(CSSProperty):
     name="resize"
     value_logic = ValueLogic(
         default=None,
@@ -2692,7 +2692,7 @@ class Resize(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Right(CSSproperty):
+class Right(CSSProperty):
     name=RIGHT
     value_logic = ValueLogic(
         default=AUTO,
@@ -2705,7 +2705,7 @@ class Right(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class RowGap(CSSproperty):
+class RowGap(CSSProperty):
     name="row-gap"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -2717,7 +2717,7 @@ class RowGap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ScrollBehavior(CSSproperty):
+class ScrollBehavior(CSSProperty):
     name="scroll-behavior"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2728,7 +2728,7 @@ class ScrollBehavior(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TabSize(CSSproperty):
+class TabSize(CSSProperty):
     name="tab-size"
     value_logic = ValueLogic(
         default=8,
@@ -2739,7 +2739,7 @@ class TabSize(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TableLayout(CSSproperty):
+class TableLayout(CSSProperty):
     name="table-layout"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2750,7 +2750,7 @@ class TableLayout(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextAlign(CSSproperty):
+class TextAlign(CSSProperty):
     name="text-align"
     value_logic = ValueLogic(
         default=LEFT,
@@ -2761,7 +2761,7 @@ class TextAlign(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextAlignLast(CSSproperty):
+class TextAlignLast(CSSProperty):
     name="text-align-last"
     value_logic = ValueLogic(
         default=LEFT,
@@ -2772,7 +2772,7 @@ class TextAlignLast(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextDecorationColor(CSSproperty):
+class TextDecorationColor(CSSProperty):
     name="text-decoration-color"
     value_logic = ValueLogic(
         value_choice={
@@ -2783,7 +2783,7 @@ class TextDecorationColor(CSSproperty):
     def __init__(self, value, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextDecorationLine(CSSproperty):
+class TextDecorationLine(CSSProperty):
     name="text-decoration-line"
     value_logic = ValueLogic(
         default=None,
@@ -2795,7 +2795,7 @@ class TextDecorationLine(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextDecorationStyle(CSSproperty):
+class TextDecorationStyle(CSSProperty):
     name="text-decoration-style"
     value_logic = ValueLogic(
         default="solid",
@@ -2807,7 +2807,7 @@ class TextDecorationStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextDecorationThickness(CSSproperty):
+class TextDecorationThickness(CSSProperty):
     name="text-decoration-thickness"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2821,7 +2821,7 @@ class TextDecorationThickness(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextDecoration(CSSpropertyShorthand):
+class TextDecoration(CSSPropertyShorthand):
     line: TextDecorationLine
     color: TextDecorationColor
     style: TextDecorationStyle
@@ -2851,7 +2851,7 @@ class TextDecoration(CSSpropertyShorthand):
         ))
         return f"text-decoration: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class TextIndent(CSSproperty):
+class TextIndent(CSSProperty):
     name="text-indent"
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
@@ -2863,7 +2863,7 @@ class TextIndent(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextJustify(CSSproperty):
+class TextJustify(CSSProperty):
     name="text-justify"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2875,7 +2875,7 @@ class TextJustify(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextOverflow(CSSproperty):
+class TextOverflow(CSSProperty):
     name="text-overflow"
     value_logic = ValueLogic(
         default="clip",
@@ -2886,7 +2886,7 @@ class TextOverflow(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextShadow(CSSproperty):
+class TextShadow(CSSProperty):
     name="text-shadow"
     value_logic = ValueLogic(
         default=None,
@@ -2899,7 +2899,7 @@ class TextShadow(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TextTransform(CSSproperty):
+class TextTransform(CSSProperty):
     name="text-transform"
     value_logic = ValueLogic(
         default=None,
@@ -2911,7 +2911,7 @@ class TextTransform(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Top(CSSproperty):
+class Top(CSSProperty):
     name="top"
     value_logic = ValueLogic(
         default=AUTO,
@@ -2924,7 +2924,7 @@ class Top(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Transform(CSSproperty):
+class Transform(CSSProperty):
     name="transform"
     value_logic = ValueLogic(
         default=None,
@@ -2936,7 +2936,7 @@ class Transform(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TransformOrigin(CSSproperty):
+class TransformOrigin(CSSProperty):
     name="transform-origin"
     value_logic = ValueLogic(
         default=(Percent(50), Percent(50), PIXEL_EMPTY),
@@ -2953,7 +2953,7 @@ class TransformOrigin(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TransformStyle(CSSproperty):
+class TransformStyle(CSSProperty):
     name="transform-style"
     value_logic = ValueLogic(
         default="flat",
@@ -2964,7 +2964,7 @@ class TransformStyle(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TransitionDelay(CSSproperty):
+class TransitionDelay(CSSProperty):
     name="transition-delay"
     value_logic = ValueLogic(
         default=SECOND_EMPTY,
@@ -2976,7 +2976,7 @@ class TransitionDelay(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TransitionDuration(CSSproperty):
+class TransitionDuration(CSSProperty):
     name="transition-duration"
     value_logic = ValueLogic(
         default=SECOND_EMPTY,
@@ -2988,7 +2988,7 @@ class TransitionDuration(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TransitionProperty(CSSproperty):
+class TransitionProperty(CSSProperty):
     name="transition-property"
     value_logic = ValueLogic(
         default="all",
@@ -2999,7 +2999,7 @@ class TransitionProperty(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class TransitionTimingFunction(CSSproperty):
+class TransitionTimingFunction(CSSProperty):
     name="transition-timing-function"
     value_logic = ValueLogic(
         default="ease",
@@ -3012,7 +3012,7 @@ class TransitionTimingFunction(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Transition(CSSpropertyShorthand):
+class Transition(CSSPropertyShorthand):
     property: TransitionProperty
     duration: TransitionDuration
     timing_function: TransitionTimingFunction
@@ -3042,7 +3042,7 @@ class Transition(CSSpropertyShorthand):
         ))
         return f"transition: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
-class UnicodeBidi(CSSproperty):
+class UnicodeBidi(CSSProperty):
     name="unicode-bidi"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -3053,7 +3053,7 @@ class UnicodeBidi(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class UserSelect(CSSproperty):
+class UserSelect(CSSProperty):
     name="user-select"
     value_logic = ValueLogic(
         default=AUTO,
@@ -3065,7 +3065,7 @@ class UserSelect(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class VerticalAlign(CSSproperty):
+class VerticalAlign(CSSProperty):
     name="vertical-align"
     value_logic = ValueLogic(
         default="baseline",
@@ -3078,7 +3078,7 @@ class VerticalAlign(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Visibility(CSSproperty):
+class Visibility(CSSProperty):
     name="visibility"
     value_logic = ValueLogic(
         default=VISIBLE,
@@ -3089,7 +3089,7 @@ class Visibility(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class WhiteSpace(CSSproperty):
+class WhiteSpace(CSSProperty):
     name="white-space"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -3100,7 +3100,7 @@ class WhiteSpace(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Widows(CSSproperty):
+class Widows(CSSProperty):
     name="widows"
     value_logic = ValueLogic(
         default=2,
@@ -3111,7 +3111,7 @@ class Widows(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class Width(CSSproperty):
+class Width(CSSProperty):
     name="width"
     value_logic = ValueLogic(
         default=AUTO,
@@ -3124,7 +3124,7 @@ class Width(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class WordBreak(CSSproperty):
+class WordBreak(CSSProperty):
     name="word-break"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -3135,7 +3135,7 @@ class WordBreak(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class WordSpacing(CSSproperty):
+class WordSpacing(CSSProperty):
     name="word-spacing"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -3147,7 +3147,7 @@ class WordSpacing(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class WordWrap(CSSproperty):
+class WordWrap(CSSProperty):
     name="word-wrap"
     value_logic = ValueLogic(
         default=NORMAL,
@@ -3158,7 +3158,7 @@ class WordWrap(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class WritingMode(CSSproperty):
+class WritingMode(CSSProperty):
     name="writing-mode"
     value_logic = ValueLogic(
         default="horizontal-tb",
@@ -3169,7 +3169,7 @@ class WritingMode(CSSproperty):
     def __init__(self, value=value_logic.default, **kwargs):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
-class ZIndex(CSSproperty):
+class ZIndex(CSSProperty):
     name="z-index"
     value_logic = ValueLogic(
         default=AUTO,

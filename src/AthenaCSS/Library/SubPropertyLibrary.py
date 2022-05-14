@@ -11,7 +11,7 @@ from AthenaLib.Types.Math import Degree
 from AthenaLib.Types.AbsoluteLength import Pixel
 
 # Custom Packages
-from AthenaCSS.Objects.Properties.CSSproperty import SubProp
+from AthenaCSS.Objects.Properties.CSSProperty import SubProp
 from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Library.Support import (
     COLORS_UNION, PERCENT, DEGREE,NUMBERS, PIXEL, ANY, TRANSFORM_SPACING, PERCENT_EMPTY, PERCENT_FULL, DEGREE_EMPTY,

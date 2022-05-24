@@ -7,20 +7,20 @@ from __future__ import annotations
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Objects.Elements.CSSElement import CSSElement
-from AthenaCSS.Objects.Selectors.CSSSelector import CSSSelector
+from AthenaCSS.Objects.ElementSelection.CSSElement import CSSElement
+from AthenaCSS.Objects.ElementSelection.CSSPseudo import CSSPseudo
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
-    "Class","Id", "All","ColonElement","ColonElementDouble","ColonActive","Colonafter","Colonbefore","ColonChecked",
-    "ColonDefault","ColonDisabled","ColonEmpty","ColonEnabled","ColonFirstChild","ColonFirstLetter","ColonFirstLine",
-    "ColonFirstOfType","ColonFocus","ColonFullscreen","ColonHover","ColonInRange","ColonIndeterminate","ColonInvalid",
-    "ColonLang","ColonLastChild","ColonLastOfType","ColonLink","ColonMarker","ColonNot","ColonNthChild","ColonNthLastChild",
-    "ColonNthLastOfType","ColonNthOfType","ColonOnlyOfType","ColonOnlyChild","ColonOptional","ColonOutOfRange",
-    "ColonPlaceholder","ColonReadOnly","ColonReadWrite","ColonRequired","ColonRoot","ColonSelection","ColonTarget",
-    "ColonValid","ColonVisited","A","Abbr","Acronym","Address","Applet","Area","Article","Aside","Audio","B",
+    "All","PseudoActive","Pseudoafter","Pseudobefore","PseudoChecked",
+    "PseudoDefault","PseudoDisabled","PseudoEmpty","PseudoEnabled","PseudoFirstChild","PseudoFirstLetter","PseudoFirstLine",
+    "PseudoFirstOfType","PseudoFocus","PseudoFullscreen","PseudoHover","PseudoInRange","PseudoIndeterminate","PseudoInvalid",
+    "PseudoLang","PseudoLastChild","PseudoLastOfType","PseudoLink","PseudoMarker","PseudoNot","PseudoNthChild","PseudoNthLastChild",
+    "PseudoNthLastOfType","PseudoNthOfType","PseudoOnlyOfType","PseudoOnlyChild","PseudoOptional","PseudoOutOfRange",
+    "PseudoPlaceholder","PseudoReadOnly","PseudoReadWrite","PseudoRequired","PseudoRoot","PseudoSelection","PseudoTarget",
+    "PseudoValid","PseudoVisited","A","Abbr","Acronym","Address","Applet","Area","Article","Aside","Audio","B",
     "Base","Basefont","Bdi","Bdo","Big","Blockquote","Body","Br","Button","Canvas","Caption","Center","Cite","Code","Col",
     "Colgroup","Data","Datalist","Dd","Del","Details","Dfn","Dialog","Dir","Div","Dl","Dt","Em","Embed","Fieldset",
     "Figcaption","Figure","Font","Footer","Form","Frame","Frameset","H1","H2","H3","H4","H5","H6","Head","Header","Hr",
@@ -31,128 +31,98 @@ __all__=[
     "Tt","U","Ul","Var","Video","Wbr"
 ]
 
-# ----------------------------------------------------------------------------------------------------------------------
-# - SupportCode -
-# ----------------------------------------------------------------------------------------------------------------------
-RB_OPEN = "("
-RB_CLOSE= ")"
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class Class(CSSElement):
-    prefix="."
-
-class Id(CSSElement):
-    prefix="#"
-
-class All(CSSElement):
-    defined_name = "*"
+class All:
+    @classmethod
+    def __str__(cls):
+        return "*"
 
 # ----------------------------------------------------------------------------------------------------------------------
-class ColonElement(CSSElement):
-    prefix = ":"
-class ColonElementDouble(CSSElement):
-    prefix = "::"
-
-class ColonActive(ColonElement):
-    defined_name = "active"
-class Colonafter(ColonElementDouble):
-    defined_name = "after"
-class Colonbefore(ColonElementDouble):
-    defined_name = "before"
-class ColonChecked(ColonElement):
-    defined_name = "checked"
-class ColonDefault(ColonElement):
-    defined_name = "default"
-class ColonDisabled(ColonElement):
-    defined_name = "disabled"
-class ColonEmpty(ColonElement):
-    defined_name = "empty"
-class ColonEnabled(ColonElement):
-    defined_name = "enabled"
-class ColonFirstChild(ColonElement):
-    defined_name = "first-child"
-class ColonFirstLetter(ColonElementDouble):
-    defined_name = "first-letter"
-class ColonFirstLine(ColonElementDouble):
-    defined_name = "first-line"
-class ColonFirstOfType(ColonElement):
-    defined_name = "first-of-type"
-class ColonFocus(ColonElement):
-    defined_name = "focus"
-class ColonFullscreen(ColonElement):
-    defined_name = "fullscreen"
-class ColonHover(ColonElement):
-    defined_name = "hover"
-class ColonInRange(ColonElement):
-    defined_name = "in-range"
-class ColonIndeterminate(ColonElement):
-    defined_name = "indeterminate"
-class ColonInvalid(ColonElement):
-    defined_name = "invalid"
-class ColonLang(ColonElement):
-    defined_name = "lang"
-    # set a new init here to correctly define the language.
-    #   Given it's a colon element, it's structure is known and can be defined in the following way
-    def __init__(self, language:str):
-        self.parts = [self.prefix, self.defined_name, RB_OPEN, language, RB_CLOSE]
-class ColonLastChild(ColonElement):
-    defined_name = "last-child"
-class ColonLastOfType(ColonElement):
-    defined_name = "last-of-type"
-class ColonLink(ColonElement):
-    defined_name = "link"
-class ColonMarker(ColonElementDouble):
-    defined_name = "marker"
-class ColonNot(ColonElement):
-    defined_name = "not"
-    # set a new init here to correctly define the not statement.
-    #   Given it's a colon element, it's structure is known and can be defined in the following way
-    def __init__(self, selector:CSSSelector):
-        self.parts = [self.prefix, self.defined_name, RB_OPEN, selector, RB_CLOSE]
-class ColonNthChild(ColonElement):
-    defined_name = "nth-child"
-    def __init__(self, n:int|str):
-        self.parts = [self.prefix, self.defined_name, RB_OPEN, n, RB_CLOSE]
-class ColonNthLastChild(ColonElement):
-    defined_name = "nth-last-child"
-    def __init__(self, n:int):
-        self.parts = [self.prefix, self.defined_name, RB_OPEN, n, RB_CLOSE]
-class ColonNthLastOfType(ColonElement):
-    defined_name = "nth-last-of-child"
-    def __init__(self, n:int):
-        self.parts = [self.prefix, self.defined_name, RB_OPEN, n, RB_CLOSE]
-class ColonNthOfType(ColonElement):
-    defined_name = "nth-of-child"
-    def __init__(self, n:int):
-        self.parts = [self.prefix, self.defined_name, RB_OPEN, n, RB_CLOSE]
-class ColonOnlyOfType(ColonElement):
-    defined_name = "only-of-type"
-class ColonOnlyChild(ColonElement):
-    defined_name = "only-child"
-class ColonOptional(ColonElement):
-    defined_name = "optional"
-class ColonOutOfRange(ColonElement):
-    defined_name = "out-of-range"
-class ColonPlaceholder(ColonElementDouble):
-    defined_name = "placeholder"
-class ColonReadOnly(ColonElement):
-    defined_name = "read-only"
-class ColonReadWrite(ColonElement):
-    defined_name = "read-write"
-class ColonRequired(ColonElement):
-    defined_name = "required"
-class ColonRoot(ColonElement):
-    defined_name = "root"
-class ColonSelection(ColonElementDouble):
-    defined_name = "selection"
-class ColonTarget(ColonElement):
-    defined_name = "target"
-class ColonValid(ColonElement):
-    defined_name = "valid"
-class ColonVisited(ColonElement):
-    defined_name = "visited"
+class PseudoActive(CSSPseudo):
+    defined_name = ":active"
+class Pseudoafter(CSSPseudo):
+    defined_name = "::after"
+class Pseudobefore(CSSPseudo):
+    defined_name = "::before"
+class PseudoChecked(CSSPseudo):
+    defined_name = ":checked"
+class PseudoDefault(CSSPseudo):
+    defined_name = ":default"
+class PseudoDisabled(CSSPseudo):
+    defined_name = ":disabled"
+class PseudoEmpty(CSSPseudo):
+    defined_name = ":empty"
+class PseudoEnabled(CSSPseudo):
+    defined_name = ":enabled"
+class PseudoFirstChild(CSSPseudo):
+    defined_name = ":first-child"
+class PseudoFirstLetter(CSSPseudo):
+    defined_name = "first-::letter"
+class PseudoFirstLine(CSSPseudo):
+    defined_name = "first-::line"
+class PseudoFirstOfType(CSSPseudo):
+    defined_name = ":first-of-type"
+class PseudoFocus(CSSPseudo):
+    defined_name = ":focus"
+class PseudoFullscreen(CSSPseudo):
+    defined_name = ":fullscreen"
+class PseudoHover(CSSPseudo):
+    defined_name = ":hover"
+class PseudoInRange(CSSPseudo):
+    defined_name = ":in-range"
+class PseudoIndeterminate(CSSPseudo):
+    defined_name = ":indeterminate"
+class PseudoInvalid(CSSPseudo):
+    defined_name = ":invalid"
+class PseudoLang(CSSPseudo):
+    defined_name = ":lang"
+class PseudoLastChild(CSSPseudo):
+    defined_name = ":last-child"
+class PseudoLastOfType(CSSPseudo):
+    defined_name = ":last-of-type"
+class PseudoLink(CSSPseudo):
+    defined_name = ":link"
+class PseudoMarker(CSSPseudo):
+    defined_name = "::marker"
+class PseudoNot(CSSPseudo):
+    defined_name = ":not"
+class PseudoNthChild(CSSPseudo):
+    defined_name = ":nth-child"
+class PseudoNthLastChild(CSSPseudo):
+    defined_name = ":nth-last-child"
+class PseudoNthLastOfType(CSSPseudo):
+    defined_name = ":nth-last-of-child"
+class PseudoNthOfType(CSSPseudo):
+    defined_name = ":nth-of-child"
+class PseudoOnlyOfType(CSSPseudo):
+    defined_name = ":only-of-type"
+class PseudoOnlyChild(CSSPseudo):
+    defined_name = ":only-child"
+class PseudoOptional(CSSPseudo):
+    defined_name = ":optional"
+class PseudoOutOfRange(CSSPseudo):
+    defined_name = ":out-of-range"
+class PseudoPlaceholder(CSSPseudo):
+    defined_name = "::placeholder"
+class PseudoReadOnly(CSSPseudo):
+    defined_name = ":read-only"
+class PseudoReadWrite(CSSPseudo):
+    defined_name = ":read-write"
+class PseudoRequired(CSSPseudo):
+    defined_name = ":required"
+class PseudoRoot(CSSPseudo):
+    defined_name = ":root"
+class PseudoSelection(CSSPseudo):
+    defined_name = "::selection"
+class PseudoTarget(CSSPseudo):
+    defined_name = ":target"
+class PseudoValid(CSSPseudo):
+    defined_name = ":valid"
+class PseudoVisited(CSSPseudo):
+    defined_name = ":visited"
 
 # ----------------------------------------------------------------------------------------------------------------------
 class A(CSSElement):

@@ -6,9 +6,10 @@ from __future__ import annotations
 
 # Custom Library
 import AthenaCSS.Library.SelectorElementLibrary as ElementLib
-from AthenaCSS.Objects.Selectors.CSSSelector import CSSSelector as Selector
-from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttrubite
-from AthenaCSS.Objects.Elements.CSSElement import CSSElement
+from AthenaCSS.Objects.ElementSelection.CSSAttribute import CSSAttribute
+from AthenaCSS.Objects.ElementSelection.CSSClass import CSSClass
+from AthenaCSS.Objects.ElementSelection.CSSId import CSSId
+from AthenaCSS.Objects.ElementSelection.CSSSelection import CSSSelection
 
 # Custom Packages
 from BulkTests import BulkTests
@@ -18,158 +19,62 @@ from BulkTests import BulkTests
 # ----------------------------------------------------------------------------------------------------------------------
 
 class CSSSelectors(BulkTests):
-    def test_Class1(self):
-        self.assertEqual(
-            ".test1",
-            str(ElementLib.Class("test1"))
-        )
-
-    def test_Class2(self):
-        self.assertEqual(
-            ".test2.test1",
-            str(ElementLib.Class("test2", "test1"))
-        )
-
-    def test_Class_After(self):
-        self.assertEqual(
-            ".test2+.name2",
-            str(ElementLib.Class("test2").after(ElementLib.Class("name2")))
-        )
-
-    def test_Class_Descendant(self):
-        self.assertEqual(
-            ".clasname1 #idname1",
-            str(ElementLib.Class("clasname1").descendant(ElementLib.Id("idname1")))
-        )
-
-    def test_Class_Combine1(self):
-        selction = Selector(
-            ElementLib.Class("clasname1"),
-            ElementLib.Id("idname1")
-        )
-        self.assertEqual(
-            ".clasname1,#idname1",
-            str(selction)
-        )
-
-    def test_Class_Combine2(self):
-        selection = Selector(
-            ElementLib.Div(ElementLib.Class("clasname1")),
-            ElementLib.Id("idname1")
-        )
+    def test_CSSSelection0(self):
+        div = ElementLib.Div(CSSClass("name"))
+        selection = CSSSelection(div)
 
         self.assertEqual(
-            "div.clasname1,#idname1",
-            str(
-                selection
-            )
-        )
-
-    def test_Class_Complicated1(self):
-        element = ElementLib.Div(ElementLib.Class("classname1"))
-        elemnt_2 = ElementLib.Id("idname1").descendant(
-                ElementLib.Id("idname2")
-        )
-
-        selection = Selector(
-            element,
-            elemnt_2,
-            ElementLib.Id("idname3").descendant(
-                ElementLib.Id("idname4")
-            ),
-        )
-        self.assertEqual(
-            "div.classname1,#idname1 #idname2,#idname3 #idname4",
+            "div.name",
             str(selection)
         )
+        self.assertEqual(
+            "div.name",
+            str(div)
+        )
+    def test_CSSSelection1(self):
+        div = ElementLib.Div(CSSClass("name"), CSSId("active"))
+        selection = CSSSelection(div)
 
         self.assertEqual(
-            "div.classname1",
-            str(element)
-        )
-
-    def test_Div(self):
-        self.assertEqual(
-            "div",
-            str(ElementLib.Div())
-        )
-
-    def test_Class_Complicated3(self):
-        class_name = ElementLib.Class("name")
-        div = ElementLib.Div(class_name)
-        paragraph1 = ElementLib.P().child(ElementLib.Div()).child(div)
-        paragraph2 = ElementLib.P().child(div)
-
-        selection = Selector(
-            class_name,
-            paragraph1,
-            paragraph2,
-        )
-
-        self.assertEqual(
-            ".name,p>div>div.name,p>div.name",
+            "div.name#active",
             str(selection)
         )
-
-    def test_Attribute1(self):
         self.assertEqual(
-            "div[attr_name]",
-            str(ElementLib.Div(CSSAttrubite("attr_name")))
+            "div.name#active",
+            str(div)
         )
+    def test_CSSSelection2(self):
+        div = ElementLib.Div(CSSClass("name"), CSSId("active"), CSSAttribute.equals("pressed", True))
+        selection = CSSSelection(div)
 
-    def test_Attribute2(self):
         self.assertEqual(
-            "div[attr_name][attr_2]",
-            str(
-                ElementLib.Div(
-                    CSSAttrubite("attr_name"),
-                    CSSAttrubite("attr_2")
-                )
-            )
+            "div.name#active[pressed=True]",
+            str(selection)
         )
-
-    def test_Attribute3(self):
         self.assertEqual(
-            'div[attr_name][attr_2="something"]',
-            str(
-                ElementLib.Div(
-                    CSSAttrubite("attr_name"),
-                    CSSAttrubite.equals("attr_2", '"something"')
-                )
-            )
+            "div.name#active[pressed=True]",
+            str(div)
         )
-
-    def test_Attribute4(self):
-        self.assertEqual(
-            'div[attr_name][attr_2~="something"]',
-            str(
-                ElementLib.Div(
-                    CSSAttrubite("attr_name"),
-                    CSSAttrubite.contains_word("attr_2", '"something"')
-                )
-            )
-        )
-
-    def test_DoubleColon(self):
-        self.assertEqual(
-            'a:active',
-            str(
-                ElementLib.A(
-                    ElementLib.ColonActive(),
-                )
-            )
-        )
-
-    def test_Class_Complicated4(self):
-        selection = Selector(
-            CSSElement(
-                ElementLib.Class("w3-table-all").descendant(
-                    ElementLib.Tr(ElementLib.ColonNthChild("odd"))
-                )
-            )
+    def test_CSSSelection3(self):
+        div1 = ElementLib.Div(CSSClass("name"))
+        div2 = ElementLib.Div(CSSClass("place"))
+        selection = CSSSelection(div1).preceding(
+            div2
         )
 
         self.assertEqual(
-            ".w3-table-all tr:nth-child(odd)",
+            "div.name~div.place",
+            str(selection)
+        )
+    def test_CSSSelection4(self):
+        div1 = ElementLib.Div(CSSClass("name"))
+        div2 = ElementLib.Div(CSSClass("place"))
+        selection = CSSSelection().combine(
+            div1,
+            div2
+        )
+
+        self.assertEqual(
+            "div.name,div.place",
             str(selection)
         )

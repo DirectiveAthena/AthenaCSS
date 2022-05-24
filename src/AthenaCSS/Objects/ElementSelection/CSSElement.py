@@ -12,16 +12,16 @@ from __future__ import annotations
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
-    "CSSSelector"
+    "CSSElement"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class CSSSelector:
-    __slots__ = ["parts"]
+class CSSElement:
+    defined_name = None
     def __init__(self, *parts):
-        self.parts = parts
+        self.parts = list(x for x in (self.defined_name, *parts) if x is not None)
 
     def __str__(self):
-        return ",".join(str(p) for p in self.parts)
+        return ''.join(str(p) for p in self.parts)

@@ -12,7 +12,7 @@ from typing import Any
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class CSSAttrubite:
+class CSSAttribute:
     value:Any
     name:str
     selection_operator:str
@@ -30,25 +30,25 @@ class CSSAttrubite:
         return f"[{self.name}{self.selection_operator}{self.value}]"
 
     @classmethod
-    def equals(cls, name, value) -> CSSAttrubite:
-        return cls(name,value,selection_operator="=")
+    def equals(cls, name:str, value:Any) -> CSSAttribute:
+        return cls(name,value)
 
     @classmethod
-    def contains_word(cls, name, value) -> CSSAttrubite:
+    def contains_word(cls, name:str, value:Any) -> CSSAttribute:
         return cls(name,value,selection_operator="~=")
 
     @classmethod
-    def starting_equal(cls, name, value) -> CSSAttrubite:
+    def starting_equal(cls, name:str, value:Any) -> CSSAttribute:
         return cls(name,value,selection_operator="|=")
 
     @classmethod
-    def begins_with(cls, name, value) -> CSSAttrubite:
+    def begins_with(cls, name:str, value:Any) -> CSSAttribute:
         return cls(name,value,selection_operator="^=")
 
     @classmethod
-    def ends_with(cls, name, value) -> CSSAttrubite:
+    def ends_with(cls, name:str, value:Any) -> CSSAttribute:
         return cls(name,value,selection_operator="$=")
 
     @classmethod
-    def contains_substring(cls, name, value) -> CSSAttrubite:
+    def contains_substring(cls, name:str, value:Any) -> CSSAttribute:
         return cls(name,value,selection_operator="*=")

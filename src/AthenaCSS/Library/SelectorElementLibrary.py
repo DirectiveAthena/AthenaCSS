@@ -14,13 +14,13 @@ from AthenaCSS.Objects.Selectors.CSSSelector import CSSSelector
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
-    "Class","Id","Attribute","ColonElement","ColonElementDouble","ColonActive","Colonafter","Colonbefore","ColonChecked",
+    "Class","Id", "All","ColonElement","ColonElementDouble","ColonActive","Colonafter","Colonbefore","ColonChecked",
     "ColonDefault","ColonDisabled","ColonEmpty","ColonEnabled","ColonFirstChild","ColonFirstLetter","ColonFirstLine",
     "ColonFirstOfType","ColonFocus","ColonFullscreen","ColonHover","ColonInRange","ColonIndeterminate","ColonInvalid",
     "ColonLang","ColonLastChild","ColonLastOfType","ColonLink","ColonMarker","ColonNot","ColonNthChild","ColonNthLastChild",
     "ColonNthLastOfType","ColonNthOfType","ColonOnlyOfType","ColonOnlyChild","ColonOptional","ColonOutOfRange",
     "ColonPlaceholder","ColonReadOnly","ColonReadWrite","ColonRequired","ColonRoot","ColonSelection","ColonTarget",
-    "ColonValid","ColonVisited","Element","A","Abbr","Acronym","Address","Applet","Area","Article","Aside","Audio","B",
+    "ColonValid","ColonVisited","A","Abbr","Acronym","Address","Applet","Area","Article","Aside","Audio","B",
     "Base","Basefont","Bdi","Bdo","Big","Blockquote","Body","Br","Button","Canvas","Caption","Center","Cite","Code","Col",
     "Colgroup","Data","Datalist","Dd","Del","Details","Dfn","Dialog","Dir","Div","Dl","Dt","Em","Embed","Fieldset",
     "Figcaption","Figure","Font","Footer","Form","Frame","Frameset","H1","H2","H3","H4","H5","H6","Head","Header","Hr",
@@ -46,48 +46,8 @@ class Class(CSSElement):
 class Id(CSSElement):
     prefix="#"
 
-# ----------------------------------------------------------------------------------------------------------------------
-class Attribute(CSSElement):
-    prefix = "["
-    sufix = "]"
-
-    def __init__(self, attr:str):
-        self.parts = [*self._partPrep(attr)]
-    def __str__(self):
-        return "".join(self.parts)
-    def _partPrep(self, part):
-        return self.prefix, part, self.sufix
-
-    @classmethod
-    def equals(cls, attr_name, attr_value) -> Attribute:
-        if isinstance(attr_value, str):
-            attr_value = f'"{attr_value}"'
-        return cls(fr"""{attr_name}={attr_value}""")
-    @classmethod
-    def contains_word(cls, attr_name, attr_value) -> Attribute:
-        if isinstance(attr_value, str):
-            attr_value = f'"{attr_value}"'
-        return cls(fr"""{attr_name}~={attr_value}""")
-    @classmethod
-    def starting_equal(cls, attr_name, attr_value) -> Attribute:
-        if isinstance(attr_value, str):
-            attr_value = f'"{attr_value}"'
-        return cls(fr"""{attr_name}|={attr_value}""")
-    @classmethod
-    def begins_with(cls, attr_name, attr_value) -> Attribute:
-        if isinstance(attr_value, str):
-            attr_value = f'"{attr_value}"'
-        return cls(fr"""{attr_name}^={attr_value}""")
-    @classmethod
-    def ends_with(cls, attr_name, attr_value) -> Attribute:
-        if isinstance(attr_value, str):
-            attr_value = f'"{attr_value}"'
-        return cls(fr"""{attr_name}$={attr_value}""")
-    @classmethod
-    def contains_substring(cls, attr_name, attr_value) -> Attribute:
-        if isinstance(attr_value, str):
-            attr_value = f'"{attr_value}"'
-        return cls(fr"""{attr_name}*={attr_value}""")
+class All(CSSElement):
+    defined_name = "*"
 
 # ----------------------------------------------------------------------------------------------------------------------
 class ColonElement(CSSElement):
@@ -153,7 +113,7 @@ class ColonNot(ColonElement):
         self.parts = [self.prefix, self.defined_name, RB_OPEN, selector, RB_CLOSE]
 class ColonNthChild(ColonElement):
     defined_name = "nth-child"
-    def __init__(self, n:int):
+    def __init__(self, n:int|str):
         self.parts = [self.prefix, self.defined_name, RB_OPEN, n, RB_CLOSE]
 class ColonNthLastChild(ColonElement):
     defined_name = "nth-last-child"
@@ -195,250 +155,247 @@ class ColonVisited(ColonElement):
     defined_name = "visited"
 
 # ----------------------------------------------------------------------------------------------------------------------
-class Element(CSSElement):
-    pass
-
-class A(Element):
+class A(CSSElement):
     defined_name = "a"
-class Abbr(Element):
+class Abbr(CSSElement):
     defined_name = "abbr"
-class Acronym(Element):
+class Acronym(CSSElement):
     defined_name = "acronym"
-class Address(Element):
+class Address(CSSElement):
     defined_name = "address"
-class Applet(Element):
+class Applet(CSSElement):
     defined_name = "applet"
-class Area(Element):
+class Area(CSSElement):
     defined_name = "area"
-class Article(Element):
+class Article(CSSElement):
     defined_name = "article"
-class Aside(Element):
+class Aside(CSSElement):
     defined_name = "aside"
-class Audio(Element):
+class Audio(CSSElement):
     defined_name = "audio"
-class B(Element):
+class B(CSSElement):
     defined_name = "b"
-class Base(Element):
+class Base(CSSElement):
     defined_name = "base"
-class Basefont(Element):
+class Basefont(CSSElement):
     defined_name = "basefont"
-class Bdi(Element):
+class Bdi(CSSElement):
     defined_name = "bdi"
-class Bdo(Element):
+class Bdo(CSSElement):
     defined_name = "bdo"
-class Big(Element):
+class Big(CSSElement):
     defined_name = "big"
-class Blockquote(Element):
+class Blockquote(CSSElement):
     defined_name = "blockquote"
-class Body(Element):
+class Body(CSSElement):
     defined_name = "body"
-class Br(Element):
+class Br(CSSElement):
     defined_name = "br"
-class Button(Element):
+class Button(CSSElement):
     defined_name = "button"
-class Canvas(Element):
+class Canvas(CSSElement):
     defined_name = "canvas"
-class Caption(Element):
+class Caption(CSSElement):
     defined_name = "caption"
-class Center(Element):
+class Center(CSSElement):
     defined_name = "center"
-class Cite(Element):
+class Cite(CSSElement):
     defined_name = "cite"
-class Code(Element):
+class Code(CSSElement):
     defined_name = "code"
-class Col(Element):
+class Col(CSSElement):
     defined_name = "col"
-class Colgroup(Element):
+class Colgroup(CSSElement):
     defined_name = "colgroup"
-class Data(Element):
+class Data(CSSElement):
     defined_name = "data"
-class Datalist(Element):
+class Datalist(CSSElement):
     defined_name = "datalist"
-class Dd(Element):
+class Dd(CSSElement):
     defined_name = "dd"
-class Del(Element):
+class Del(CSSElement):
     defined_name = "del"
-class Details(Element):
+class Details(CSSElement):
     defined_name = "details"
-class Dfn(Element):
+class Dfn(CSSElement):
     defined_name = "dfn"
-class Dialog(Element):
+class Dialog(CSSElement):
     defined_name = "dialog"
-class Dir(Element):
+class Dir(CSSElement):
     defined_name = "dir"
-class Div(Element):
+class Div(CSSElement):
     defined_name = "div"
-class Dl(Element):
+class Dl(CSSElement):
     defined_name = "dl"
-class Dt(Element):
+class Dt(CSSElement):
     defined_name = "dt"
-class Em(Element):
+class Em(CSSElement):
     defined_name = "em"
-class Embed(Element):
+class Embed(CSSElement):
     defined_name = "embed"
-class Fieldset(Element):
+class Fieldset(CSSElement):
     defined_name = "fieldset"
-class Figcaption(Element):
+class Figcaption(CSSElement):
     defined_name = "figcaption"
-class Figure(Element):
+class Figure(CSSElement):
     defined_name = "figure"
-class Font(Element):
+class Font(CSSElement):
     defined_name = "font"
-class Footer(Element):
+class Footer(CSSElement):
     defined_name = "footer"
-class Form(Element):
+class Form(CSSElement):
     defined_name = "form"
-class Frame(Element):
+class Frame(CSSElement):
     defined_name = "frame"
-class Frameset(Element):
+class Frameset(CSSElement):
     defined_name = "frameset"
-class H1(Element):
+class H1(CSSElement):
     defined_name = "h1"
-class H2(Element):
+class H2(CSSElement):
     defined_name = "h2"
-class H3(Element):
+class H3(CSSElement):
     defined_name = "h3"
-class H4(Element):
+class H4(CSSElement):
     defined_name = "h4"
-class H5(Element):
+class H5(CSSElement):
     defined_name = "h5"
-class H6(Element):
+class H6(CSSElement):
     defined_name = "h6"
-class Head(Element):
+class Head(CSSElement):
     defined_name = "head"
-class Header(Element):
+class Header(CSSElement):
     defined_name = "header"
-class Hr(Element):
+class Hr(CSSElement):
     defined_name = "hr"
-class Html(Element):
+class Html(CSSElement):
     defined_name = "html"
-class I(Element):
-    defined_name = "i>"
-class Iframe(Element):
+class I(CSSElement):
+    defined_name = "i"
+class Iframe(CSSElement):
     defined_name = "iframe"
-class Img(Element):
+class Img(CSSElement):
     defined_name = "img"
-class Input(Element):
+class Input(CSSElement):
     defined_name = "input"
-class Ins(Element):
+class Ins(CSSElement):
     defined_name = "ins"
-class Kbd(Element):
+class Kbd(CSSElement):
     defined_name = "kbd"
-class Label(Element):
+class Label(CSSElement):
     defined_name = "label"
-class Legend(Element):
+class Legend(CSSElement):
     defined_name = "legend"
-class Li(Element):
+class Li(CSSElement):
     defined_name = "li"
-class Link(Element):
+class Link(CSSElement):
     defined_name = "link"
-class Main(Element):
+class Main(CSSElement):
     defined_name = "main"
-class Map(Element):
+class Map(CSSElement):
     defined_name = "map"
-class Mark(Element):
+class Mark(CSSElement):
     defined_name = "mark"
-class Meta(Element):
+class Meta(CSSElement):
     defined_name = "meta"
-class Meter(Element):
+class Meter(CSSElement):
     defined_name = "meter"
-class Nav(Element):
+class Nav(CSSElement):
     defined_name = "nav"
-class Noframes(Element):
+class Noframes(CSSElement):
     defined_name = "noframes"
-class Noscript(Element):
+class Noscript(CSSElement):
     defined_name = "noscript"
-class Object(Element):
+class Object(CSSElement):
     defined_name = "object"
-class Ol(Element):
+class Ol(CSSElement):
     defined_name = "ol"
-class Optgroup(Element):
+class Optgroup(CSSElement):
     defined_name = "optgroup"
-class Option(Element):
+class Option(CSSElement):
     defined_name = "option"
-class Output(Element):
+class Output(CSSElement):
     defined_name = "output"
-class P(Element):
-    defined_name = "p>"
-class Param(Element):
+class P(CSSElement):
+    defined_name = "p"
+class Param(CSSElement):
     defined_name = "param"
-class Picture(Element):
+class Picture(CSSElement):
     defined_name = "picture"
-class Pre(Element):
+class Pre(CSSElement):
     defined_name = "pre"
-class Progress(Element):
+class Progress(CSSElement):
     defined_name = "progress"
-class Q(Element):
-    defined_name = "q>"
-class Rp(Element):
+class Q(CSSElement):
+    defined_name = "q"
+class Rp(CSSElement):
     defined_name = "rp"
-class Rt(Element):
+class Rt(CSSElement):
     defined_name = "rt"
-class Ruby(Element):
+class Ruby(CSSElement):
     defined_name = "ruby"
-class S(Element):
-    defined_name = "s>"
-class Samp(Element):
+class S(CSSElement):
+    defined_name = "s"
+class Samp(CSSElement):
     defined_name = "samp"
-class Script(Element):
+class Script(CSSElement):
     defined_name = "script"
-class Section(Element):
+class Section(CSSElement):
     defined_name = "section"
-class Select(Element):
+class Select(CSSElement):
     defined_name = "select"
-class Small(Element):
+class Small(CSSElement):
     defined_name = "small"
-class Source(Element):
+class Source(CSSElement):
     defined_name = "source"
-class Span(Element):
+class Span(CSSElement):
     defined_name = "span"
-class Strike(Element):
+class Strike(CSSElement):
     defined_name = "strike"
-class Strong(Element):
+class Strong(CSSElement):
     defined_name = "strong"
-class Style(Element):
+class Style(CSSElement):
     defined_name = "style"
-class Sub(Element):
+class Sub(CSSElement):
     defined_name = "sub"
-class Summary(Element):
+class Summary(CSSElement):
     defined_name = "summary"
-class Sup(Element):
+class Sup(CSSElement):
     defined_name = "sup"
-class Svg(Element):
+class Svg(CSSElement):
     defined_name = "svg"
-class Table(Element):
+class Table(CSSElement):
     defined_name = "table"
-class Tbody(Element):
+class Tbody(CSSElement):
     defined_name = "tbody"
-class Td(Element):
+class Td(CSSElement):
     defined_name = "td"
-class Template(Element):
+class Template(CSSElement):
     defined_name = "template"
-class Textarea(Element):
+class Textarea(CSSElement):
     defined_name = "textarea"
-class Tfoot(Element):
+class Tfoot(CSSElement):
     defined_name = "tfoot"
-class Th(Element):
+class Th(CSSElement):
     defined_name = "th"
-class Thead(Element):
+class Thead(CSSElement):
     defined_name = "thead"
-class Time(Element):
+class Time(CSSElement):
     defined_name = "time"
-class Title(Element):
+class Title(CSSElement):
     defined_name = "title"
-class Tr(Element):
+class Tr(CSSElement):
     defined_name = "tr"
-class Track(Element):
+class Track(CSSElement):
     defined_name = "track"
-class Tt(Element):
+class Tt(CSSElement):
     defined_name = "tt"
-class U(Element):
-    defined_name = "u>"
-class Ul(Element):
+class U(CSSElement):
+    defined_name = "u"
+class Ul(CSSElement):
     defined_name = "ul"
-class Var(Element):
+class Var(CSSElement):
     defined_name = "var"
-class Video(Element):
+class Video(CSSElement):
     defined_name = "video"
-class Wbr(Element):
+class Wbr(CSSElement):
     defined_name = "wbr"

@@ -6,6 +6,7 @@ from __future__ import annotations
 
 # Custom Library
 from AthenaLib.Decorators.ClassMethods import return_self_classmethod as return_self
+from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttrubite
 
 # Custom Packages
 
@@ -31,7 +32,7 @@ class CSSElement:
     parts: list
     __slots__ = ["parts"]
 
-    def __init__(self, *parts: str | CSSElement):
+    def __init__(self, *parts: str|CSSElement|CSSAttrubite):
         if self.defined_name is None:
             self.parts = []
         elif self.prefix is None:
@@ -46,7 +47,7 @@ class CSSElement:
         for e in self.parts:
             if isinstance(e, tuple):
                 result_string += "".join(str(e_) for e_ in e)
-            elif isinstance(e, CSSElement):
+            elif isinstance(e, CSSElement|CSSAttrubite):
                 result_string += str(e)
             else:
                 result_string += e

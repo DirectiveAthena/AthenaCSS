@@ -7,6 +7,8 @@ from __future__ import annotations
 # Custom Library
 import AthenaCSS.Library.SelectorElementLibrary as ElementLib
 from AthenaCSS.Objects.Selectors.CSSSelector import CSSSelector as Selector
+from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttrubite
+from AthenaCSS.Objects.Elements.CSSElement import CSSElement
 
 # Custom Packages
 from BulkTests import BulkTests
@@ -92,8 +94,6 @@ class CSSSelectors(BulkTests):
             str(ElementLib.Div())
         )
 
-
-
     def test_Class_Complicated3(self):
         class_name = ElementLib.Class("name")
         div = ElementLib.Div(class_name)
@@ -114,7 +114,7 @@ class CSSSelectors(BulkTests):
     def test_Attribute1(self):
         self.assertEqual(
             "div[attr_name]",
-            str(ElementLib.Div(ElementLib.Attribute("attr_name")))
+            str(ElementLib.Div(CSSAttrubite("attr_name")))
         )
 
     def test_Attribute2(self):
@@ -122,8 +122,8 @@ class CSSSelectors(BulkTests):
             "div[attr_name][attr_2]",
             str(
                 ElementLib.Div(
-                    ElementLib.Attribute("attr_name"),
-                    ElementLib.Attribute("attr_2")
+                    CSSAttrubite("attr_name"),
+                    CSSAttrubite("attr_2")
                 )
             )
         )
@@ -133,8 +133,8 @@ class CSSSelectors(BulkTests):
             'div[attr_name][attr_2="something"]',
             str(
                 ElementLib.Div(
-                    ElementLib.Attribute("attr_name"),
-                    ElementLib.Attribute.equals("attr_2", "something")
+                    CSSAttrubite("attr_name"),
+                    CSSAttrubite.equals("attr_2", '"something"')
                 )
             )
         )
@@ -144,8 +144,8 @@ class CSSSelectors(BulkTests):
             'div[attr_name][attr_2~="something"]',
             str(
                 ElementLib.Div(
-                    ElementLib.Attribute("attr_name"),
-                    ElementLib.Attribute.contains_word("attr_2", "something")
+                    CSSAttrubite("attr_name"),
+                    CSSAttrubite.contains_word("attr_2", '"something"')
                 )
             )
         )
@@ -155,7 +155,21 @@ class CSSSelectors(BulkTests):
             'a:active',
             str(
                 ElementLib.A(
-                    ElementLib.colon_Active(),
+                    ElementLib.ColonActive(),
                 )
             )
+        )
+
+    def test_Class_Complicated4(self):
+        selection = Selector(
+            CSSElement(
+                ElementLib.Class("w3-table-all").descendant(
+                    ElementLib.Tr(ElementLib.ColonNthChild("odd"))
+                )
+            )
+        )
+
+        self.assertEqual(
+            ".w3-table-all tr:nth-child(odd)",
+            str(selection)
         )

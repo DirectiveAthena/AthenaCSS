@@ -6,19 +6,10 @@ from __future__ import annotations
 
 # Custom Library
 import AthenaCSS.Library.SelectorElementLibrary as ElementLib
-import AthenaColor
-from AthenaCSS.Objects.ElementSelection.CSSAttribute import CSSAttribute
 from AthenaCSS.Objects.ElementSelection.CSSClass import CSSClass
-from AthenaCSS.Objects.ElementSelection.CSSId import CSSId
 from AthenaCSS.Objects.ElementSelection.CSSSelection import CSSSelection
 import AthenaCSS.Library.PropertyLibrary as PropertyLibrary
-import AthenaCSS.Library.SubPropertyLibrary as Filters
 from AthenaCSS.Objects.Printer.CSSPrinter import CSSPrinter
-
-from AthenaLib.Types.Time import Second,MilliSecond
-from AthenaLib.Types.Bezier import CubicBezier
-from AthenaLib.Types.AbsoluteLength import Pixel
-from AthenaLib.Types.Math import Percent
 
 from AthenaColor import RGB
 
@@ -147,10 +138,10 @@ class CSSPrinting(BulkTests):
 
         self.assertEqual(
 f"""
-/*{"-"*117}*/
+/*{"-"*64}*/
 /*This is a comment.*/
 /*To test comment formatting*/
-/*{"-"*117}*/
+/*{"-"*64}*/
 .post h1+p::first-line{{
     color: rgb(255, 128, 52);
     background-color: rgb(0, 0, 0);

@@ -22,8 +22,8 @@ from AthenaCSS.Objects.Printer.PrinterColors import PrinterColors
 # - Support Code -
 # ----------------------------------------------------------------------------------------------------------------------
 PROPERTIES = CSSProperty|CSSPropertyShorthand
-Content_Styling = namedtuple("Content_Styling", ["Selection", "Styling", "Comment"])
-Content_Comment = namedtuple("Content_Comment", ["Comment"])
+Content_Styling = namedtuple("Content_Styling", ["selection", "styling", "comment"])
+Content_Comment = namedtuple("Content_Comment", ["comment"])
 Content_Line = namedtuple("Content_Line", [])
 Content_Seperation = namedtuple("Content_Seperation", [])
 

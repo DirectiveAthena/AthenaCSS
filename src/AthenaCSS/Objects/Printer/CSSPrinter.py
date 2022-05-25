@@ -6,15 +6,17 @@ from __future__ import annotations
 from collections import namedtuple
 from enum import Enum
 from dataclasses import dataclass, field
+from typing import Iterable
 
 # Custom Library
+from AthenaColor import ForeNest, StyleNest
 
 # Custom Packages
 from AthenaCSS.Objects.ElementSelection.CSSSelection import CSSSelection
 from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
 from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 from AthenaCSS.Library.Support import locked
-from AthenaCSS.Library.PrinterColors import PRINTER_COLORS
+from AthenaCSS.Objects.Printer.PrinterColors import PrinterColors
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -
@@ -27,12 +29,23 @@ Content_Seperation = namedtuple("Content_Seperation", [])
 
 CONTENT = Content_Comment | Content_Styling | Content_Line | Content_Seperation
 
-Content_Yielder = namedtuple("Content_Yielder", ["String", "StringType"])
+Content_Yielder = namedtuple("Content_Yielder", ["text", "console_styling"])
+
 class YIELD(Enum):
     COMMENT = "comment"
     SELECTOR = "selector"
     TEXT = "text"
     LINE = "line"
+
+PRINTER_COLORS = PrinterColors(
+    comment=ForeNest.SeaGreen,
+    property_name=ForeNest.CornFlowerBlue,
+    property_value=ForeNest.White,
+    text=ForeNest.SlateGray,
+    selector=ForeNest.GoldenRod,
+    line=StyleNest.NoForeground,
+    empty=StyleNest.NoForeground
+)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -77,14 +90,17 @@ class CSSPrinterManager:
 # ----------------------------------------------------------------------------------------------------------------------
 @dataclass(kw_only=True, eq=False, slots=True)
 class CSSPrinter:
-    indentation:int=field(default=4) # thanks to Twidi for showing me my typo
-    one_line:bool=field(default=False)
-    seperation_character:str=field(default="-")
-    seperation_length:int=field(default=255)
-    comments:bool=field(default=True)
-    file_path:str=field(default=None)
+    indentation:int=4 # thanks to Twidi for showing me my typo, and showing me that field is not needed for default
+    one_line:bool=False
+    seperation_character:str="-"
+    seperation_length:int=64
+    comments:bool=True
+    file_overwrite:bool=True
+    console_printer_colors:PrinterColors=PRINTER_COLORS
+
+    # Not needed on init
     _manager:CSSPrinterManager=field(init=False, default=None)
-    
+
     def __enter__(self):
         return self.manager
 
@@ -94,11 +110,6 @@ class CSSPrinter:
     # ------------------------------------------------------------------------------------------------------------------
     # - Support Methods -
     # ------------------------------------------------------------------------------------------------------------------
-    def _create_manager(self) -> CSSPrinterManager:
-        if self._manager is None:
-            self._manager = CSSPrinterManager()
-        return self._manager
-
     def _format_comment(self, comment:str):
         if self.one_line:
             new_line = '\n'
@@ -110,34 +121,82 @@ class CSSPrinter:
         new_line = "" if self.one_line else "\n"
         indentation = "" if self.one_line else (" " * self.indentation)
 
-        for content in self.content:
+        for content in self.manager.content:
             match content:
                 # only print if comments are enabled
                 case Content_Comment() if self.comments:
                     comment, = content
-                    yield Content_Yielder(self._format_comment(comment) + new_line, YIELD.COMMENT)
+                    yield Content_Yielder(
+                        self._format_comment(comment) + new_line,
+                        self.console_printer_colors.comment
+                    )
 
                 # only print if comments are enabled
                 case Content_Seperation() if self.comments:
-                    yield Content_Yielder(self._format_comment(self.seperation_character * self.seperation_length) + new_line, YIELD.COMMENT)
+                    yield Content_Yielder(
+                        self._format_comment(self.seperation_character * self.seperation_length) + new_line,
+                        self.console_printer_colors.comment
+                    )
 
                 case Content_Line():
-                    yield Content_Yielder(new_line, YIELD.LINE)
+                    yield Content_Yielder(
+                        new_line,
+                        self.console_printer_colors.line
+                    )
 
                 case Content_Styling():
                     selection, styling, comment = content
                     if comment is not None and self.comments:
-                        yield Content_Yielder(self._format_comment(comment) + new_line, YIELD.COMMENT)
-                    styling_string = new_line.join(f'{indentation}{s};' for s in styling)
+                        yield Content_Yielder(
+                            self._format_comment(comment) + new_line,
+                            self.console_printer_colors.comment
+                        )
                     # yield the Selectors
-                    yield Content_Yielder(f"{selection}{{", YIELD.SELECTOR)
+                    yield Content_Yielder(
+                        f"{selection}{{{new_line}",
+                        self.console_printer_colors.selector
+                    )
                     # yield the styling
-                    yield Content_Yielder(f"{new_line}{styling_string}{new_line}", YIELD.TEXT)
+                    for style_prop in styling: #type:PROPERTIES
+                        # yield indentation, to not have it have a styling makup
+                        yield Content_Yielder(
+                            indentation,
+                            self.console_printer_colors.empty
+                        )
+
+                        # yield the name
+                        yield Content_Yielder(
+                            f"{style_prop.name}",
+                            self.console_printer_colors.property_name
+                        )
+
+                        # yield the colon
+                        yield Content_Yielder(
+                            f": ",
+                            self.console_printer_colors.text
+                        )
+                        # yield the value
+                        yield Content_Yielder(
+                            style_prop.value_printer(),
+                            self.console_printer_colors.property_value
+                        )
+                        # yield the semicolon
+                        yield Content_Yielder(
+                            f";{new_line}",
+                            self.console_printer_colors.text
+                        )
+
                     # yield the closing of the selector
-                    yield Content_Yielder(f"}}{new_line * 2}", YIELD.SELECTOR)
+                    yield Content_Yielder(
+                        f"}}{new_line * 2}",
+                        self.console_printer_colors.selector
+                    )
 
+                # else it will catch the ones that were commented but now defunct
+                case Content_Comment() | Content_Styling() | Content_Line() | Content_Seperation():
+                    continue
 
-                case _ if self.comments:
+                case _:
                     raise SyntaxError
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -146,27 +205,41 @@ class CSSPrinter:
     @property
     def manager(self):
         # if the manager is not set yet, it will be created
-        return self._create_manager()
-    @property
-    def content(self) -> list:
-        return self.manager.content
+        if self._manager is None:
+            self._manager = CSSPrinterManager()
+        return self._manager
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Output Methods -
     # ------------------------------------------------------------------------------------------------------------------
     def to_string(self):
-        return ''.join(s.String for s in self._string_generator())
+        return ''.join(segement.text for segement in self._string_generator())
 
     def to_console(self):
         for segement in self._string_generator():
-            text, print_setup = segement
-            print(PRINTER_COLORS[print_setup.value](text), end="")
+            print(
+                segement.console_styling(segement.text),
+                end=""
+            )
 
-    def to_file(self):
-        if self.file_path is None:
+    def to_file(self, file_path:str|Iterable=None):
+        if file_path is None:
             raise ValueError
 
-        with open(self.file_path, "a") as file:
-            for segement in self._string_generator():
-                file.write(segement.String)
+        if self.file_overwrite:
+            file_operation = "w+"
+        else:
+            file_operation = "a+"
 
+        if isinstance(file_path, str):
+            with open(file_path, file_operation) as file:
+                for segement in self._string_generator():
+                    file.write(segement.text)
+
+        elif isinstance(file_path, Iterable):
+            for file_path_ in file_path:
+                with open(file_path_, file_operation) as file:
+                    for segement in self._string_generator():
+                        file.write(segement.text)
+        else:
+            raise TypeError

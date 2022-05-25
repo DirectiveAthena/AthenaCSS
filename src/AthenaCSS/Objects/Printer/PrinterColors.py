@@ -3,19 +3,20 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from typing import Callable
+from typing import Callable, NamedTuple
 
 # Custom Library
-from AthenaColor import ForeNest, StyleNest
 
 # Custom Packages
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-PRINTER_COLORS:dict[str:Callable] = {
-    "comment": ForeNest.SeaGreen,
-    "text": ForeNest.SlateGray,
-    "selector": ForeNest.PaleGoldenRod,
-    "line": StyleNest.NoForeground
-}
+class PrinterColors(NamedTuple):
+    comment: Callable
+    property_name:Callable
+    property_value:Callable
+    text: Callable
+    selector: Callable
+    line: Callable
+    empty:Callable

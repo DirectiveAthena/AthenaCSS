@@ -147,10 +147,10 @@ class CSSPrinting(BulkTests):
 
         self.assertEqual(
 f"""
-/*{"-"*255}*/
+/*{"-"*117}*/
 /*This is a comment.*/
 /*To test comment formatting*/
-/*{"-"*255}*/
+/*{"-"*117}*/
 .post h1+p::first-line{{
     color: rgb(255, 128, 52);
     background-color: rgb(0, 0, 0);

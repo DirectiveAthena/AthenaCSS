@@ -100,7 +100,7 @@ STRETCH = "stretch"
 LEFT = "left"
 RIGHT = "right"
 
-AFTER="+"
+FOLLOWING= "+"
 DESCENDANT=" "
 COMBINE=","
 CHILD=">"

@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import (AFTER,DESCENDANT,COMBINE,CHILD,PRECEDING)
+from AthenaCSS.Library.Support import (FOLLOWING, DESCENDANT, COMBINE, CHILD, PRECEDING)
 from AthenaCSS.Objects.ElementSelection.CSSId import CSSId
 from AthenaCSS.Objects.ElementSelection.CSSElement import CSSElement
 from AthenaCSS.Objects.ElementSelection.CSSClass import CSSClass
@@ -62,28 +62,28 @@ class CSSSelectionManager:
     def add_descendants(self, *elements:ELEMENTS):
         self.parts.append(CSSSelectionPart(
             elements=elements,
-            part_type=" "
+            part_type=DESCENDANT
         ))
 
     @locked
     def add_following(self, *elements:ELEMENTS):
         self.parts.append(CSSSelectionPart(
             elements=elements,
-            part_type="+"
+            part_type=FOLLOWING
         ))
 
     @locked
     def add_childeren(self, *elements:ELEMENTS):
         self.parts.append(CSSSelectionPart(
             elements=elements,
-            part_type=">"
+            part_type=CHILD
         ))
 
     @locked
     def add_preceding(self, *elements:ELEMENTS):
         self.parts.append(CSSSelectionPart(
             elements=elements,
-            part_type="~"
+            part_type=PRECEDING
         ))
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -125,7 +125,7 @@ class CSSSelection:
                 case _:
                     raise TypeError
 
-        return ",".join(temp_list)
+        return COMBINE.join(temp_list)
 
     def __enter__(self):
         # Create a manager to be used to control the selection structure

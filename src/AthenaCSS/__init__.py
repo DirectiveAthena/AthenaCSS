@@ -16,5 +16,6 @@ from AthenaCSS.Objects.ElementSelection.CSSPseudo import CSSPseudo
 from AthenaCSS.Objects.ElementSelection.CSSSelection import CSSSelection
 
 from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
+from AthenaCSS.Objects.Properties.CSSPropertyVariable import CSSPropertyVariable
 from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 

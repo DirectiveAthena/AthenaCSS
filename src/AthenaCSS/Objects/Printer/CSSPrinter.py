@@ -141,7 +141,7 @@ class CSSPrinter:
 
                         # yield the name
                         yield ContentYielder(
-                            f"{style_prop.name}",
+                            style_prop.name_printer(),
                             self.console_printer_colors.property_name
                         )
 

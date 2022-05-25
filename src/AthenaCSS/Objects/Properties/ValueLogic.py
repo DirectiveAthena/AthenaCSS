@@ -142,7 +142,7 @@ class ValueLogic:
             case None:
                 return "none"
             case RGB()|RGBA()|HEX()|HEXA()|HSL()|HSV():
-                return f"{type(self.value).__name__.lower()}({self.value.export()})"
+                return f"{type(self.value).__name__.lower()}{self.value.export()}"
             case tuple(value):
                 return self.printer_space.join(str(v) for v in value)
             case value: # catches all

@@ -325,6 +325,7 @@ class BackgroundColor(CSSProperty):
         default=TRANSPARENT,
         value_choice={
             str:{TRANSPARENT, *COLORS_STR},
+            **COLORS_CHOICE
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1100,7 +1101,7 @@ class Color(CSSProperty):
     value_logic = ValueLogic(
         # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
         value_choice={
-            str: COLORS_STR,
+            str:{TRANSPARENT, *COLORS_STR},
             **COLORS_CHOICE
         },
     )

@@ -20,6 +20,10 @@ __all__=[
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSAttribute:
+    """
+    A special class to be used for all CSS attribute selectors.
+    This is done because these type selectors can a name by itself, or also combined with a specific value
+    """
     value:Any
     name:str
     selection_operator:str
@@ -59,3 +63,6 @@ class CSSAttribute:
     @classmethod
     def contains_substring(cls, name:str, value:Any) -> CSSAttribute:
         return cls(name,value,selection_operator="*=")
+
+    def __call__(self, name:str, value:Any=None,):
+        return self.__class__(name, value, selection_operator=self.selection_operator)

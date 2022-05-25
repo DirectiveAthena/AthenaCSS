@@ -19,9 +19,14 @@ __all__=[
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSElement:
-    defined_name = None
-    def __init__(self, *parts):
+    __slots__ = ["parts", "defined_name"]
+
+    def __init__(self, *parts, defined_name=None):
+        self.defined_name = defined_name
         self.parts = list(x for x in (self.defined_name, *parts) if x is not None)
 
     def __str__(self):
         return ''.join(str(p) for p in self.parts)
+
+    def __call__(self, *parts):
+        return self.__class__(*parts, defined_name=self.defined_name)

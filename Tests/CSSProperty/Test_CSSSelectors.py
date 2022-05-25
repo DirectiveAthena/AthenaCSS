@@ -20,7 +20,9 @@ from BulkTests import BulkTests
 
 class CSSSelectors(BulkTests):
     def test_CSSSelection0(self):
-        div = ElementLib.Div(CSSClass("name"))
+        div = ElementLib.Div(
+            CSSClass("name")
+        )
         selection = CSSSelection()
         with selection as s:
             s.add(div)
@@ -33,8 +35,10 @@ class CSSSelectors(BulkTests):
     def test_CSSSelection1(self):
         with (nested_selection := CSSSelection()) as s_:
             s_.add_following(
-                ElementLib.H1(),
-                ElementLib.P(ElementLib.PseudoFirstLine())
+                ElementLib.H1,
+                ElementLib.P(
+                    ElementLib.PseudoFirstLine
+                )
             )
 
         with (selection := CSSSelection()) as s:
@@ -52,7 +56,10 @@ class CSSSelectors(BulkTests):
         with (selection := CSSSelection()) as s:
             s.add_childeren(
                 ElementLib.Div(CSSClass("post")),
-                ElementLib.P(ElementLib.PseudoFirstChild(),ElementLib.PseudoFirstLine())
+                ElementLib.P(
+                    ElementLib.PseudoFirstChild,
+                    ElementLib.PseudoFirstLine
+                )
             )
 
         self.assertEqual(

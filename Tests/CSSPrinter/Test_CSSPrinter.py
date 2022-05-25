@@ -189,3 +189,22 @@ r"""
 """,
             printer.to_string()
         )
+
+    def test_CSSPrinter_ConsolePrinter(self):
+        selection, styling = self.styling_setup()
+
+        # Define the printer and populate with styling
+        printer = CSSPrinter(
+            indentation=4,
+        )
+        with printer as p:
+            p.add_line(),
+            p.add_seperation(),
+            p.add_comment("This is a comment.\nTo test comment formatting"),
+            p.add_seperation(),
+            p.add_style(
+                selection=selection,
+                styling=styling,
+            )
+
+        printer.to_console()

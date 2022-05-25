@@ -21,60 +21,41 @@ from BulkTests import BulkTests
 class CSSSelectors(BulkTests):
     def test_CSSSelection0(self):
         div = ElementLib.Div(CSSClass("name"))
-        selection = CSSSelection(div)
+        selection = CSSSelection()
+        with selection as s:
+            s.add(div)
 
         self.assertEqual(
             "div.name",
             str(selection)
         )
-        self.assertEqual(
-            "div.name",
-            str(div)
-        )
+
     def test_CSSSelection1(self):
-        div = ElementLib.Div(CSSClass("name"), CSSId("active"))
-        selection = CSSSelection(div)
+        with (nested_selection := CSSSelection()) as s_:
+            s_.add_following(
+                ElementLib.H1(),
+                ElementLib.P(ElementLib.PseudoFirstLine())
+            )
+
+        with (selection := CSSSelection()) as s:
+            s.add_descendants(
+                CSSClass("post"),
+                nested_selection
+            )
 
         self.assertEqual(
-            "div.name#active",
+            ".post h1+p::first-line",
             str(selection)
         )
-        self.assertEqual(
-            "div.name#active",
-            str(div)
-        )
+
     def test_CSSSelection2(self):
-        div = ElementLib.Div(CSSClass("name"), CSSId("active"), CSSAttribute.equals("pressed", True))
-        selection = CSSSelection(div)
+        with (selection := CSSSelection()) as s:
+            s.add_childeren(
+                ElementLib.Div(CSSClass("post")),
+                ElementLib.P(ElementLib.PseudoFirstChild(),ElementLib.PseudoFirstLine())
+            )
 
         self.assertEqual(
-            "div.name#active[pressed=True]",
-            str(selection)
-        )
-        self.assertEqual(
-            "div.name#active[pressed=True]",
-            str(div)
-        )
-    def test_CSSSelection3(self):
-        div1 = ElementLib.Div(CSSClass("name"))
-        div2 = ElementLib.Div(CSSClass("place"))
-        selection = CSSSelection(div1).preceding(
-            div2
-        )
-
-        self.assertEqual(
-            "div.name~div.place",
-            str(selection)
-        )
-    def test_CSSSelection4(self):
-        div1 = ElementLib.Div(CSSClass("name"))
-        div2 = ElementLib.Div(CSSClass("place"))
-        selection = CSSSelection().combine(
-            div1,
-            div2
-        )
-
-        self.assertEqual(
-            "div.name,div.place",
+            "div.post>p:first-child::first-line",
             str(selection)
         )

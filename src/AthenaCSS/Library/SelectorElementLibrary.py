@@ -60,9 +60,9 @@ class PseudoEnabled(CSSPseudo):
 class PseudoFirstChild(CSSPseudo):
     defined_name = ":first-child"
 class PseudoFirstLetter(CSSPseudo):
-    defined_name = "first-::letter"
+    defined_name = ":first-letter"
 class PseudoFirstLine(CSSPseudo):
-    defined_name = "first-::line"
+    defined_name = "::first-line"
 class PseudoFirstOfType(CSSPseudo):
     defined_name = ":first-of-type"
 class PseudoFocus(CSSPseudo):

@@ -128,6 +128,64 @@ class CSSPrinting(BulkTests):
             printer.to_string()
         )
 
-        print(AthenaColor.ForeNest.SlateGray(
+    def test_CSSPrinter_FullCommentLines(self):
+        selection, styling = self.styling_setup()
+
+        # Define the printer and populate with styling
+        printer = CSSPrinter(
+            indentation=4,
+        )
+        with printer as p:
+            p.add_line(),
+            p.add_seperation(),
+            p.add_comment("This is a comment.\nTo test comment formatting"),
+            p.add_seperation(),
+            p.add_style(
+                selection=selection,
+                styling=styling
+            )
+
+        self.assertEqual(
+f"""
+/*{"-"*255}*/
+/*This is a comment.*/
+/*To test comment formatting*/
+/*{"-"*255}*/
+.post h1+p::first-line{{
+    color: rgb(255, 128, 52);
+    background-color: rgb(0, 0, 0);
+}}
+
+""",
             printer.to_string()
-        ))
+        )
+
+    def test_CSSPrinter_NoComments(self):
+        selection, styling = self.styling_setup()
+
+        # Define the printer and populate with styling
+        printer = CSSPrinter(
+            indentation=4,
+            comments=False
+        )
+        with printer as p:
+            p.add_line(),
+            p.add_seperation(),
+            p.add_comment("This is a comment.\nTo test comment formatting"),
+            p.add_seperation(),
+            p.add_style(
+                selection=selection,
+                styling=styling,
+                comment="THIS SHOULD NOT APPEAER"
+            )
+
+        self.assertEqual(
+r"""
+.post h1+p::first-line{
+    color: rgb(255, 128, 52);
+    background-color: rgb(0, 0, 0);
+}
+
+""",
+            printer.to_string()
+        )

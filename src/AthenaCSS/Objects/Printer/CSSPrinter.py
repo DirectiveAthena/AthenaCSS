@@ -17,10 +17,12 @@ from AthenaCSS.Library.Support import locked
 # - Support Code -
 # ----------------------------------------------------------------------------------------------------------------------
 PROPERTIES = CSSProperty|CSSPropertyShorthand
-ContentSegement_Styling = namedtuple("ContentSegement_Styling", ["Selection", "Styling", "Comment"])
-ContentSegement_Comment = namedtuple("ContentSegement_Comment", ["Comment"])
+Content_Styling = namedtuple("Content_Styling", ["Selection", "Styling", "Comment"])
+Content_Comment = namedtuple("Content_Comment", ["Comment"])
+Content_Line = namedtuple("Content_Line", [])
+Content_Seperation = namedtuple("Content_Seperation", [])
 
-CONTENT = ContentSegement_Comment|ContentSegement_Styling
+CONTENT = Content_Comment | Content_Styling | Content_Line | Content_Seperation
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -45,30 +47,47 @@ class CSSPrinterManager:
             raise TypeError
         if comment is not None and not isinstance(comment, str):
             raise TypeError
-        self.content.append(ContentSegement_Styling(selection,styling, comment))
+        self.content.append(Content_Styling(selection, styling, comment))
 
     @locked
     def add_comment(self, comment:str):
         if comment is not None and not isinstance(comment, str):
             raise TypeError
-        self.content.append(ContentSegement_Comment(comment))
+        self.content.append(Content_Comment(comment))
+
+    @locked
+    def add_seperation(self):
+        self.content.append(Content_Seperation())
 
     @locked
     def add_line(self):
-        self.content.append(ContentSegement_Comment("-"*255))
+        self.content.append(Content_Line())
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSPrinter:
     _indentation:int # thanks to Twidi for showing me my typo
     _one_line:bool
-    __slots__ = ["_indentation", "_one_line", "_manager"]
+    _seperation_character:str
+    _seperation_length:int
+    _comments:bool
+    __slots__ = ["_indentation", "_one_line", "_manager", "_seperation_character", "_seperation_length", "_comments"]
 
-    def __init__(self,*,indentation:int=4, one_line=False):
+    def __init__(self,
+                 *,
+                 indentation:int=4,
+                 one_line=False,
+                 seperation_character="-",
+                 seperation_length=255,
+                 comments=True
+                 ):
         self._manager = None
 
         self.indentation = indentation
         self.one_line = one_line
+        self.seperation_character = seperation_character
+        self.seperation_length = seperation_length
+        self.comments = comments
 
     def __enter__(self):
         return self.manager
@@ -114,12 +133,38 @@ class CSSPrinter:
     @property
     def one_line(self):
         return self._one_line
-
     @one_line.setter
     def one_line(self, value):
         if not isinstance(value, bool):
             raise TypeError
         self._one_line = value
+
+    @property
+    def seperation_character(self):
+        return self._seperation_character
+    @seperation_character.setter
+    def seperation_character(self, value):
+        if not isinstance(value, str):
+            raise TypeError
+        self._seperation_character = value
+
+    @property
+    def seperation_length(self) -> int:
+        return self._seperation_length
+    @seperation_length.setter
+    def seperation_length(self, value):
+        if not isinstance(value, int):
+            raise TypeError
+        self._seperation_length = max(0,value)
+
+    @property
+    def comments(self):
+        return self._comments
+    @comments.setter
+    def comments(self, value):
+        if not isinstance(value, bool):
+            raise TypeError
+        self._comments = value
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Output Methods -
@@ -131,19 +176,33 @@ class CSSPrinter:
 
         for content in self.content:
             match content:
-                case ContentSegement_Comment():
+                # only print if comments are enabled
+                case Content_Comment() if self.comments:
                     comment, = content
                     result += self._format_comment(comment) + new_line
 
-                case ContentSegement_Styling():
+                # only print if comments are enabled
+                case Content_Seperation() if self.comments:
+                    result += self._format_comment(self.seperation_character*self.seperation_length) + new_line
+
+                case Content_Line():
+                    result += new_line
+
+                case Content_Styling():
                     selection, styling, comment = content
-                    if comment is not None:
+                    if comment is not None and self.comments:
                         result += self._format_comment(comment) + new_line
                     styling_string = new_line.join(f'{indentation}{s};' for s in styling)
                     result += f"{selection}{{{new_line}{styling_string}{new_line}}}{new_line * 2}"
 
-                case _:
+                case _ if self.comments:
                     raise SyntaxError
 
         return result
+
+    def to_console(self):
+        pass
+
+    def to_file(self):
+        pass
 

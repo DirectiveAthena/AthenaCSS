@@ -99,3 +99,12 @@ TRANSPARENT = "transparent"
 STRETCH = "stretch"
 LEFT = "left"
 RIGHT = "right"
+
+FOLLOWING= "+"
+DESCENDANT=" "
+COMBINE=","
+CHILD=">"
+PRECEDING="~"
+
+CLASS_PREFIX = "."
+ID_PREFIX = "#"

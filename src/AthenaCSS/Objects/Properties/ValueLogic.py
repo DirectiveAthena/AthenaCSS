@@ -29,7 +29,7 @@ class ValueLogic:
 
     def __init__(self, *, default=None,value_choice=None, printer_space=" "):
         self.value_choice = value_choice if value_choice is not None else dict()
-        self.default = default # ALWAYS do this AFTER the setting of value_choice
+        self.default = default # ALWAYS do this FOLLOWING the setting of value_choice
         self.printer_space = printer_space
 
     def __repr__(self) -> str:

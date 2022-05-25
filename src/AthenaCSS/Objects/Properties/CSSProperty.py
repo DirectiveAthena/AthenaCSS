@@ -22,7 +22,7 @@ class CSSProperty:
     __slots__ = ("_value","name", "important", "value_wrapped")
 
     def __init__(self, value, *, important:bool=False, value_wrapped=False):
-        # make a new instance of the _valyeFactory as all value Logicl is defined there
+        # make a new instance of the ValueLogic as all value Logical is defined there
         self._value = copy.deepcopy(self.value_logic) if self.value_logic is not None else ValueLogic()
         self.value = value
         self.important = important

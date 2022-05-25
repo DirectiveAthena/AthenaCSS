@@ -125,9 +125,8 @@ class CSSPrinter:
             match content:
                 # only print if comments are enabled
                 case Content_Comment() if self.comments:
-                    comment, = content
                     yield Content_Yielder(
-                        self._format_comment(comment) + new_line,
+                        self._format_comment(content.comment) + new_line,
                         self.console_printer_colors.comment
                     )
 
@@ -145,19 +144,18 @@ class CSSPrinter:
                     )
 
                 case Content_Styling():
-                    selection, styling, comment = content
-                    if comment is not None and self.comments:
+                    if content.comment is not None and self.comments:
                         yield Content_Yielder(
-                            self._format_comment(comment) + new_line,
+                            self._format_comment(content.comment) + new_line,
                             self.console_printer_colors.comment
                         )
                     # yield the Selectors
                     yield Content_Yielder(
-                        f"{selection}{{{new_line}",
+                        f"{content.selection}{{{new_line}",
                         self.console_printer_colors.selector
                     )
                     # yield the styling
-                    for style_prop in styling: #type:PROPERTIES
+                    for style_prop in content.styling: #type:PROPERTIES
                         # yield indentation, to not have it have a styling makup
                         yield Content_Yielder(
                             indentation,

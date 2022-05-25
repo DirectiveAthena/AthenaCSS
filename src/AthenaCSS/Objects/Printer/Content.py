@@ -18,7 +18,6 @@ from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShortha
 class ContentStyling(NamedTuple):
     selection:CSSSelection
     styling: tuple[CSSProperty|CSSPropertyShorthand]
-    comment: str
 
 class ContentComment(NamedTuple):
     comment: str

@@ -46,8 +46,8 @@ class CSSPrinterManager:
     # - Population Methods -
     # ------------------------------------------------------------------------------------------------------------------
     @locked
-    def add_style(self, selection:CSSSelection, styling:tuple[PROPERTIES],*,comment:str=None):
-        self.content.append(ContentStyling(selection, styling, comment))
+    def add_style(self, selection:CSSSelection, styling:tuple[PROPERTIES]):
+        self.content.append(ContentStyling(selection, styling))
 
     @locked
     def add_comment(self, comment:str):
@@ -126,11 +126,6 @@ class CSSPrinter:
 
                 # ------------------------------------------------------------------------------------------------------
                 case ContentStyling():
-                    if content.comment is not None and self.comments:
-                        yield ContentYielder(
-                            self._format_comment(content.comment) + new_line,
-                            self.console_printer_colors.comment
-                        )
                     # yield the Selectors
                     yield ContentYielder(
                         f"{content.selection}{{{new_line}",
@@ -207,10 +202,7 @@ class CSSPrinter:
         if file_path is None:
             raise ValueError
 
-        if self.file_overwrite:
-            file_operation = "w+"
-        else:
-            file_operation = "a+"
+        file_operation = "w+" if self.file_overwrite else "a+"
 
         if isinstance(file_path, str):
             with open(file_path, file_operation) as file:

@@ -166,8 +166,7 @@ f"""
             p.add_seperation(),
             p.add_style(
                 selection=selection,
-                styling=styling,
-                comment="THIS SHOULD NOT APPEAER"
+                styling=styling
             )
 
         self.assertEqual(

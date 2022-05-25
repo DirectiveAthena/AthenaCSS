@@ -3,7 +3,6 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from enum import Enum
 from dataclasses import dataclass, field
 from typing import Iterable
 
@@ -38,32 +37,20 @@ PRINTER_COLORS = PrinterColors(
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
+@dataclass(slots=True, eq=False)
 class CSSPrinterManager:
-    content: list[CONTENT]
-    _lock:bool
-    __slots__ = ["content", "_lock"]
-
-    def __init__(self):
-        self.content = []
-        self._lock = False
+    content: list[CONTENT]=field(init=False, default_factory=list)
+    _lock:bool=field(init=False, default=False)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Population Methods -
     # ------------------------------------------------------------------------------------------------------------------
     @locked
     def add_style(self, selection:CSSSelection, styling:tuple[PROPERTIES],*,comment:str=None):
-        if not isinstance(selection, CSSSelection):
-            raise TypeError
-        if not all(isinstance(s, PROPERTIES) for s in styling):
-            raise TypeError
-        if comment is not None and not isinstance(comment, str):
-            raise TypeError
         self.content.append(ContentStyling(selection, styling, comment))
 
     @locked
     def add_comment(self, comment:str):
-        if comment is not None and not isinstance(comment, str):
-            raise TypeError
         self.content.append(ContentComment(comment))
 
     @locked
@@ -86,6 +73,9 @@ class CSSPrinter:
     file_overwrite:bool=True
     console_printer_colors:PrinterColors=PRINTER_COLORS
 
+    comment_start:str="/*" # done for easy manipulation
+    comment_end:str="*/"
+
     # Not needed on init
     _manager:CSSPrinterManager=field(init=False, default=None)
 
@@ -101,9 +91,9 @@ class CSSPrinter:
     def _format_comment(self, comment:str):
         if self.one_line:
             new_line = '\n'
-            return f"/*{comment.replace(new_line, ' ')}*/"
+            return f"{self.comment_start}{comment.replace(new_line, ' ')}{self.comment_end}"
         else:
-            return "\n".join(f"/*{c}*/" for c in comment.split("\n"))
+            return "\n".join(f"{self.comment_start}{c}{self.comment_end}" for c in comment.split("\n"))
 
     def _string_generator(self):
         new_line = "" if self.one_line else "\n"
@@ -111,6 +101,7 @@ class CSSPrinter:
 
         for content in self.manager.content:
             match content:
+                # ------------------------------------------------------------------------------------------------------
                 # only print if comments are enabled
                 case ContentComment() if self.comments:
                     yield ContentYielder(
@@ -118,6 +109,7 @@ class CSSPrinter:
                         self.console_printer_colors.comment
                     )
 
+                # ------------------------------------------------------------------------------------------------------
                 # only print if comments are enabled
                 case ContentSeperation() if self.comments:
                     yield ContentYielder(
@@ -125,12 +117,14 @@ class CSSPrinter:
                         self.console_printer_colors.comment
                     )
 
+                # ------------------------------------------------------------------------------------------------------
                 case ContentLine():
                     yield ContentYielder(
                         new_line,
                         self.console_printer_colors.line
                     )
 
+                # ------------------------------------------------------------------------------------------------------
                 case ContentStyling():
                     if content.comment is not None and self.comments:
                         yield ContentYielder(
@@ -178,6 +172,7 @@ class CSSPrinter:
                         self.console_printer_colors.selector
                     )
 
+                # ------------------------------------------------------------------------------------------------------
                 # else it will catch the ones that were commented but now defunct
                 case ContentComment() | ContentStyling() | ContentLine() | ContentSeperation():
                     continue

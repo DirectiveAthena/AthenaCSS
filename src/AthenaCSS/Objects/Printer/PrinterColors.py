@@ -2,26 +2,21 @@
 # - Package Imports -
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
-import setuptools
+from __future__ import annotations
+from typing import Callable, NamedTuple
+
+# Custom Library
 
 # Custom Packages
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-setuptools.setup(
-    name="AthenaCSS",
-    version="0.3.0",
-    author="Andreas Sas",
-    author_email="",
-    description="",
-    url="https://github.com/DirectiveAthena/VerSC-AthenaCSS",
-    project_urls={
-        "Bug Tracker": "https://github.com/DirectiveAthena/VerSC-AthenaCSS/issues",
-    },
-    license="GPLv3",
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
-    python_requires=">=3.10",
-    install_requires=["AthenaColor>=4.1.2", "AthenaLib>=0.2.0"]
-)
+class PrinterColors(NamedTuple):
+    comment: Callable
+    property_name:Callable
+    property_value:Callable
+    text: Callable
+    selector: Callable
+    line: Callable
+    empty:Callable

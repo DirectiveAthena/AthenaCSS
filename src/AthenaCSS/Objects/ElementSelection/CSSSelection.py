@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import (FOLLOWING, DESCENDANT, COMBINE, CHILD, PRECEDING)
+from AthenaCSS.Library.Support import (FOLLOWING, DESCENDANT, COMBINE, CHILD, PRECEDING, locked)
 from AthenaCSS.Objects.ElementSelection.CSSId import CSSId
 from AthenaCSS.Objects.ElementSelection.CSSElement import CSSElement
 from AthenaCSS.Objects.ElementSelection.CSSClass import CSSClass
@@ -27,17 +27,10 @@ __all__=[
 # ----------------------------------------------------------------------------------------------------------------------
 ELEMENTS = CSSId|CSSElement|CSSClass|CSSPseudo|CSSAttribute
 
-def locked(fnc):
-    def wrapper(self:CSSSelectionManager, *args, **kwargs):
-        if self._lock:
-            raise PermissionError("Manager is locked")
-        return fnc(self, *args,**kwargs)
-    return wrapper
-
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, unsafe_hash=True)
 class CSSSelectionPart:
     elements:tuple
     part_type:str=field(default="")
@@ -91,6 +84,9 @@ class CSSSelection:
     __slots__ = ["_manager"]
     def __init__(self):
         self._manager = None
+
+    def __hash__(self):
+        return hash(tuple(self.manager.parts))
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Support Methods -

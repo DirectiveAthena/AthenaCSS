@@ -58,15 +58,15 @@ class CSSProperty:
     # - Printer -
     # ------------------------------------------------------------------------------------------------------------------
     def printer(self) -> str:
+        return f"{self.name}: {self.value_printer()}"
+
+    def value_printer(self) -> str:
         value = self._value.printer()
         if self.value_wrapped:
             value = f'"{value}"'
-
         if self.important:
-            return f"{self.name}: {value} !important"
-        else:
-            return f"{self.name}: {value}"
-
+            value += " !important"
+        return value
 
     def __str__(self) -> str:
         return self.printer()

@@ -5,6 +5,7 @@
 from __future__ import annotations
 from collections import namedtuple
 from enum import Enum
+from dataclasses import dataclass, field
 
 # Custom Library
 
@@ -74,35 +75,16 @@ class CSSPrinterManager:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+@dataclass(kw_only=True, eq=False, slots=True)
 class CSSPrinter:
-    _indentation:int # thanks to Twidi for showing me my typo
-    _one_line:bool
-    _seperation_character:str
-    _seperation_length:int
-    _comments:bool
-    _file_path:str
-    __slots__ = [
-        "_indentation", "_one_line", "_manager", "_seperation_character", "_seperation_length", "_comments","_file_path",
-    ]
-
-    def __init__(self,
-                 *,
-                 indentation:int=4,
-                 one_line=False,
-                 seperation_character="-",
-                 seperation_length=255,
-                 comments=True,
-                 file_path=None
-                 ):
-        self._manager = None
-
-        self.indentation = indentation
-        self.one_line = one_line
-        self.seperation_character = seperation_character
-        self.seperation_length = seperation_length
-        self.comments = comments
-        self.file_path = file_path
-
+    indentation:int=field(default=4) # thanks to Twidi for showing me my typo
+    one_line:bool=field(default=False)
+    seperation_character:str=field(default="-")
+    seperation_length:int=field(default=255)
+    comments:bool=field(default=True)
+    file_path:str=field(default=None)
+    _manager:CSSPrinterManager=field(init=False, default=None)
+    
     def __enter__(self):
         return self.manager
 
@@ -168,60 +150,6 @@ class CSSPrinter:
     @property
     def content(self) -> list:
         return self.manager.content
-
-    @property
-    def indentation(self) -> int:
-        return self._indentation
-    @indentation.setter
-    def indentation(self, value):
-        if not isinstance(value, int):
-            raise TypeError
-        self._indentation = max(0,value)
-
-    @property
-    def one_line(self):
-        return self._one_line
-    @one_line.setter
-    def one_line(self, value):
-        if not isinstance(value, bool):
-            raise TypeError
-        self._one_line = value
-
-    @property
-    def seperation_character(self):
-        return self._seperation_character
-    @seperation_character.setter
-    def seperation_character(self, value):
-        if not isinstance(value, str):
-            raise TypeError
-        self._seperation_character = value
-
-    @property
-    def seperation_length(self) -> int:
-        return self._seperation_length
-    @seperation_length.setter
-    def seperation_length(self, value):
-        if not isinstance(value, int):
-            raise TypeError
-        self._seperation_length = max(0,value)
-
-    @property
-    def comments(self):
-        return self._comments
-    @comments.setter
-    def comments(self, value):
-        if not isinstance(value, bool):
-            raise TypeError
-        self._comments = value
-
-    @property
-    def file_path(self):
-        return self._file_path
-    @file_path.setter
-    def file_path(self, value):
-        if value is not None and not isinstance(value, str):
-            raise TypeError
-        self._file_path = value
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Output Methods -

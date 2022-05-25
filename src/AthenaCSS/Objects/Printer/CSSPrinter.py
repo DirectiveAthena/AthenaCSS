@@ -12,7 +12,6 @@ from AthenaColor import ForeNest, StyleNest
 # Custom Packages
 from AthenaCSS.Objects.ElementSelection.CSSSelection import CSSSelection
 from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
-from AthenaCSS.Objects.Properties.CSSPropertyVariable import CSSPropertyVariable
 from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 from AthenaCSS.Library.Support import locked
 from AthenaCSS.Objects.Printer.PrinterColors import PrinterColors
@@ -23,7 +22,7 @@ from AthenaCSS.Objects.Printer.Content import (
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -
 # ----------------------------------------------------------------------------------------------------------------------
-PROPERTIES = CSSProperty|CSSPropertyShorthand|CSSPropertyVariable
+PROPERTIES = CSSProperty|CSSPropertyShorthand
 CONTENT = ContentComment | ContentStyling | ContentLine | ContentSeperation
 PRINTER_COLORS = PrinterColors(
     comment=ForeNest.SeaGreen,

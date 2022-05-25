@@ -61,7 +61,7 @@ class CSSProperty:
         return f"{self.name_printer()}: {self.value_printer()}"
 
     def name_printer(self) -> str:
-        return f"__{self.name}"
+        return f"{self.name}"
 
     def value_printer(self) -> str:
         value = self._value.printer()

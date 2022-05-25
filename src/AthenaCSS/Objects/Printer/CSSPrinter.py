@@ -3,7 +3,6 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from collections import namedtuple
 from enum import Enum
 from dataclasses import dataclass, field
 from typing import Iterable
@@ -17,26 +16,15 @@ from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
 from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 from AthenaCSS.Library.Support import locked
 from AthenaCSS.Objects.Printer.PrinterColors import PrinterColors
+from AthenaCSS.Objects.Printer.Content import (
+    ContentSeperation, ContentComment, ContentStyling, ContentLine, ContentYielder
+)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -
 # ----------------------------------------------------------------------------------------------------------------------
 PROPERTIES = CSSProperty|CSSPropertyShorthand
-Content_Styling = namedtuple("Content_Styling", ["selection", "styling", "comment"])
-Content_Comment = namedtuple("Content_Comment", ["comment"])
-Content_Line = namedtuple("Content_Line", [])
-Content_Seperation = namedtuple("Content_Seperation", [])
-
-CONTENT = Content_Comment | Content_Styling | Content_Line | Content_Seperation
-
-Content_Yielder = namedtuple("Content_Yielder", ["text", "console_styling"])
-
-class YIELD(Enum):
-    COMMENT = "comment"
-    SELECTOR = "selector"
-    TEXT = "text"
-    LINE = "line"
-
+CONTENT = ContentComment | ContentStyling | ContentLine | ContentSeperation
 PRINTER_COLORS = PrinterColors(
     comment=ForeNest.SeaGreen,
     property_name=ForeNest.CornFlowerBlue,
@@ -70,21 +58,21 @@ class CSSPrinterManager:
             raise TypeError
         if comment is not None and not isinstance(comment, str):
             raise TypeError
-        self.content.append(Content_Styling(selection, styling, comment))
+        self.content.append(ContentStyling(selection, styling, comment))
 
     @locked
     def add_comment(self, comment:str):
         if comment is not None and not isinstance(comment, str):
             raise TypeError
-        self.content.append(Content_Comment(comment))
+        self.content.append(ContentComment(comment))
 
     @locked
     def add_seperation(self):
-        self.content.append(Content_Seperation())
+        self.content.append(ContentSeperation())
 
     @locked
     def add_line(self):
-        self.content.append(Content_Line())
+        self.content.append(ContentLine())
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -124,74 +112,74 @@ class CSSPrinter:
         for content in self.manager.content:
             match content:
                 # only print if comments are enabled
-                case Content_Comment() if self.comments:
-                    yield Content_Yielder(
+                case ContentComment() if self.comments:
+                    yield ContentYielder(
                         self._format_comment(content.comment) + new_line,
                         self.console_printer_colors.comment
                     )
 
                 # only print if comments are enabled
-                case Content_Seperation() if self.comments:
-                    yield Content_Yielder(
+                case ContentSeperation() if self.comments:
+                    yield ContentYielder(
                         self._format_comment(self.seperation_character * self.seperation_length) + new_line,
                         self.console_printer_colors.comment
                     )
 
-                case Content_Line():
-                    yield Content_Yielder(
+                case ContentLine():
+                    yield ContentYielder(
                         new_line,
                         self.console_printer_colors.line
                     )
 
-                case Content_Styling():
+                case ContentStyling():
                     if content.comment is not None and self.comments:
-                        yield Content_Yielder(
+                        yield ContentYielder(
                             self._format_comment(content.comment) + new_line,
                             self.console_printer_colors.comment
                         )
                     # yield the Selectors
-                    yield Content_Yielder(
+                    yield ContentYielder(
                         f"{content.selection}{{{new_line}",
                         self.console_printer_colors.selector
                     )
                     # yield the styling
                     for style_prop in content.styling: #type:PROPERTIES
                         # yield indentation, to not have it have a styling makup
-                        yield Content_Yielder(
+                        yield ContentYielder(
                             indentation,
                             self.console_printer_colors.empty
                         )
 
                         # yield the name
-                        yield Content_Yielder(
+                        yield ContentYielder(
                             f"{style_prop.name}",
                             self.console_printer_colors.property_name
                         )
 
                         # yield the colon
-                        yield Content_Yielder(
+                        yield ContentYielder(
                             f": ",
                             self.console_printer_colors.text
                         )
                         # yield the value
-                        yield Content_Yielder(
+                        yield ContentYielder(
                             style_prop.value_printer(),
                             self.console_printer_colors.property_value
                         )
                         # yield the semicolon
-                        yield Content_Yielder(
+                        yield ContentYielder(
                             f";{new_line}",
                             self.console_printer_colors.text
                         )
 
                     # yield the closing of the selector
-                    yield Content_Yielder(
+                    yield ContentYielder(
                         f"}}{new_line * 2}",
                         self.console_printer_colors.selector
                     )
 
                 # else it will catch the ones that were commented but now defunct
-                case Content_Comment() | Content_Styling() | Content_Line() | Content_Seperation():
+                case ContentComment() | ContentStyling() | ContentLine() | ContentSeperation():
                     continue
 
                 case _:

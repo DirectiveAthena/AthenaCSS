@@ -45,3 +45,10 @@ class CSSGenerator:
     def to_console(self) :
         for content in self.content:
             print(content.to_console(self.console_color_guide))
+
+    def to_file(self, filepath:str):
+        with open(filepath, "w+") as file:
+            for content in self.content:
+                file.write(
+                    f"{content.to_string()}\n"
+                )

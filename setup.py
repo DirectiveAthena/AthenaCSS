@@ -11,7 +11,7 @@ import setuptools
 # ----------------------------------------------------------------------------------------------------------------------
 setuptools.setup(
     name="AthenaCSS",
-    version="0.3.0",
+    version="0.4.0",
     author="Andreas Sas",
     author_email="",
     description="",

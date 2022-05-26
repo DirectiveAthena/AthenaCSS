@@ -8,34 +8,24 @@ from dataclasses import dataclass, field
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Objects.Generator.Content.CSSContent import CSSContent
-from AthenaCSS.Objects.Generator.Content import (
+from AthenaCSS.Generator.CSSGeneratorContent import (
     CSSComment, CSSRule, CSSEmptyLine,CSSCommentSeparator
 )
 
 # ----------------------------------------------------------------------------------------------------------------------
-# - Support Code -
-# ----------------------------------------------------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-@dataclass(slots=True)
+@dataclass(kw_only=True,slots=True)
 class ManagerGenerator:
-    content:list[CSSContent]=field(default_factory=list)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # - Content manipulations -
-    # ------------------------------------------------------------------------------------------------------------------
-    def _add_to_content(self, value):
-        self.content.append(value)
-
+    content: list = field(init=False, default_factory=list)
     # ------------------------------------------------------------------------------------------------------------------
     # - Types of content additions -
     # ------------------------------------------------------------------------------------------------------------------
     def add_rule(self, *rules:CSSRule) -> ManagerGenerator:
         for rule in rules:
-            self._add_to_content(rule)
+            if not isinstance(rule, CSSRule):
+                raise TypeError
+            self.content.append(rule)
         return self
 
     def add_comment(self, comment:str|CSSComment) -> ManagerGenerator:
@@ -44,13 +34,13 @@ class ManagerGenerator:
         elif not isinstance(comment, CSSComment):
             raise TypeError
 
-        self._add_to_content(comment)
+        self.content.append(comment)
         return self
 
     def add_emptyline(self) -> ManagerGenerator:
-        self._add_to_content(CSSEmptyLine)
+        self.content.append(CSSEmptyLine)
         return self
 
     def add_comment_separator(self, separator_length:int=64) -> ManagerGenerator:
-        self._add_to_content(CSSCommentSeparator(separator_length))
+        self.content.append(CSSCommentSeparator(separator_length))
         return self

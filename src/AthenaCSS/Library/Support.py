@@ -111,6 +111,9 @@ STRETCH = "stretch"
 LEFT = "left"
 RIGHT = "right"
 
+POSITION_CHOICES = {"bottom", "top", LEFT, "center", RIGHT}
+REPEAT = {"repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round"}
+
 CLASS_PREFIX = "."
 ID_PREFIX = "#"
 
@@ -121,6 +124,8 @@ class SELECTORGROUP_TYPES(Enum):
     family = ">"
     preceding = "~"
 
+NEW_LINE = "\n"
 
+INITIALINHERIT = {"initial", "inherit"}
 
 

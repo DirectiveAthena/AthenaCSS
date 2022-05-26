@@ -7,6 +7,8 @@ import itertools
 from typing import Any, AnyStr
 
 # Custom Library
+from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
+
 from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.Url import Url
@@ -15,15 +17,16 @@ from AthenaLib.Types.AbsoluteLength import Pixel, AbsoluteLength
 from AthenaLib.Types.RelativeLength import RelativeLength
 
 # Custom Packages
-from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
-from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
-from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 from AthenaCSS.Library.Support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, PERCENT_EMPTY, PERCENT_FULL,PIXEL_EMPTY, AUTO, NORMAL,
-    SECOND_EMPTY, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,RIGHT
+    SECOND_EMPTY, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,RIGHT, POSITION_CHOICES, REPEAT
 )
 from AthenaCSS.Library.SubPropertyLibrary import FILTERS, TRANSFORMS, Steps
+
+from AthenaCSS.Declarations.ValueLogic import ValueLogic
+from AthenaCSS.Declarations.CSSProperty import CSSProperty
+from AthenaCSS.Declarations.CSSPropertyShorthand import CSSPropertyShorthand
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
@@ -359,12 +362,12 @@ class BackgroundPosition(CSSProperty):
     value_logic = ValueLogic(
         default=(PERCENT_EMPTY, PERCENT_EMPTY),
         value_choice={
-            str: (str_choices := {"bottom", "top", LEFT, "center", RIGHT}),
+            str: POSITION_CHOICES,
             (Percent,Percent): (Any, Any),
             (Pixel,Pixel): (Any, Any),
-            (Percent,str): (Any, str_choices),
-            (Pixel,str): (Any, str_choices),
-            (str,str):(str_choices, str_choices),
+            (Percent,str): (Any, POSITION_CHOICES),
+            (Pixel,str): (Any, POSITION_CHOICES),
+            (str,str):(POSITION_CHOICES, POSITION_CHOICES),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -375,7 +378,7 @@ class BackgroundRepeat(CSSProperty):
     value_logic = ValueLogic(
         default="repeat",
         value_choice={
-            str: {"repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round"},
+            str: REPEAT,
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

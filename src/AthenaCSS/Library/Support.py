@@ -121,8 +121,6 @@ class SELECTORGROUP_TYPES(Enum):
     family = ">"
     preceding = "~"
 
-class RuleYieldTypes(Enum):
-    selector = enum_auto
 
 
 

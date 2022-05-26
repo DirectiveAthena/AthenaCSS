@@ -29,7 +29,6 @@ class CSSRule:
 
     # Manager Options
     manager_overwrite:bool=field(default=False, repr=False, hash=False) # If the rule is entered twice, it will create new managers every time (resulting in the previous managers being lost)
-    manager_allow_duplicate:bool=field(default=False, repr=False, hash=False) # Managers will not allow for duplicate parts within them
 
     # Managers
     _selector_manager:ManagerSelectors=field(default=None, repr=False, hash=False)

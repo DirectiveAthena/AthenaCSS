@@ -6,7 +6,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 # Custom Library
-from AthenaLib.Decorators.ClassMethods import return_self_classmethod as return_self
 
 # Custom Packages
 from AthenaCSS.Objects.Generator.Content import (

@@ -18,7 +18,7 @@ from AthenaCSS.Library.ConsoleColorGuide import ConsoleColorGuide
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-@dataclass(slots=True)
+@dataclass(slots=True, kw_only=True)
 class CSSGenerator:
     content: ManagerGenerator.content=field(init=False)
     console_color_guide:ConsoleColorGuide=field(default_factory=lambda : ConsoleColorGuide())
@@ -50,5 +50,5 @@ class CSSGenerator:
         with open(filepath, "w+") as file:
             for content in self.content:
                 file.write(
-                    f"{content.to_string()}\n"
+                    f"{content.to_string()}"
                 )

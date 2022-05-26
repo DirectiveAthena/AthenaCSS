@@ -4,17 +4,14 @@
 # General Packages
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Iterable
 
 # Custom Library
 
 # Custom Packages
 from AthenaCSS.Objects.Generator.Managers.ManagerDeclarations import ManagerDeclarations
-from AthenaCSS.Objects.Generator.Managers.ManagerSelectors import ManagerSelectors, SelectorGroup
+from AthenaCSS.Objects.Generator.Managers.ManagerSelectors import ManagerSelectors
 from AthenaCSS.Objects.Generator.Content.CSSContent import CSSContent
 from AthenaCSS.Library.ConsoleColorGuide import ConsoleColorGuide
-from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
-from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -

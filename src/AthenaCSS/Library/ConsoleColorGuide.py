@@ -18,9 +18,9 @@ from AthenaColor import ForeNest
 class ConsoleColorGuide:
     selector:Callable = ForeNest.GoldenRod
 
-    descriptor_name:Callable = ForeNest.RoyalBlue
-    descriptor_value:Callable = ForeNest.White
+    descriptor_name:Callable = ForeNest.LightSkyBlue
+    descriptor_value:Callable = ForeNest.Snow
 
     text_general:Callable = ForeNest.SlateGray
 
-    comment:Callable = ForeNest.SpringGreen
+    comment:Callable = ForeNest.ForestGreen

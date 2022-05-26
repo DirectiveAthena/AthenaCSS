@@ -7,12 +7,8 @@ from __future__ import annotations
 # Custom Library
 import AthenaCSS.Library.SelectorElementLibrary as ElementLib
 import AthenaCSS.Library.PropertyLibrary as PropLib
-from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttribute
 from AthenaCSS.Objects.Elements.CSSClass import CSSClass
-from AthenaCSS.Objects.Elements.CSSId import CSSId
 from AthenaCSS.Objects.Generator.Content.CSSRule import CSSRule
-from AthenaCSS.Objects.Generator.Managers.ManagerSelectors import SelectorGroup
-from AthenaCSS.Library.Support import SELECTORGROUP_TYPES
 from AthenaCSS.Objects.Generator.CSSGenerator import CSSGenerator
 
 from AthenaColor import RGB

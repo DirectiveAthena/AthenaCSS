@@ -4,6 +4,8 @@
 # General Packages
 from __future__ import annotations
 from dataclasses import dataclass, field
+from typing import NamedTuple, Any
+from enum import Enum, auto
 
 # Custom Library
 
@@ -12,6 +14,24 @@ from AthenaCSS.Objects.Generator.ManagerGenerator import ManagerGenerator
 from AthenaCSS.Objects.Generator.Content import (
     CSSComment, CSSRule, CSSEmptyLine,CSSCommentSeparator
 )
+from AthenaCSS.Objects.Generator.Content.Rules.Managers.ManagerSelectors import SelectorGroup
+
+# ----------------------------------------------------------------------------------------------------------------------
+# - Support Code -
+# ----------------------------------------------------------------------------------------------------------------------
+class ContentYieldType(Enum):
+    comment = auto
+    selector_group = auto
+    selector_group_final = auto
+    declaration_start = auto
+    declaration_end =auto
+    declaration = auto
+    empty_line = auto
+    comment_separator = auto
+
+class ContentYield(NamedTuple):
+    content:Any
+    type:ContentYieldType
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -32,22 +52,3 @@ class CSSGenerator:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.content = self._manager.content
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # - Outputs -
-    # ------------------------------------------------------------------------------------------------------------------
-    def to_console(self):
-        for content in self.content:
-            match content:
-                case CSSRule():
-                    selectors =  ",".join(group.group_type.value.join(str(e) for e in group.elements) for group in content.selectors)
-                    declarations = ";".join(str(d) for d in content.declarations)
-                    print(
-                        f"{selectors}{{{declarations};}}"
-                    )
-                case CSSComment():
-                    print(f"/*{content.comment}*/")
-                case CSSEmptyLine():
-                    print()
-                case CSSCommentSeparator():
-                    print("-"*content.length)

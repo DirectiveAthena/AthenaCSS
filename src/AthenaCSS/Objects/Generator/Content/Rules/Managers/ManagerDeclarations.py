@@ -3,9 +3,9 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from dataclasses import dataclass, field
 
 # Custom Library
+from AthenaLib.Decorators.ClassMethods import return_self_classmethod as return_self
 
 # Custom Packages
 from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
@@ -21,8 +21,7 @@ PROPERTIES = CSSProperty|CSSPropertyShorthand
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class ManagerDeclarations(RuleManager):
-    def add(self,*properties:PROPERTIES):
+    def add(self,*properties:PROPERTIES) -> ManagerDeclarations:
         for p in properties:
-            self._add_to_content(
-                p
-            )
+            self._add_to_content(p)
+        return self

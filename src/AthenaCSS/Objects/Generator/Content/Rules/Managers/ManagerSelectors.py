@@ -30,42 +30,47 @@ class SelectorGroup(NamedTuple):
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class ManagerSelectors(RuleManager):
-    def add(self, *elements:ELEMENTS):
+    def add(self, *elements:ELEMENTS) -> ManagerSelectors:
         self._add_to_content(
             SelectorGroup(
                 elements=elements,
                 group_type=SELECTORGROUP_TYPES.combination
             )
         )
+        return self
 
-    def add_descendants(self, *elements:ELEMENTS):
+    def add_descendants(self, *elements:ELEMENTS) -> ManagerSelectors:
         self._add_to_content(
             SelectorGroup(
                 elements=elements,
                 group_type=SELECTORGROUP_TYPES.descendant
             )
         )
+        return self
 
-    def add_following(self, *elements:ELEMENTS):
+    def add_following(self, *elements:ELEMENTS) -> ManagerSelectors:
         self._add_to_content(
             SelectorGroup(
                 elements=elements,
                 group_type=SELECTORGROUP_TYPES.following
             )
         )
+        return self
 
-    def add_family(self, *elements:ELEMENTS):
+    def add_family(self, *elements:ELEMENTS) -> ManagerSelectors:
         self._add_to_content(
             SelectorGroup(
                 elements=elements,
                 group_type=SELECTORGROUP_TYPES.family
             )
         )
+        return self
 
-    def add_preceding(self, *elements:ELEMENTS):
+    def add_preceding(self, *elements:ELEMENTS) -> ManagerSelectors:
         self._add_to_content(
             SelectorGroup(
                 elements=elements,
                 group_type=SELECTORGROUP_TYPES.preceding
             )
         )
+        return self

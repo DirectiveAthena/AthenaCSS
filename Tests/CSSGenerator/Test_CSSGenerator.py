@@ -26,16 +26,20 @@ from BulkTests import BulkTests
 
 class CSSGenerators(BulkTests):
     def test_CSSGenerator0(self):
-        with (css_generator := CSSGenerator()) as gen:
+        with (css_generator := CSSGenerator()) as generator:
             with (rule0 := CSSRule()) as (selector, declaration):
                 selector.add(
-                    ElementLib.H1
+                    ElementLib.H1(CSSClass("something")),
+                    ElementLib.H2(CSSClass("something_else")),
                 )
                 declaration.add(
-                    PropLib.BackgroundColor(RGB(128,64,32)),
                     PropLib.Color(RGB(128,64,32)),
                 )
-            gen.add_rule(rule0)
+            generator.add_rule(
+                rule0
+            ).add_comment(
+                "THIS SHOULD BE BETWEEN THE FIRST AND SECOND RULE"
+            )
 
             with (rule1 := CSSRule()) as (selector, declaration):
                 selector.add(
@@ -43,10 +47,9 @@ class CSSGenerators(BulkTests):
                 )
                 declaration.add(
                     PropLib.Color(RGB(128,64,32)),
-                    PropLib.BackgroundColor(RGB(128,64,32)),
                 )
 
-            gen.add_rule(rule1)
+            generator.add_rule(rule1)
 
             with (rule2 := CSSRule()) as (selector, declaration):
                 selector.add(
@@ -58,6 +61,6 @@ class CSSGenerators(BulkTests):
                     PropLib.BorderColor()
                 )
 
-            gen.add_rule(rule2)
+            generator.add_rule(rule2)
 
-        css_generator.to_console()
+        pass

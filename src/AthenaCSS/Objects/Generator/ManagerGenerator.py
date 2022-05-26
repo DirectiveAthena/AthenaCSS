@@ -6,6 +6,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 # Custom Library
+from AthenaLib.Decorators.ClassMethods import return_self_classmethod as return_self
 
 # Custom Packages
 from AthenaCSS.Objects.Generator.Content import (
@@ -33,29 +34,24 @@ class ManagerGenerator:
     # ------------------------------------------------------------------------------------------------------------------
     # - Types of content additions -
     # ------------------------------------------------------------------------------------------------------------------
-    def add_rule(self, *rules:CSSRule):
-        for r in rules:
-            if not isinstance(r, CSSRule):
-                raise TypeError
+    def add_rule(self, *rules:CSSRule) -> ManagerGenerator:
+        for rule in rules:
+            self._add_to_content(rule)
+        return self
 
-            self._add_to_content(r)
-
-    def add_comment(self, comment:str|CSSComment):
+    def add_comment(self, comment:str|CSSComment) -> ManagerGenerator:
         if isinstance(comment, str):
             comment = CSSComment(comment=comment)
         elif not isinstance(comment, CSSComment):
             raise TypeError
 
         self._add_to_content(comment)
+        return self
 
-    def add_emptyline(self):
+    def add_emptyline(self) -> ManagerGenerator:
         self._add_to_content(CSSEmptyLine)
+        return self
 
-    def add_comment_separator(self, separator_length:int=64):
+    def add_comment_separator(self, separator_length:int=64) -> ManagerGenerator:
         self._add_to_content(CSSCommentSeparator(separator_length))
-
-    def __iadd__(self, other:CONTENT):
-        if not isinstance(other, CONTENT):
-            raise TypeError
-
-        self._add_to_content(other)
+        return self

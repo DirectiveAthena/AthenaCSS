@@ -4,7 +4,7 @@
 # General Packages
 from __future__ import annotations
 from typing import Any
-from enum import Enum
+from enum import Enum, auto as enum_auto
 
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
@@ -120,3 +120,9 @@ class SELECTORGROUP_TYPES(Enum):
     combination = ","
     family = ">"
     preceding = "~"
+
+class RuleYieldTypes(Enum):
+    selector = enum_auto
+
+
+

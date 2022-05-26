@@ -31,10 +31,10 @@ class CSSRules(BulkTests):
             )
 
         self.assertEqual(
-            {SelectorGroup(
+            [SelectorGroup(
                 elements=(ElementLib.H1,),
                 group_type=SELECTORGROUP_TYPES.combination
-            )},
+            )],
             rule.selectors
         )
 
@@ -49,15 +49,15 @@ class CSSRules(BulkTests):
             )
 
         self.assertEqual(
-            {SelectorGroup(
+            [SelectorGroup(
                 elements=(ElementLib.H1,),
                 group_type=SELECTORGROUP_TYPES.combination
-            )},
+            )],
             rule.selectors
         )
 
         self.assertEqual(
-            {fore_color, back_color},
+            [fore_color, back_color],
             rule.declarations
         )
 

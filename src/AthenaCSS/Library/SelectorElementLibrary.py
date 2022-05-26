@@ -7,8 +7,8 @@ from __future__ import annotations
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Objects.ElementSelection.CSSElement import CSSElement
-from AthenaCSS.Objects.ElementSelection.CSSPseudo import CSSPseudo
+from AthenaCSS.Objects.Elements.CSSElement import CSSElement
+from AthenaCSS.Objects.Elements.CSSPseudo import CSSPseudo
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------

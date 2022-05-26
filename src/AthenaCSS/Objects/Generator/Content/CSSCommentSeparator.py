@@ -3,15 +3,23 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
+from dataclasses import dataclass
 
 # Custom Library
 
 # Custom Packages
+from AthenaCSS.Objects.Generator.Content.CSSContent import CSSContent
+from AthenaCSS.Library.ConsoleColorGuide import ConsoleColorGuide
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-from AthenaCSS.Objects.Generator.Content.CSSRule import CSSRule
-from AthenaCSS.Objects.Generator.Content.CSSComment import CSSComment
-from AthenaCSS.Objects.Generator.Content.CSSCommentSeparator import CSSCommentSeparator
-from AthenaCSS.Objects.Generator.Content.CSSEmptyLine import CSSEmptyLine
+@dataclass(slots=True)
+class CSSCommentSeparator(CSSContent):
+    length:int=64
+
+    def to_string(self) -> str:
+        return f"/*{'-'*self.length}*/"
+
+    def to_console(self, console_color_guide:ConsoleColorGuide) -> str:
+        return console_color_guide.comment(self.to_string())

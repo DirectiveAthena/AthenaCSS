@@ -10,8 +10,8 @@ import AthenaCSS.Library.PropertyLibrary as PropLib
 from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttribute
 from AthenaCSS.Objects.Elements.CSSClass import CSSClass
 from AthenaCSS.Objects.Elements.CSSId import CSSId
-from AthenaCSS.Objects.Generator.Content.Rules.CSSRule import CSSRule
-from AthenaCSS.Objects.Generator.Content.Rules.Managers.ManagerSelectors import SelectorGroup
+from AthenaCSS.Objects.Generator.Content.CSSRule import CSSRule
+from AthenaCSS.Objects.Generator.Managers.ManagerSelectors import SelectorGroup
 from AthenaCSS.Library.Support import SELECTORGROUP_TYPES
 
 from AthenaColor import RGB

@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 # Custom Library
 
 # Custom Packages
+from AthenaCSS.Objects.Generator.Content.CSSContent import CSSContent
 from AthenaCSS.Objects.Generator.Content import (
     CSSComment, CSSRule, CSSEmptyLine,CSSCommentSeparator
 )
@@ -15,14 +16,13 @@ from AthenaCSS.Objects.Generator.Content import (
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -
 # ----------------------------------------------------------------------------------------------------------------------
-CONTENT = CSSRule|CSSComment|CSSEmptyLine|CSSCommentSeparator
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 @dataclass(slots=True)
 class ManagerGenerator:
-    content:list[CONTENT]=field(default_factory=list)
+    content:list[CSSContent]=field(default_factory=list)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Content manipulations -

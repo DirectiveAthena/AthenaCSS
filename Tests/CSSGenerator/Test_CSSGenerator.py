@@ -10,8 +10,8 @@ import AthenaCSS.Library.PropertyLibrary as PropLib
 from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttribute
 from AthenaCSS.Objects.Elements.CSSClass import CSSClass
 from AthenaCSS.Objects.Elements.CSSId import CSSId
-from AthenaCSS.Objects.Generator.Content.Rules.CSSRule import CSSRule
-from AthenaCSS.Objects.Generator.Content.Rules.Managers.ManagerSelectors import SelectorGroup
+from AthenaCSS.Objects.Generator.Content.CSSRule import CSSRule
+from AthenaCSS.Objects.Generator.Managers.ManagerSelectors import SelectorGroup
 from AthenaCSS.Library.Support import SELECTORGROUP_TYPES
 from AthenaCSS.Objects.Generator.CSSGenerator import CSSGenerator
 
@@ -30,6 +30,7 @@ class CSSGenerators(BulkTests):
             with (rule0 := CSSRule()) as (selector, declaration):
                 selector.add(
                     ElementLib.H1(CSSClass("something")),
+                ).add(
                     ElementLib.H2(CSSClass("something_else")),
                 )
                 declaration.add(
@@ -63,4 +64,26 @@ class CSSGenerators(BulkTests):
 
             generator.add_rule(rule2)
 
-        pass
+        self.assertEqual(
+"""
+h1.something,
+h2.something_else{
+    color: rgb(128, 64, 32);
+}
+
+/*THIS SHOULD BE BETWEEN THE FIRST AND SECOND RULE*/
+
+h1{
+    color: rgb(128, 64, 32);
+}
+
+
+h1{
+    color: rgb(128, 64, 32);
+    background-color: rgb(128, 64, 32);
+    border-color: transparent;
+}
+""",
+        css_generator.to_string()
+        )
+        css_generator.to_console()

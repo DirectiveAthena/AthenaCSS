@@ -3,15 +3,24 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
+from dataclasses import dataclass
+from typing import Callable
 
 # Custom Library
+from AthenaColor import ForeNest
 
 # Custom Packages
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-from AthenaCSS.Objects.Generator.Content.CSSRule import CSSRule
-from AthenaCSS.Objects.Generator.Content.CSSComment import CSSComment
-from AthenaCSS.Objects.Generator.Content.CSSCommentSeparator import CSSCommentSeparator
-from AthenaCSS.Objects.Generator.Content.CSSEmptyLine import CSSEmptyLine
+@dataclass(slots=True)
+class ConsoleColorGuide:
+    selector:Callable = ForeNest.GoldenRod
+
+    descriptor_name:Callable = ForeNest.RoyalBlue
+    descriptor_value:Callable = ForeNest.White
+
+    text_general:Callable = ForeNest.SlateGray
+
+    comment:Callable = ForeNest.SpringGreen

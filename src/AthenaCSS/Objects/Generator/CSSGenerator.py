@@ -4,34 +4,16 @@
 # General Packages
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import NamedTuple, Any
-from enum import Enum, auto
 
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Objects.Generator.ManagerGenerator import ManagerGenerator
-from AthenaCSS.Objects.Generator.Content import (
-    CSSComment, CSSRule, CSSEmptyLine,CSSCommentSeparator
-)
-from AthenaCSS.Objects.Generator.Content.Rules.Managers.ManagerSelectors import SelectorGroup
+from AthenaCSS.Objects.Generator.Managers.ManagerGenerator import ManagerGenerator
+from AthenaCSS.Library.ConsoleColorGuide import ConsoleColorGuide
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class ContentYieldType(Enum):
-    comment = auto
-    selector_group = auto
-    selector_group_final = auto
-    declaration_start = auto
-    declaration_end =auto
-    declaration = auto
-    empty_line = auto
-    comment_separator = auto
-
-class ContentYield(NamedTuple):
-    content:Any
-    type:ContentYieldType
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -39,6 +21,7 @@ class ContentYield(NamedTuple):
 @dataclass(slots=True)
 class CSSGenerator:
     content: ManagerGenerator.content=field(init=False)
+    console_color_guide:ConsoleColorGuide=field(default_factory=lambda : ConsoleColorGuide())
 
     # Manager
     _manager:ManagerGenerator=field(default=None, repr=False)
@@ -52,3 +35,13 @@ class CSSGenerator:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.content = self._manager.content
+
+    # ------------------------------------------------------------------------------------------------------------------
+    # - String Outputs -
+    # ------------------------------------------------------------------------------------------------------------------
+    def to_string(self) -> str:
+        return '\n'.join(content.to_string() for content in self.content)
+
+    def to_console(self) :
+        for content in self.content:
+            print(content.to_console(self.console_color_guide))

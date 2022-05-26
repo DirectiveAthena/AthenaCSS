@@ -3,15 +3,19 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
+from abc import ABC, abstractmethod
 
 # Custom Library
 
 # Custom Packages
+from AthenaCSS.Library.ConsoleColorGuide import ConsoleColorGuide
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-from AthenaCSS.Objects.Generator.Content.CSSRule import CSSRule
-from AthenaCSS.Objects.Generator.Content.CSSComment import CSSComment
-from AthenaCSS.Objects.Generator.Content.CSSCommentSeparator import CSSCommentSeparator
-from AthenaCSS.Objects.Generator.Content.CSSEmptyLine import CSSEmptyLine
+class CSSContent(ABC):
+    @abstractmethod
+    def to_string(self) -> str:...
+
+    @abstractmethod
+    def to_console(self, console_color_guide:ConsoleColorGuide) -> str:...

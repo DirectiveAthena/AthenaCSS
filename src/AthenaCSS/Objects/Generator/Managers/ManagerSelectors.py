@@ -13,7 +13,7 @@ from AthenaCSS.Objects.Elements.CSSElement import CSSElement
 from AthenaCSS.Objects.Elements.CSSClass import CSSClass
 from AthenaCSS.Objects.Elements.CSSPseudo import CSSPseudo
 from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttribute
-from AthenaCSS.Objects.Generator.Content.Rules.Managers.RuleManager import RuleManager
+from AthenaCSS.Objects.Generator.Managers.RuleManager import RuleManager
 
 from AthenaCSS.Library.Support import SELECTORGROUP_TYPES
 

@@ -13,7 +13,7 @@ from AthenaCSS.Objects.Elements.CSSElement import CSSElement
 from AthenaCSS.Objects.Elements.CSSClass import CSSClass
 from AthenaCSS.Objects.Elements.CSSPseudo import CSSPseudo
 from AthenaCSS.Objects.Elements.CSSAttribute import CSSAttribute
-from AthenaCSS.Objects.Rule.Managers.CSSRuleManager import CSSRuleManager
+from AthenaCSS.Objects.Generator.Content.Rules.Managers.RuleManager import RuleManager
 
 from AthenaCSS.Library.Support import SELECTORGROUP_TYPES
 
@@ -29,7 +29,7 @@ class SelectorGroup(NamedTuple):
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class CSSManagerSelectors(CSSRuleManager):
+class ManagerSelectors(RuleManager):
     def add(self, *elements:ELEMENTS):
         self._add_to_content(
             SelectorGroup(

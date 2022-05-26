@@ -4,8 +4,6 @@
 # General Packages
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Iterable
-
 # Custom Library
 
 # Custom Packages
@@ -14,26 +12,19 @@ from typing import Iterable
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 @dataclass(kw_only=True,slots=True)
-class CSSRuleManager:
+class RuleManager:
     # Manager settings
-    allow_duplicate: bool = field(default=False)  # Manager will not allow for duplicate parts within them
+    allow_duplicate: bool = field(default=False, repr=False, hash=False)  # Manager will not allow for duplicate parts within them
 
     # Actual attributes
-    content: Iterable = field(init=False)
-
-    def __post_init__(self):
-        if self.allow_duplicate:
-            self.content = list()
-        else:
-            self.content = set()
+    content: list|frozenset = field(init=False, hash=True, default_factory=list)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Content manipulations -
     # ------------------------------------------------------------------------------------------------------------------
     def _add_to_content(self, value):
-        if isinstance(self.content, list):
-            self.content.append(value)
-        elif isinstance(self.content, set):
-            self.content.add(value)
-        else:
-            raise SystemError
+        self.content.append(value)
+
+    def convert_to_frozenset(self) -> frozenset:
+        self.content = frozenset(self.content)
+        return self.content

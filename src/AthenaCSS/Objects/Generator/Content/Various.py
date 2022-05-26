@@ -3,26 +3,22 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
-from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
-from AthenaCSS.Objects.Rule.Managers.CSSRuleManager import CSSRuleManager
-
-# ----------------------------------------------------------------------------------------------------------------------
-# - SupportCode -
-# ----------------------------------------------------------------------------------------------------------------------
-PROPERTIES = CSSProperty|CSSPropertyShorthand
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class CSSManagerDeclarations(CSSRuleManager):
-    def add(self,*properties:PROPERTIES):
-        for p in properties:
-            self._add_to_content(
-                p
-            )
+@dataclass(slots=True, unsafe_hash=True)
+class CSSComment:
+    comment:str
+# ----------------------------------------------------------------------------------------------------------------------
+class CSSEmptyLine:pass
+CSSEmptyLine = CSSEmptyLine
+# ----------------------------------------------------------------------------------------------------------------------
+@dataclass(slots=True)
+class CSSCommentSeparator:
+    length:int=64

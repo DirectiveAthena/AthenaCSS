@@ -3,31 +3,21 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from typing import NamedTuple, Callable
+from abc import ABC, abstractmethod
 
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Objects.ElementSelection.CSSSelection import CSSSelection
-from AthenaCSS.Objects.Properties.CSSProperty import CSSProperty
-from AthenaCSS.Objects.Properties.CSSPropertyShorthand import CSSPropertyShorthand
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class ContentStyling(NamedTuple):
-    selection:CSSSelection
-    styling: tuple[CSSProperty|CSSPropertyShorthand]
+class CSSPropertyShorthand(ABC):
+    # ------------------------------------------------------------------------------------------------------------------
+    # - Generator -
+    # ------------------------------------------------------------------------------------------------------------------
+    @abstractmethod
+    def printer(self) -> str:...
 
-class ContentComment(NamedTuple):
-    comment: str
-
-class ContentLine(NamedTuple):
-    pass
-
-class ContentSeperation(NamedTuple):
-    pass
-
-class ContentYielder(NamedTuple):
-    text:str
-    console_styling:Callable
+    def __str__(self) -> str:
+        return self.printer()

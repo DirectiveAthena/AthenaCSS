@@ -11,12 +11,12 @@ from AthenaLib.Types.Math import Degree
 from AthenaLib.Types.AbsoluteLength import Pixel
 
 # Custom Packages
-from AthenaCSS.Objects.Properties.CSSProperty import SubProp
-from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
 from AthenaCSS.Library.Support import (
     COLORS_UNION, PERCENT, DEGREE,NUMBERS, PIXEL, ANY, TRANSFORM_SPACING, PERCENT_EMPTY, PERCENT_FULL, DEGREE_EMPTY,
     PIXEL_EMPTY
 )
+from AthenaCSS.Declarations.CSSProperty import SubProp
+from AthenaCSS.Declarations.ValueLogic import ValueLogic
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Filters -
@@ -60,7 +60,7 @@ class DropShadow(SubProp):
         default=None,
         value_choice={
             #h-shadow,  v-shadow,   blur,   spread, color
-            (Pixel,     Pixel,      Pixel,  Pixel,  COLORS_UNION):(Any,Any,Any,Any,Any),
+            (Pixel,     Pixel,      Pixel,  Pixel,  COLORS_UNION):Any,
             None:None
         },
     )
@@ -134,7 +134,7 @@ class Sepia(SubProp):
         super().__init__(value)
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Support for Properties
+# Support for Declarations
 # ----------------------------------------------------------------------------------------------------------------------
 FILTERS = {
     Blur: Any,
@@ -390,7 +390,7 @@ class Perspective(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-# Support for Properties
+# Support for Declarations
 # ----------------------------------------------------------------------------------------------------------------------
 TRANSFORMS = {
     Matrix: Any,

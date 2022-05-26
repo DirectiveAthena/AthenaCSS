@@ -8,7 +8,7 @@ import copy
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Objects.Properties.ValueLogic import ValueLogic
+from AthenaCSS.Declarations.ValueLogic import ValueLogic
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -55,10 +55,13 @@ class CSSProperty:
         return self._value.default
 
     # ------------------------------------------------------------------------------------------------------------------
-    # - Printer -
+    # - Generator -
     # ------------------------------------------------------------------------------------------------------------------
     def printer(self) -> str:
-        return f"{self.name}: {self.value_printer()}"
+        return f"{self.name_printer()}: {self.value_printer()}"
+
+    def name_printer(self) -> str:
+        return f"{self.name}"
 
     def value_printer(self) -> str:
         value = self._value.printer()

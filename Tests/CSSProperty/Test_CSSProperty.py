@@ -21,7 +21,6 @@ from BulkTests import BulkTests
 # ----------------------------------------------------------------------------------------------------------------------
 
 class CSSProperty(BulkTests):
-
     def test_AlignContent(self):
         # Define a CSSProperty Class with a defined name
 

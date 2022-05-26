@@ -4,6 +4,7 @@
 # General Packages
 from __future__ import annotations
 from typing import Any
+from enum import Enum
 
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
@@ -110,11 +111,21 @@ STRETCH = "stretch"
 LEFT = "left"
 RIGHT = "right"
 
-FOLLOWING= "+"
-DESCENDANT=" "
-COMBINE=","
-CHILD=">"
-PRECEDING="~"
+POSITION_CHOICES = {"bottom", "top", LEFT, "center", RIGHT}
+REPEAT = {"repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round"}
 
 CLASS_PREFIX = "."
 ID_PREFIX = "#"
+
+class SELECTORGROUP_TYPES(Enum):
+    following = "+"
+    descendant = " "
+    combination = ","
+    family = ">"
+    preceding = "~"
+
+NEW_LINE = "\n"
+
+INITIALINHERIT = {"initial", "inherit"}
+
+

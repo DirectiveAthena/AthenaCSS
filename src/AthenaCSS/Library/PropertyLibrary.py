@@ -7,8 +7,6 @@ import itertools
 from typing import Any, AnyStr
 
 # Custom Library
-from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
-
 from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.Url import Url

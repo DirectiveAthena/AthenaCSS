@@ -61,14 +61,14 @@ class CSSGenerators(BulkTests):
 
         self.assertEqual(
 """h1.something,
-h2.something_else{
+h2.something_else {
     color: rgb(128, 64, 32);
 }
 /*THIS SHOULD BE BETWEEN THE FIRST AND SECOND RULE*/
-h1{
+h1 {
     color: rgb(128, 64, 32);
 }
-h1{
+h1 {
     color: rgb(128, 64, 32);
     background-color: rgb(128, 64, 32);
     border-color: transparent;

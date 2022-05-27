@@ -67,6 +67,9 @@ class CSSRule(_Content):
     selectors:list=field(init=False, hash=True)
     declarations:list=field(init=False, hash=True)
 
+    #output options
+    one_line_overwrite:bool=False
+
     # Manager Options
     manager_overwrite:bool=field(default=False, repr=False, hash=False) # If the rule is entered twice, it will create new managers every time (resulting in the previous managers being lost)
 
@@ -102,18 +105,24 @@ class CSSRule(_Content):
         for declaration in self.declarations:
             yield declaration.name_printer(), declaration.value_printer()
 
+    def _to_options(self,indentation:int, one_line:bool) -> tuple[str,str]:
+        new_line = " " if self.one_line_overwrite else (NEW_LINE if not one_line else ' ')
+        indent = ' ' * (indentation if not self.one_line_overwrite else 0)
+
+        return new_line, indent
+
     def to_string(self, /,indentation:int, one_line:bool, **kwargs) -> str:
-        new_line = NEW_LINE if not one_line else ' '
+        new_line, indent = self._to_options(indentation, one_line)
 
         declarations_full = new_line.join(
-            f"{' ' * indentation}{name}: {value};"
+            f"{indent}{name}: {value};"
             for name,value in self._declaration_generator()
         )
         # if one_line is set to True, then the "new_line" block below will only print out a space
-        return f"{f',{new_line}'.join(self._selectors_generator())}{{{new_line}{declarations_full}{new_line}}}"
+        return f"{f',{new_line}'.join(self._selectors_generator())} {{{new_line}{declarations_full}{new_line}}}"
 
     def to_console(self, /,console_color_guide:ConsoleColorGuide, one_line:bool, indentation:int, **kwargs) -> str:
-        new_line = NEW_LINE if not one_line else ' '
+        new_line, indent = self._to_options(indentation, one_line)
 
         selectors_full = console_color_guide.text_general(f',{new_line}').join(
             console_color_guide.selector(selector)
@@ -121,9 +130,9 @@ class CSSRule(_Content):
         )
 
         declarations_full = console_color_guide.text_general(new_line).join(
-            f"{' ' * indentation}{console_color_guide.descriptor_name(name)}: {console_color_guide.descriptor_value(value)};"
+            f"{indent}{console_color_guide.descriptor_name(name)}: {console_color_guide.descriptor_value(value)};"
             for name, value in self._declaration_generator()
         )
 
         # if one_line is set to True, then the "new_line" block below will only print out a space
-        return f"{selectors_full}{{{new_line}{declarations_full}{new_line}}}"
+        return f"{selectors_full} {{{new_line}{declarations_full}{new_line}}}"

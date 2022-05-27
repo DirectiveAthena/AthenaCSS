@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # - Package Imports -
 # ----------------------------------------------------------------------------------------------------------------------
-import AthenaCSS.Library.PropertyLibrary
-import AthenaCSS.Library.SubPropertyLibrary
-import AthenaCSS.Library.SelectorElementLibrary
+import AthenaCSS.Library.PropertyLibrary as PropertyLibrary
+import AthenaCSS.Library.SubPropertyLibrary as SubPropertyLibrary
+import AthenaCSS.Library.SelectorElementLibrary as SelectorElementLibrary
 
 from AthenaCSS.Selectors.CSSAttribute import CSSAttribute
 from AthenaCSS.Selectors.CSSClass import CSSClass

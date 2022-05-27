@@ -3,9 +3,9 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from typing import Any, Iterable
-from types import UnionType
+from typing import Any
 import copy
+from dataclasses import dataclass, field
 
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV
@@ -14,121 +14,86 @@ from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV
 from AthenaCSS.Library.Support import INITIALINHERIT
 
 # ----------------------------------------------------------------------------------------------------------------------
+# - Support Code -
+# ----------------------------------------------------------------------------------------------------------------------
+@dataclass(slots=True)
+class LogicComponent:
+    types:Any
+    specific:Any
+
+def LogicAssembly(value_choice:dict) -> list[LogicComponent]:
+    LogicList = []
+    for key, value in value_choice.items():
+        match key, value:
+            case key, _  if key is Any:
+                LogicList = [Any]
+                break # can break here as Any catches all
+            case _, value if value is Any:
+                LogicList.append(LogicComponent(key, Any))
+            case _, value if value is None:
+                LogicList.append(None)
+            case _:
+                LogicList.append(LogicComponent(key, value))
+
+    return LogicList
+
+# ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
+@dataclass(kw_only=True, slots=True)
 class ValueLogic:
-    _value:Any
-    _default:None
-    _value_choice:dict
-    printer_space:str
-    __slots__ = ("_value","_default", "_value_choice", "printer_space")
+    _value:Any=field(init=False)
+    value_choice:list|dict=field(default_factory=lambda:[Any])
+    default:Any=None
+    printer_space:str=" "
 
-    def __init__(self, *, default=None,value_choice=None, printer_space=" "):
-        self.value_choice = value_choice if value_choice is not None else dict()
-        self.default = default # ALWAYS do this FOLLOWING the setting of value_choice
-        self.printer_space = printer_space
+    def __post_init__(self):
+        # Because of old code that I don't want to rewrite,
+        #   the old dictionary is replaced into the new format
+        if isinstance(self.value_choice, dict):
+            self.value_choice = LogicAssembly(self.value_choice)
 
-    def __repr__(self) -> str:
-        # cane be done because the key of self.value_choice is alwyas a type!
-        value_choice = {k:v for k,v in self.value_choice.items()}
-        return f"ValueLogic(default={self.default!r}, value_choice={value_choice})"
+    def validate_value(self, value):
+        # catch for the widly used initial or inherit value, which is possible at every property
+        #   or there is an "all is allowed" in the choices
+        if (value in INITIALINHERIT or Any in self.value_choice) \
+        or (value is None and None in self.value_choice):
+            return
 
-    def value_checker(self, value) -> Any:
-        # don't need to check if the dict is empty or if there is a "catch all - Any"
-        if not self.value_choice \
-                or value in INITIALINHERIT \
-                or Any in self.value_choice \
-                or (value is None and None in self.value_choice):
-            pass # passed here, as this immediatly goes to the end of the if statement (aka, return value)
+        value_type = type(value) if not isinstance(value, tuple|list|set|frozenset) else tuple(type(v) for v in value)
 
-        elif isinstance(value, Iterable) \
-                and (val_type := tuple(type(v) for v in value)) in self.value_choice:
-            # if it is none, then it can be skipped as anything is allowed then
-            if (choice := self.value_choice[val_type]) is not None:
-                # we know that the len of val_type and value is the same, no need to check again
-                for val, c in zip(value, choice):
-                    if isinstance(c, type) and not isinstance(val, c):
-                        raise TypeError(f"the partial value {val} was not of the defined type of {c}")
-                    elif isinstance(c, tuple) and val not in c:
-                        raise ValueError(f"the partial value {val} was not in the defined choice of {c}")
-                    # anything else is basically equivalent to TRUE, so don't check
-
-        elif (val_type := type(value)) in self.value_choice:
-            # Only a single value is inserted
-            #   so the value of the key value pair could either be a None or a set of possible values
-            if (choice := self.value_choice[val_type]) is not Any and value not in choice:
-                raise ValueError(f"the value {value} was not in the defined choice of {choice}")
-
-        elif isinstance(value, Iterable) \
-                and any(all(isinstance(v, vc) for v in value) for vc in self.value_choice):
-            # it is an iterable, but the choices were made up out of parent classes instead of specific classes
-            pass #todo, wtf do I do here?
-                 #  the if statement contains the check ... so ... what now?
-
-        elif any(isinstance(value, vc) for vc in self.value_choice if not isinstance(vc, tuple)):
-            pass #todo, wtf do I do here?
-                 #  the if statement contains the check ... so ... what now?
-
+        for logic in self.value_choice:
+            match logic:
+                case LogicComponent(types=vt,specific=specific) if vt == value_type:
+                    if specific in (Any, None):
+                        break
+                    elif isinstance(specific, tuple|list|set|frozenset) and isinstance(value, tuple):
+                        for v,s in zip(value, specific):
+                            if s not in (Any, None) and v not in s:
+                                raise ValueError(value, self.value_choice)
+                        break
+                    elif isinstance(specific, tuple|list|set|frozenset) and value in specific:
+                        break
+                    elif isinstance(specific, object) and value == specific:
+                        break
         else:
-            raise TypeError(f"the value {value} was not of an allowed type")
-
-        # ! RETURN VALUE !
-        return value
+            raise TypeError(value, value_type, self.value_choice)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Value -
     # ------------------------------------------------------------------------------------------------------------------
     @property
-    def value(self):
+    def value(self) -> Any:
         return self._value
 
     @value.setter
     def value(self, value):
-        self._value = self.value_checker(value)
+        self.validate_value(value)
+        self._value = value
 
     @value.deleter
     def value(self):
-        self._value = copy.copy(self._default)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # - Default -
-    # ------------------------------------------------------------------------------------------------------------------
-    @property
-    def default(self):
-        return self._default
-
-    @default.setter
-    def default(self, value):
-        if value is None and None not in self.value_choice.keys():
-            self._default = None
-        else:
-            self._default = self.value_checker(value)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # - ValueChoice -
-    # ------------------------------------------------------------------------------------------------------------------
-    @property
-    def value_choice(self):
-        return self._value_choice
-
-    @value_choice.setter
-    def value_choice(self, value:dict[type:set|type:None]):
-        if not isinstance(value, dict):
-            raise TypeError
-        # If trhe dict is empty, the for loop won't even do anything, so no need to make an if statement here
-        for key, val in value.items():
-            if val is Any or key in (None,Any):
-                continue
-            elif isinstance(key, tuple):
-                if not all(isinstance(k, type) or isinstance(k,UnionType) for k in key if k is not None):
-                    raise SyntaxError(f"Not all items in the tuple were types, in the value:{value}")
-            elif isinstance(key, type):
-                if not all(isinstance(v, key) for v in val):
-                    raise SyntaxError(f"Not all items in the predefined options were of the allowed type, in the value:{value}")
-            else:
-                raise SyntaxError(f"value_choice did not consist out of a tuple or a type, in the value:{value}")
-
-        self._value_choice = value
+        self._value = copy.copy(self.default)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Generator -

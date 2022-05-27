@@ -94,15 +94,15 @@ class CSSRule(_Content):
     # ------------------------------------------------------------------------------------------------------------------
     # - String Outputs -
     # ------------------------------------------------------------------------------------------------------------------
-    def _selectors_generator(self):
+    def _selectors_generator(self) -> str:
         for selector_group in self.selectors:
             yield selector_group.group_type.value.join(str(el)for el in selector_group.selectors)
 
-    def _declaration_generator(self) -> list[tuple[str,str]]:
+    def _declaration_generator(self) -> tuple[str,str]:
         for declaration in self.declarations:
             yield declaration.name_printer(), declaration.value_printer()
 
-    def to_string(self, indentation:int, one_line:bool, **kwargs) -> str:
+    def to_string(self, /,indentation:int, one_line:bool, **kwargs) -> str:
         new_line = NEW_LINE if not one_line else ' '
 
         declarations_full = new_line.join(
@@ -112,7 +112,7 @@ class CSSRule(_Content):
         # if one_line is set to True, then the "new_line" block below will only print out a space
         return f"{f',{new_line}'.join(self._selectors_generator())}{{{new_line}{declarations_full}{new_line}}}"
 
-    def to_console(self, console_color_guide:ConsoleColorGuide, one_line:bool, indentation:int, **kwargs) -> str:
+    def to_console(self, /,console_color_guide:ConsoleColorGuide, one_line:bool, indentation:int, **kwargs) -> str:
         new_line = NEW_LINE if not one_line else ' '
 
         selectors_full = console_color_guide.text_general(f',{new_line}').join(

@@ -33,7 +33,7 @@ class CSSPseudo:
         self.value = value
         self.defined_name = defined_name
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.value is None:
             return f"{self.defined_name}"
         return f"{self.defined_name}({self.value})"

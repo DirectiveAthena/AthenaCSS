@@ -4,6 +4,8 @@
 # General Packages
 from __future__ import annotations
 from dataclasses import dataclass, field
+from functools import partial
+from typing import Callable
 
 # Custom Library
 
@@ -45,26 +47,26 @@ class CSSGenerator:
     # ------------------------------------------------------------------------------------------------------------------
     # - String Outputs -
     # ------------------------------------------------------------------------------------------------------------------
-    def _kw_to_str(self):
-        return {
-            "indentation":self.output_indentation,
-            "one_line":self.output_one_line,
-            "console_color_guide":self.console_color_guide
-        }
+    def _output_partial(self, call:Callable) -> Callable:
+        return partial(
+            call,
+            indentation=self.output_indentation,
+            one_line=self.output_one_line,
+            console_color_guide=self.console_color_guide
+        )
 
     def to_string(self) -> str:
-        # if the string is to be set on one line, don't do a \,n
         sep = NEW_LINE if not self.output_one_line else " "
         return sep.join(
-            content.to_string(**self._kw_to_str())
+            self._output_partial(content.to_string)()
             for content in self.content
         )
 
-    def to_console(self) :
+    def to_console(self) -> None:
         for content in self.content:
-            print(content.to_console(**self._kw_to_str()))
+            print(self._output_partial(content.to_console)())
 
-    def to_file(self, filepath:str):
+    def to_file(self, filepath:str) -> None:
         with open(filepath, "w+") as file:
             for content in self.content:
-                file.write(content.to_string(**self._kw_to_str()))
+                file.write(self._output_partial(content.to_string)())

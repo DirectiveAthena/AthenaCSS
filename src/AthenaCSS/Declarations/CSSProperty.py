@@ -4,6 +4,7 @@
 # General Packages
 from __future__ import annotations
 import copy
+from typing import Any
 
 # Custom Library
 
@@ -35,17 +36,13 @@ class CSSProperty:
     # - Value -
     # ------------------------------------------------------------------------------------------------------------------
     @property
-    def value(self):
+    def value(self) -> ValueLogic.value:
         return self._value.value
 
     @value.setter
     def value(self, value):
         # Actual setter is defined by the ValueLogic class
         self._value.value = value
-
-    @value.deleter
-    def value(self):
-        del self._value.value
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Default Values -

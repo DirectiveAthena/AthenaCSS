@@ -45,7 +45,7 @@ class CSSGenerator:
     # ------------------------------------------------------------------------------------------------------------------
     # - String Outputs -
     # ------------------------------------------------------------------------------------------------------------------
-    def _kw_to_str(self):
+    def _to_string_keywordarguments(self):
         return {
             "indentation":self.output_indentation,
             "one_line":self.output_one_line,
@@ -56,15 +56,15 @@ class CSSGenerator:
         # if the string is to be set on one line, don't do a \,n
         sep = NEW_LINE if not self.output_one_line else " "
         return sep.join(
-            content.to_string(**self._kw_to_str())
+            content.to_string(**self._to_string_keywordarguments())
             for content in self.content
         )
 
     def to_console(self) :
         for content in self.content:
-            print(content.to_console(**self._kw_to_str()))
+            print(content.to_console(**self._to_string_keywordarguments()))
 
     def to_file(self, filepath:str):
         with open(filepath, "w+") as file:
             for content in self.content:
-                file.write(content.to_string(**self._kw_to_str()))
+                file.write(content.to_string(**self._to_string_keywordarguments()))

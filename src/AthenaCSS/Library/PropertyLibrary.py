@@ -11,14 +11,13 @@ from AthenaLib.Types.Time import Second, MilliSecond
 from AthenaLib.Types.Bezier import CubicBezier
 from AthenaLib.Types.Url import Url
 from AthenaLib.Types.Math import Percent
-from AthenaLib.Types.AbsoluteLength import Pixel, AbsoluteLength
-from AthenaLib.Types.RelativeLength import RelativeLength
+from AthenaLib.Types.AbsoluteLength import Pixel
 
 # Custom Packages
 from AthenaCSS.Library.Support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, PERCENT_EMPTY, PERCENT_FULL,PIXEL_EMPTY, AUTO, NORMAL,
-    SECOND_EMPTY, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,RIGHT, POSITION_CHOICES, REPEAT
+    SECOND_EMPTY, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,RIGHT, POSITION_CHOICES, REPEAT, LENGTHS_TUPLE
 )
 from AthenaCSS.Library.SubPropertyLibrary import FILTERS, TRANSFORMS, Steps
 
@@ -72,7 +71,7 @@ class AccentColor(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO, *COLORS_STR},
+            str:(AUTO, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -84,7 +83,7 @@ class AlignContent(CSSProperty):
     value_logic = ValueLogic(
         default=STRETCH,
         value_choice={
-            str: {"center", "fex-start", "flex-end", "space-between", "space-around", "space-evenly", STRETCH},
+            str: ("center", "fex-start", "flex-end", "space-between", "space-around", "space-evenly", STRETCH),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -388,14 +387,13 @@ class BackgroundSize(CSSProperty):
         default=AUTO,
         value_choice={
             str: {AUTO, "cover", "contain"},
-            (Percent, Percent): Any,
-            (Percent, str): (Any, AUTO),
-            (AbsoluteLength,str): (Any, AUTO),
-            (RelativeLength, str): (Any, AUTO),
+            (Percent,Percent):Any,
+            (Percent,str):(Any, (AUTO,)),
+            **{(length,str):(Any, (AUTO,)) for length in LENGTHS_TUPLE},
             **{length_combo:(Any, Any) for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength),
+                LENGTHS_TUPLE,
                 repeat=2
-            )}
+            )},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -468,7 +466,7 @@ class BorderBottomLeftRadius(CSSProperty):
             **PERCENT,
             **LENGTHS,
             **{length_combo:Any for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength, Percent),
+                (*LENGTHS_TUPLE, Percent),
                 repeat=2
             )}
         },
@@ -485,7 +483,7 @@ class BorderBottomRightRadius(CSSProperty):
             **PERCENT,
             **LENGTHS,
             **{length_combo:Any for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength, Percent),
+                (*LENGTHS_TUPLE, Percent),
                 repeat=2
             )}
         },
@@ -564,7 +562,7 @@ class BorderTopLeftRadius(CSSProperty):
             **PERCENT,
             **LENGTHS,
             **{length_combo:Any for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength, Percent),
+                (*LENGTHS_TUPLE, Percent),
                 repeat=2
             )}
         },
@@ -581,7 +579,7 @@ class BorderTopRightRadius(CSSProperty):
             **PERCENT,
             **LENGTHS,
             **{length_combo:Any for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength, Percent),
+                (*LENGTHS_TUPLE, Percent),
                 repeat=2
             )}
         },
@@ -886,18 +884,18 @@ class BorderRadius(CSSProperty):
         default=PIXEL_EMPTY,
         value_choice={
             **{length_combo: (Any, Any, Any, Any) for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength,Percent),
+                (*LENGTHS_TUPLE,Percent),
                 repeat=4
             )},
             **{length_combo: (Any, Any, Any) for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength,Percent),
+                (*LENGTHS_TUPLE,Percent),
                 repeat=3
             )},
             **{length_combo: (Any, Any) for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength,Percent),
+                (*LENGTHS_TUPLE,Percent),
                 repeat=2
             )},
-            **{length: Any for length in (AbsoluteLength, RelativeLength,Percent)}
+            **{length: Any for length in (*LENGTHS_TUPLE,Percent)}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -909,10 +907,10 @@ class BorderSpacing(CSSProperty):
         default=Pixel(2),
         value_choice={
             **{length_combo: (Any, Any) for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength, Percent),
+                (*LENGTHS_TUPLE, Percent),
                 repeat=2
             )},
-            **{length: Any for length in (AbsoluteLength, RelativeLength, Percent)}
+            **{length: Any for length in (*LENGTHS_TUPLE, Percent)}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1621,17 +1619,10 @@ class Gap(CSSProperty):
     value_logic = ValueLogic(
         default=(NORMAL, NORMAL),
         value_choice={
-            (AbsoluteLength, str): (Any, NORMAL),
-            (RelativeLength, str): (Any, NORMAL),
-            (str, AbsoluteLength): (NORMAL, Any),
-            (str, RelativeLength): (NORMAL, Any),
             (str,str):(NORMAL,NORMAL),
-            **{
-                length_product:(Any,Any)
-                for length_product in itertools.product(
-                    (AbsoluteLength, RelativeLength),
-                    repeat=2)
-            }
+            **{(length, str): (Any, NORMAL) for length in LENGTHS_TUPLE},
+            **{(str, length): (NORMAL, Any) for length in LENGTHS_TUPLE},
+            **{length_product:(Any,Any) for length_product in itertools.product(LENGTHS_TUPLE,repeat=2)}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2241,7 +2232,7 @@ class MaskPosition(CSSProperty):
             (Percent, Percent):(Any, Any),
             (str,str): ({LEFT, RIGHT, "center"},{"top", "center", "bottom"}),
             **{length_combo: (Any, Any) for length_combo in itertools.product(
-                (AbsoluteLength, RelativeLength),
+                LENGTHS_TUPLE,
                 repeat=2
             )}
         },
@@ -2643,8 +2634,8 @@ class PerspectiveOrigin(CSSProperty):
         default=(Percent(50), Percent(50)),
         value_choice={
             (str,str): ({LEFT, RIGHT, "center"}, {"top", "center", "bottom"}),
-            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{(str, val): ({LEFT, RIGHT, "center"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)}
+            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, val): ({LEFT, RIGHT, "center"}, Any) for val in (*LENGTHS_TUPLE, Percent)}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2944,12 +2935,12 @@ class TransformOrigin(CSSProperty):
         default=(Percent(50), Percent(50), PIXEL_EMPTY),
         value_choice={
             (str,str): ({LEFT, RIGHT, "center"}, {"top", "center", "bottom"}),
-            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{(str, val): ({LEFT, RIGHT, "center"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{(str, str, val): ({LEFT, RIGHT, "center"}, {"top", "center", "bottom"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{(val, str, val): (Any, {"top", "center", "bottom"}, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{(str, val, val): ({LEFT, RIGHT, "center"}, Any, Any) for val in (AbsoluteLength, RelativeLength, Percent)},
-            **{val_combination: (Any,Any,Any) for val_combination in itertools.product((AbsoluteLength, RelativeLength, Percent), repeat=3)},
+            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, val): ({LEFT, RIGHT, "center"}, Any) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, str, val): ({LEFT, RIGHT, "center"}, {"top", "center", "bottom"}, Any) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(val, str, val): (Any, {"top", "center", "bottom"}, Any) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, val, val): ({LEFT, RIGHT, "center"}, Any, Any) for val in (*LENGTHS_TUPLE, Percent)},
+            **{val_combination: (Any,Any,Any) for val_combination in itertools.product((*LENGTHS_TUPLE, Percent), repeat=3)},
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

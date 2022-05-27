@@ -3,7 +3,7 @@
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
 from __future__ import annotations
-from typing import Any
+from typing import Any, Iterable
 import copy
 from dataclasses import dataclass, field
 
@@ -18,29 +18,24 @@ from AthenaCSS.Library.Support import INITIALINHERIT
 # ----------------------------------------------------------------------------------------------------------------------
 @dataclass(slots=True)
 class LogicComponent:
-    types:Any=field(default=None)
-    specific:Any=field(default=None)
-
-    allow_all:bool=field(kw_only=True,default=False)
+    types:Any
+    specific:Any
 
 def LogicAssembly(value_choice:dict) -> list[LogicComponent]:
     LogicList = []
     for key, value in value_choice.items():
         match key, value:
             case key, _  if key is Any:
-                component = LogicComponent(allow_all=True)
+                LogicList = [Any]
+                break # can break here as Any catches all
             case _, value if value is Any:
-                component = LogicComponent(key, Any)
-
+                LogicList.append(LogicComponent(key, Any))
+            case _, value if value is None:
+                LogicList.append(None)
             case _:
-                component = LogicComponent(key, value)
-
-        LogicList.append(component)
+                LogicList.append(LogicComponent(key, value))
 
     return LogicList
-
-def LogicEmpty() -> list:
-    return [LogicComponent(allow_all=True)]
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -48,7 +43,7 @@ def LogicEmpty() -> list:
 @dataclass(kw_only=True, slots=True)
 class ValueLogic:
     _value:Any=field(init=False)
-    value_choice:list|dict=field(default_factory=LogicEmpty)
+    value_choice:list|dict=field(default_factory=lambda:[Any])
     default:Any=None
     printer_space:str=" "
 
@@ -58,28 +53,31 @@ class ValueLogic:
         if isinstance(self.value_choice, dict):
             self.value_choice = LogicAssembly(self.value_choice)
 
-    def validate_value(self, value) -> Exception | None:
+    def validate_value(self, value):
         # catch for the widly used initial or inherit value, which is possible at every property
-        if value in INITIALINHERIT:
-            return None
+        #   or there is an "all is allowed" in the choices
+        if (value in INITIALINHERIT or Any in self.value_choice) \
+        or (value is None and None in self.value_choice):
+            return
 
-        value_type = type(value) if not isinstance(value, tuple) else tuple(type(v) for v in value)
+        value_type = type(value) if not isinstance(value, tuple|list|set|frozenset) else tuple(type(v) for v in value)
 
         for logic in self.value_choice:
             match logic:
-                case LogicComponent(allow_all=True):
-                    return
-                case LogicComponent(types=value_type(), specific=specific) if specific is Any:
-                    return
-                case LogicComponent(types=value_type(),specific=specific) if isinstance(specific, tuple) and isinstance(value, tuple):
-                    if all(v in s for v, s in zip(value, specific)):
-                        return
-                    else:
-                        return ValueError(value, self.value_choice)
-                case LogicComponent(types=value_type(),specific=specific) if isinstance(specific, object) and value in specific:
-                    return
-                case _:
-                    return TypeError(value, self.value_choice)
+                case LogicComponent(types=vt,specific=specific) if vt == value_type:
+                    if specific in (Any, None):
+                        break
+                    elif isinstance(specific, tuple|list|set|frozenset) and isinstance(value, tuple):
+                        for v,s in zip(value, specific):
+                            if s not in (Any, None) and v not in s:
+                                raise ValueError(value, self.value_choice)
+                        break
+                    elif isinstance(specific, tuple|list|set|frozenset) and value in specific:
+                        break
+                    elif isinstance(specific, object) and value == specific:
+                        break
+        else:
+            raise TypeError(value, value_type, self.value_choice)
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Value -
@@ -90,10 +88,8 @@ class ValueLogic:
 
     @value.setter
     def value(self, value):
-        if (error := self.validate_value(value)) is None:
-            self._value = value
-        else:
-            raise error
+        self.validate_value(value)
+        self._value = value
 
     @value.deleter
     def value(self):

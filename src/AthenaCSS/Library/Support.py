@@ -9,8 +9,8 @@ from enum import Enum
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
 
-from AthenaLib.Types.AbsoluteLength import AbsoluteLength, Pixel
-from AthenaLib.Types.RelativeLength import RelativeLength
+from AthenaLib.Types.AbsoluteLength import *
+from AthenaLib.Types.RelativeLength import *
 from AthenaLib.Types.Math import Percent, Degree
 from AthenaLib.Types.Time import Second
 
@@ -60,33 +60,40 @@ COLORS_STR = {
     "tomato","turquoise","violet","wheat","whitesmoke","yellowgreen"
 }
 
-BLENDMODES = {
+BLENDMODES = (
     "normal", "multiply", "screen", "overlay", "darken", "ligthen", "color-dodge", "saturation", "color", "luminosity"
-}
+)
 
-LENGTHS = {AbsoluteLength:Any,RelativeLength:Any,}
+LENGTHS = {AbsoluteLength: Any, RelativeLength: Any, }
+LENGTHS_TUPLE = (
+    Pixel,Pica,Point,Inch,Meter,DeciMeter,CentiMeter,MilliMeter,
+    ElementFontSize, ElementFontHeight, ZeroCharacterWidth, RootElementFontSize,
+        ViewportWidthPercent, ViewportHeightPercent, ViewportLargerPercent, ViewportSmallerPercent
+)
 
-BOX = {"border-box","padding-box","content-box"}
 
-BORDERSTYLE = {"hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"}
-BORDERWIDTH = {"medium","thin", "thick"}
 
-BREAK_STR = {
+BOX = ("border-box","padding-box","content-box")
+
+BORDERSTYLE = ("hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset")
+BORDERWIDTH = ("medium","thin", "thick")
+
+BREAK_STR = (
     "auto","all","always","avoid","avoid-column","avoid-page","avoid-region","column","left","page","recto","region",
     "right","verso"
-}
+)
 
-CURSOR = {
+CURSOR = (
     "alias","all-scroll","auto","cell","context-menu","col-resize","copy","crosshair","default","e-resize","ew-resize",
     "grab","grabbing","help","move","n-resize","ne-resize","nesw-resize","ns-resize","nw-resize","nwse-resize","no-drop",
     "none","not-allowed","pointer","progress","row-resize","s-resize","se-resize","sw-resize","text","vertical-text",
     "w-resize","wait","zoom-in","zoom-out","initial","inherit"
-}
+)
 
-FLEX_DIRECTION = {"row","row-reverse","column","column-reverse"}
-FLEX_WRAP = {"nowrap","wrap","wrap-reverse"}
+FLEX_DIRECTION = ("row","row-reverse","column","column-reverse")
+FLEX_WRAP = ("nowrap","wrap","wrap-reverse")
 
-FONT_FAMILIES = {"calibri"}
+FONT_FAMILIES = ("calibri",)
 
 PERCENT = {Percent:Any}
 DEGREE = {Degree:Any}
@@ -111,8 +118,8 @@ STRETCH = "stretch"
 LEFT = "left"
 RIGHT = "right"
 
-POSITION_CHOICES = {"bottom", "top", LEFT, "center", RIGHT}
-REPEAT = {"repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round"}
+POSITION_CHOICES = ("bottom", "top", LEFT, "center", RIGHT)
+REPEAT = ("repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round")
 
 CLASS_PREFIX = "."
 ID_PREFIX = "#"
@@ -126,6 +133,6 @@ class SELECTORGROUP_TYPES(Enum):
 
 NEW_LINE = "\n"
 
-INITIALINHERIT = {"initial", "inherit"}
+INITIALINHERIT = ("initial", "inherit")
 
 

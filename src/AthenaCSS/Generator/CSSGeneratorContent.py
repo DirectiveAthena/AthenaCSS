@@ -102,7 +102,7 @@ class CSSRule(_Content):
         for declaration in self.declarations:
             yield declaration.name_printer(), declaration.value_printer()
 
-    def to_string(self, indentation:int, one_line:bool, **kwargs) -> str:
+    def to_string(self, /,indentation:int, one_line:bool, **kwargs) -> str:
         new_line = NEW_LINE if not one_line else ' '
 
         declarations_full = new_line.join(
@@ -112,7 +112,7 @@ class CSSRule(_Content):
         # if one_line is set to True, then the "new_line" block below will only print out a space
         return f"{f',{new_line}'.join(self._selectors_generator())}{{{new_line}{declarations_full}{new_line}}}"
 
-    def to_console(self, console_color_guide:ConsoleColorGuide, one_line:bool, indentation:int, **kwargs) -> str:
+    def to_console(self, /,console_color_guide:ConsoleColorGuide, one_line:bool, indentation:int, **kwargs) -> str:
         new_line = NEW_LINE if not one_line else ' '
 
         selectors_full = console_color_guide.text_general(f',{new_line}').join(

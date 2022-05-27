@@ -11,7 +11,7 @@ import setuptools
 # ----------------------------------------------------------------------------------------------------------------------
 setuptools.setup(
     name="AthenaCSS",
-    version="0.4.0",
+    version="0.5.0",
     author="Andreas Sas",
     author_email="",
     description="",
@@ -23,5 +23,5 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.10",
-    install_requires=["AthenaColor>=4.2.0", "AthenaLib>=0.2.0"]
+    install_requires=["AthenaColor>=5.1.0", "AthenaLib>=0.2.0"]
 )

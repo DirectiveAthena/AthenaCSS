@@ -155,7 +155,7 @@ class Steps(SubProp):
     name="steps"
     value_logic = ValueLogic(
         value_choice={
-            (int,str):(Any, {"end", "start", ""})
+            (int,str):(Any, ("end", "start", ""))
         },
     )
     def __init__(self, value=value_logic.default):

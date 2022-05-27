@@ -94,7 +94,7 @@ class AlignItems(CSSProperty):
     value_logic = ValueLogic(
         default=STRETCH,
         value_choice={
-            str: {"baseline","center", "fex-start", "flex-end", STRETCH},
+            str: ("baseline","center", "fex-start", "flex-end", STRETCH),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -105,7 +105,7 @@ class AlignSelf(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO,"baseline","center", "fex-start", "flex-end", STRETCH},
+            str: (AUTO,"baseline","center", "fex-start", "flex-end", STRETCH),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -117,7 +117,7 @@ class All(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {"unset"},
+            str: ("unset",),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -152,7 +152,7 @@ class AnimationTimingFunction(CSSProperty):
     value_logic = ValueLogic(
         default="ease",
         value_choice={
-            str: {"linear", "ease", "ease-in", "ease-out", "ease-in-out"},
+            str: ("linear", "ease", "ease-in", "ease-out", "ease-in-out"),
             CubicBezier: Any,
         },
     )
@@ -176,7 +176,7 @@ class AnimationIterationCount(CSSProperty):
     value_logic = ValueLogic(
         default=1,
         value_choice={
-            str: {"infinite"},
+            str: ("infinite",),
             int:Any
         },
     )
@@ -188,7 +188,7 @@ class AnimationDirection(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL, "reverse", "alternate", "alternate-reverse"},
+            str: (NORMAL, "reverse", "alternate", "alternate-reverse"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -199,7 +199,7 @@ class AnimationFillMode(CSSProperty):
     value_logic = ValueLogic(
         value_choice={
             None:None,
-            str:{"forwards", "backwards", "both"}
+            str:("forwards", "backwards", "both")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -210,7 +210,7 @@ class AnimationPlayState(CSSProperty):
     value_logic = ValueLogic(
         default="running",
         value_choice={
-            str:{"paused", "running"}
+            str:("paused", "running")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -280,7 +280,7 @@ class BackfaceVisibility(CSSProperty):
     value_logic = ValueLogic(
         default=VISIBLE,
         value_choice={
-            str:{VISIBLE, "hidden"}
+            str:(VISIBLE, "hidden")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -291,7 +291,7 @@ class BackgroundAttachment(CSSProperty):
     value_logic = ValueLogic(
         default="scroll",
         value_choice={
-            str: {"scroll", "fixed", "local"}
+            str: ("scroll", "fixed", "local")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -324,7 +324,7 @@ class BackgroundColor(CSSProperty):
     value_logic = ValueLogic(
         default=TRANSPARENT,
         value_choice={
-            str:{TRANSPARENT, *COLORS_STR},
+            str:(TRANSPARENT, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -386,7 +386,7 @@ class BackgroundSize(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO, "cover", "contain"},
+            str: (AUTO, "cover", "contain"),
             (Percent,Percent):Any,
             (Percent,str):(Any, (AUTO,)),
             **{(length,str):(Any, (AUTO,)) for length in LENGTHS_TUPLE},
@@ -450,7 +450,7 @@ class BorderBottomColor(CSSProperty):
     value_logic = ValueLogic(
         default=TRANSPARENT,
         value_choice={
-            str:{TRANSPARENT, *COLORS_STR},
+            str:(TRANSPARENT, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -546,7 +546,7 @@ class BorderTopColor(CSSProperty):
     value_logic = ValueLogic(
         default=TRANSPARENT,
         value_choice={
-            str:{TRANSPARENT, *COLORS_STR},
+            str:(TRANSPARENT, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -642,7 +642,7 @@ class BorderLeftColor(CSSProperty):
     value_logic = ValueLogic(
         default=TRANSPARENT,
         value_choice={
-            str:{TRANSPARENT, *COLORS_STR},
+            str:(TRANSPARENT, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -704,7 +704,7 @@ class BorderRightColor(CSSProperty):
     value_logic = ValueLogic(
         default=TRANSPARENT,
         value_choice={
-            str:{TRANSPARENT, *COLORS_STR},
+            str:(TRANSPARENT, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -777,7 +777,7 @@ class BorderColor(CSSProperty):
     value_logic = ValueLogic(
         default=TRANSPARENT,
         value_choice={
-            str:{TRANSPARENT, *COLORS_STR},
+            str:(TRANSPARENT, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -801,7 +801,7 @@ class BorderImageRepeat(CSSProperty):
     value_logic = ValueLogic(
         default=STRETCH,
         value_choice={
-            str:{STRETCH, "repeat", "round", "space"}
+            str:(STRETCH, "repeat", "round", "space")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -812,7 +812,7 @@ class BorderImageSlice(CSSProperty):
     value_logic = ValueLogic(
         default=PERCENT_FULL,
         value_choice={
-            str:{"fill"},
+            str:("fill",),
             int:Any,
             **PERCENT
         },
@@ -971,7 +971,7 @@ class Bottom(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             Percent: Any,
             **LENGTHS,
         },
@@ -984,7 +984,7 @@ class BoxDecorationBreak(CSSProperty):
     value_logic = ValueLogic(
         default="slice",
         value_choice={
-            str: {"slice", "clone"},
+            str: ("slice", "clone"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1008,7 +1008,7 @@ class BoxSizing(CSSProperty):
     value_logic = ValueLogic(
         default="content-box",
         value_choice={
-            str:{"content-box", "border-box"}
+            str:("content-box", "border-box")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1052,7 +1052,7 @@ class CaptionSide(CSSProperty):
     value_logic = ValueLogic(
         default="top",
         value_choice={
-            str: {"top", "bottom"}
+            str: ("top", "bottom")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1063,7 +1063,7 @@ class CaretColor(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO, *COLORS_STR},
+            str: (AUTO, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -1076,7 +1076,7 @@ class Clear(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {LEFT, RIGHT, "both"}
+            str: (LEFT, RIGHT, "both")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1088,7 +1088,7 @@ class ClipPath(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {"border-box","padding-box","content-box", "margin-box", "fill-box", "stroke-box", "view-box"},
+            str: ("border-box","padding-box","content-box", "margin-box", "fill-box", "stroke-box", "view-box"),
             Url:Any,
         },
     )
@@ -1100,7 +1100,7 @@ class Color(CSSProperty):
     value_logic = ValueLogic(
         # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
         value_choice={
-            str:{TRANSPARENT, *COLORS_STR},
+            str:(TRANSPARENT, *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -1112,7 +1112,7 @@ class ColumnCount(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             int: Any
         },
     )
@@ -1124,7 +1124,7 @@ class ColumnFill(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO, "balance"},
+            str: (AUTO, "balance"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1135,7 +1135,7 @@ class ColumnGap(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL},
+            str: (NORMAL,),
             **LENGTHS,
         },
     )
@@ -1210,7 +1210,7 @@ class ColumnSpan(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str:{"all"},
+            str:("all",),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1221,7 +1221,7 @@ class ColumnWidth(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO},
+            str:(AUTO,),
             **LENGTHS
         },
     )
@@ -1256,7 +1256,7 @@ class Content(CSSProperty):
         default=NORMAL,
         value_choice={
             None:None,
-            str:{NORMAL, "counter", "open-quote", "close-quote", "no-open-quote", "no-close-quote"},
+            str:(NORMAL, "counter", "open-quote", "close-quote", "no-open-quote", "no-close-quote"),
             Url:Any,
             AnyStr:Any # as long as an object has a __str__, this should be fine
         },
@@ -1307,7 +1307,7 @@ class Direction(CSSProperty):
     value_logic = ValueLogic(
         default="ltr",
         value_choice={
-            str:{"ltr","rtl"}
+            str:("ltr","rtl")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1318,11 +1318,11 @@ class Display(CSSProperty):
     value_logic = ValueLogic(
         value_choice={
             None:None,
-            str:{
+            str:(
                 "inline","block","contents","flex","grid","inline-block", "inline-flex", "inline-grid", "inline-table",
                 "list-item", "run-in", "table","table-caption", "table-column-group", "table-header-group",
                 "table-footer-group", "table-row-group", "table-cell", "table-column", "table-row"
-            }
+            )
         },
     )
     def __init__(self, value, **kwargs):
@@ -1333,7 +1333,7 @@ class EmptyCells(CSSProperty):
     value_logic = ValueLogic(
         default="show",
         value_choice={
-            str:{"show", "hide"}
+            str:("show", "hide")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1356,7 +1356,7 @@ class FlexBasis(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO},
+            str:(AUTO,),
             **LENGTHS,
             **PERCENT
         },
@@ -1451,7 +1451,7 @@ class Float(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {LEFT, RIGHT}
+            str: (LEFT, RIGHT)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1474,9 +1474,9 @@ class FontFeatureSetting(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str:{NORMAL},
-            (str, str): (Any,{"on","off"}),
-            (str, int): (Any,{1,0}),
+            str:(NORMAL,),
+            (str, str): (Any,("on","off")),
+            (str, int): (Any,(1,0)),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1487,7 +1487,7 @@ class FontKerning(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{NORMAL, AUTO},
+            str:(NORMAL, AUTO),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1498,7 +1498,7 @@ class FontSize(CSSProperty):
     value_logic = ValueLogic(
         default=MEDIUM,
         value_choice={
-            str:{MEDIUM,"xx-small","x-small","small","large","x-large","xx-large","smaller","larger"},
+            str:(MEDIUM,"xx-small","x-small","small","large","x-large","xx-large","smaller","larger"),
             **LENGTHS,
             **PERCENT
         },
@@ -1524,10 +1524,10 @@ class FontStretch(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {
+            str: (
                 "ultra-condensed","extra-condensed","condensed","semi-condensed",NORMAL,"semi-expanded","expanded",
                 "extra-expanded","ultra-expanded"
-            },
+            ),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1538,7 +1538,7 @@ class FontStyle(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL, "italic", "oblique"},
+            str: (NORMAL, "italic", "oblique"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1549,7 +1549,7 @@ class FontVariant(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL, "small-caps"},
+            str: (NORMAL, "small-caps"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1560,9 +1560,9 @@ class FontVariantCaps(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {
+            str: (
                 NORMAL,"small-caps","all-small-caps","petite-caps","all-petite-caps","unicase","titling-caps","unset"
-            },
+            ),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1573,8 +1573,8 @@ class FontWeight(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL,"bold","bolder","lighter"},
-            int: {100,200,300,400,500,600,700,800,900}
+            str: (NORMAL,"bold","bolder","lighter"),
+            int: (100,200,300,400,500,600,700,800,900)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1633,7 +1633,7 @@ class GridAutoColumns(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO,"max-content","min-content"},
+            str: (AUTO,"max-content","min-content"),
             **LENGTHS
         },
     )
@@ -1645,7 +1645,7 @@ class GridAutoFlow(CSSProperty):
     value_logic = ValueLogic(
         default="row",
         value_choice={
-            str: {"row","column", "dense", "row dense", "column dense"},
+            str: ("row","column", "dense", "row dense", "column dense"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1656,7 +1656,7 @@ class GridAutoRows(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO,"max-content","min-content"},
+            str: (AUTO,"max-content","min-content"),
             **LENGTHS
         },
     )
@@ -1668,8 +1668,8 @@ class GridColumnEnd(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
-            (str, int): ({"span"},Any),
+            str: (AUTO,),
+            (str, int): (("span",),Any),
             int: Any
         },
     )
@@ -1693,8 +1693,8 @@ class GridColumnStart(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
-            (str, int): ({"span"},Any),
+            str: (AUTO,),
+            (str, int): (("span",),Any),
             int: Any
         },
     )
@@ -1728,8 +1728,8 @@ class GridRowEnd(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
-            (str, int): ({"span"},Any),
+            str: (AUTO,),
+            (str, int): (("span",),Any),
             int: Any
         },
     )
@@ -1753,8 +1753,8 @@ class GridRowStart(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
-            (str, int): ({"span"},Any),
+            str: (AUTO,),
+            (str, int): (("span",),Any),
             int: Any
         },
     )
@@ -1823,7 +1823,7 @@ class GridTemplateColumns(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {AUTO, "max-content", "min-content"},
+            str: (AUTO, "max-content", "min-content"),
             **LENGTHS
         },
     )
@@ -1836,7 +1836,7 @@ class GridTemplateRows(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {AUTO, "max-content", "min-content"},
+            str: (AUTO, "max-content", "min-content"),
             **LENGTHS
         },
     )
@@ -1944,7 +1944,7 @@ class HangingPunctuation(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {"first","last","allow-end","force-end"},
+            str: ("first","last","allow-end","force-end"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1955,7 +1955,7 @@ class Height(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **LENGTHS
         },
     )
@@ -1968,7 +1968,7 @@ class Hyphens(CSSProperty):
         default="manual",
         value_choice={
             None:None,
-            str: {"manual", AUTO},
+            str: ("manual", AUTO),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1980,7 +1980,7 @@ class ImageRendering(CSSProperty):
         default=AUTO,
         value_choice={
             None:None,
-            str: {AUTO,"smooth","high-quality","crisp-edges","pixelated"},
+            str: (AUTO,"smooth","high-quality","crisp-edges","pixelated"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1992,7 +1992,7 @@ class Isolation(CSSProperty):
         default=AUTO,
         value_choice={
             None:None,
-            str: {AUTO,"isolate"},
+            str: (AUTO,"isolate"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2004,7 +2004,7 @@ class JustifyContent(CSSProperty):
         default="flex-start",
         value_choice={
             None:None,
-            str: {"flex-start","flex-end","center","space-between","space-around","space-evenly"},
+            str: ("flex-start","flex-end","center","space-between","space-around","space-evenly"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2015,7 +2015,7 @@ class Left(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **LENGTHS
         },
     )
@@ -2027,7 +2027,7 @@ class LetterSpacing(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL},
+            str: (NORMAL,),
             **LENGTHS
         },
     )
@@ -2039,7 +2039,7 @@ class LineHeight(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL},
+            str: (NORMAL,),
             int: Any,
             Percent: Any,
             **LENGTHS
@@ -2065,7 +2065,7 @@ class ListStylePosition(CSSProperty):
     value_logic = ValueLogic(
         default="outside",
         value_choice={
-            str: {"inside", "outside"}
+            str: ("inside", "outside")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2076,11 +2076,11 @@ class ListStyleType(CSSProperty):
     value_logic = ValueLogic(
         default="disc",
         value_choice={
-            str: {
+            str: (
                 "disc", "armenian", "circle", "cjk-ideographic", "decimal", "decimal-leading-zero", "georgian",
                 "hebrew", "hiragana", "hiragana-iroha", "katakana", "katakana-iroha", "lower-alpha", "lower-greek" ,
                 "lower-latin", "lower-roman", "square", "upper-alpha", "upper-greek", "upper-latin", "upper-roman"
-            }
+            )
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2117,7 +2117,7 @@ class MarginBottom(CSSProperty):
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **LENGTHS
         },
     )
@@ -2129,7 +2129,7 @@ class MarginLeft(CSSProperty):
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **LENGTHS
         },
     )
@@ -2141,7 +2141,7 @@ class MarginRight(CSSProperty):
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **LENGTHS
         },
     )
@@ -2153,7 +2153,7 @@ class MarginTop(CSSProperty):
     value_logic = ValueLogic(
         default=PIXEL_EMPTY,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **LENGTHS
         },
     )
@@ -2207,7 +2207,7 @@ class MaskMode(CSSProperty):
     value_logic = ValueLogic(
         default="match-source",
         value_choice={
-            str: {"match-source","luminance","alpha"}
+            str: ("match-source","luminance","alpha")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2218,7 +2218,7 @@ class MaskOrigin(CSSProperty):
     value_logic = ValueLogic(
         default="border-box",
         value_choice={
-            str: {"border-box","content-box","padding-box","margin-box","fill-box","stroke-box","view-box"}
+            str: ("border-box","content-box","padding-box","margin-box","fill-box","stroke-box","view-box")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2230,7 +2230,7 @@ class MaskPosition(CSSProperty):
         default=(PERCENT_EMPTY, PERCENT_EMPTY),
         value_choice={
             (Percent, Percent):(Any, Any),
-            (str,str): ({LEFT, RIGHT, "center"},{"top", "center", "bottom"}),
+            (str,str): ((LEFT, RIGHT, "center"),("top", "center", "bottom")),
             **{length_combo: (Any, Any) for length_combo in itertools.product(
                 LENGTHS_TUPLE,
                 repeat=2
@@ -2245,7 +2245,7 @@ class MaskRepeat(CSSProperty):
     value_logic = ValueLogic(
         default="repeat",
         value_choice={
-            str: {"repeat","repeat-x","repeat-y","space","round","no-repeat"}
+            str: ("repeat","repeat-x","repeat-y","space","round","no-repeat")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2256,7 +2256,7 @@ class MaskSize(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO, "contain", "cover"},
+            str: (AUTO, "contain", "cover"),
             **PERCENT,
             **LENGTHS
         },
@@ -2333,7 +2333,7 @@ class ObjectFit(CSSProperty):
         default="fill",
         value_choice={
             None:None,
-            str: {"fill", "contain", "cover", "scale-down"}
+            str: ("fill", "contain", "cover", "scale-down")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2344,7 +2344,7 @@ class ObjectPosition(CSSProperty):
     value_logic = ValueLogic(
         default=(Percent(50), Percent(50)),
         value_choice={
-            str:{LEFT, RIGHT, "center"},
+            str:(LEFT, RIGHT, "center"),
             **{length_combo: (Any, Any) for length_combo in itertools.product(
                 (Pixel, Percent),
                 repeat=2
@@ -2359,7 +2359,7 @@ class Opacity(CSSProperty):
     value_logic = ValueLogic(
         default=1,
         value_choice={
-            int: {0,1},
+            int: (0,1),
             float: Any
         },
     )
@@ -2392,7 +2392,7 @@ class OutlineColor(CSSProperty):
     name="outline-color"
     value_logic = ValueLogic(
         value_choice={
-            str: {"invert", *COLORS_STR},
+            str: ("invert", *COLORS_STR),
             **COLORS_CHOICE
         },
     )
@@ -2466,7 +2466,7 @@ class Overflow(CSSProperty):
     value_logic = ValueLogic(
         default=VISIBLE,
         value_choice={
-            str: {VISIBLE,"hidden","clip","scroll",AUTO}
+            str: (VISIBLE,"hidden","clip","scroll",AUTO)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2477,7 +2477,7 @@ class OverflowWrap(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {"anywhere",NORMAL,"break-word"}
+            str: ("anywhere",NORMAL,"break-word")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2488,7 +2488,7 @@ class OverflowX(CSSProperty):
     value_logic = ValueLogic(
         default=VISIBLE,
         value_choice={
-            str: {VISIBLE,"hidden","scroll",AUTO}
+            str: (VISIBLE,"hidden","scroll",AUTO)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2499,7 +2499,7 @@ class OverflowY(CSSProperty):
     value_logic = ValueLogic(
         default=VISIBLE,
         value_choice={
-            str: {VISIBLE,"hidden","scroll",AUTO}
+            str: (VISIBLE,"hidden","scroll",AUTO)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2588,7 +2588,7 @@ class PageBreakAfter(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO,"always","avoid",LEFT,RIGHT}
+            str:(AUTO,"always","avoid",LEFT,RIGHT)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2599,7 +2599,7 @@ class PageBreakBefore(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO,"always","avoid",LEFT,RIGHT}
+            str:(AUTO,"always","avoid",LEFT,RIGHT)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2610,7 +2610,7 @@ class PageBreakInside(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO,"always","avoid",LEFT,RIGHT}
+            str:(AUTO,"always","avoid",LEFT,RIGHT)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2633,9 +2633,9 @@ class PerspectiveOrigin(CSSProperty):
     value_logic = ValueLogic(
         default=(Percent(50), Percent(50)),
         value_choice={
-            (str,str): ({LEFT, RIGHT, "center"}, {"top", "center", "bottom"}),
-            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (*LENGTHS_TUPLE, Percent)},
-            **{(str, val): ({LEFT, RIGHT, "center"}, Any) for val in (*LENGTHS_TUPLE, Percent)}
+            (str,str): ((LEFT, RIGHT, "center"), ("top", "center", "bottom")),
+            **{(val, str): (Any, ("top", "center", "bottom")) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, val): ((LEFT, RIGHT, "center"), Any) for val in (*LENGTHS_TUPLE, Percent)}
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2647,7 +2647,7 @@ class PointerEvents(CSSProperty):
         default=AUTO,
         value_choice={
             None:None,
-            str: {AUTO}
+            str: (AUTO,)
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2659,7 +2659,7 @@ class Position(CSSProperty):
         default="static",
         value_choice={
             None:None,
-            str: {"static", "absolute", "fixed", "relative", "sticky"}
+            str: ("static", "absolute", "fixed", "relative", "sticky")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2679,7 +2679,7 @@ class Resize(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {"both","horizontal","vertical"}
+            str: ("both","horizontal","vertical")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2690,7 +2690,7 @@ class Right(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **PERCENT,
             **LENGTHS
         },
@@ -2703,7 +2703,7 @@ class RowGap(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL},
+            str: (NORMAL,),
             **LENGTHS
         },
     )
@@ -2715,7 +2715,7 @@ class ScrollBehavior(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO, "smooth"},
+            str: (AUTO, "smooth"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2737,7 +2737,7 @@ class TableLayout(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO, "fixed"}
+            str:(AUTO, "fixed")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2748,7 +2748,7 @@ class TextAlign(CSSProperty):
     value_logic = ValueLogic(
         default=LEFT,
         value_choice={
-            str:{LEFT, RIGHT, "center", "justify"}
+            str:(LEFT, RIGHT, "center", "justify")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2759,7 +2759,7 @@ class TextAlignLast(CSSProperty):
     value_logic = ValueLogic(
         default=LEFT,
         value_choice={
-            str:{LEFT, RIGHT, "center", "justify", "start", "end"}
+            str:(LEFT, RIGHT, "center", "justify", "start", "end")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2782,7 +2782,7 @@ class TextDecorationLine(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str: {"underline", "overline", "line-through"},
+            str: ("underline", "overline", "line-through"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2794,7 +2794,7 @@ class TextDecorationStyle(CSSProperty):
         default="solid",
         value_choice={
             None:None,
-            str: {"solid", "double", "dotted", "dashed", "wavy"},
+            str: ("solid", "double", "dotted", "dashed", "wavy"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2806,7 +2806,7 @@ class TextDecorationThickness(CSSProperty):
         default=AUTO,
         value_choice={
             None:None,
-            str: {AUTO, "from-font"},
+            str: (AUTO, "from-font"),
             **LENGTHS,
             **PERCENT
         },
@@ -2862,7 +2862,7 @@ class TextJustify(CSSProperty):
         default=AUTO,
         value_choice={
             None:None,
-            str:{AUTO, "inter-word", "inter-character"}
+            str:(AUTO, "inter-word", "inter-character")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2898,7 +2898,7 @@ class TextTransform(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            str:{"capitalize","uppercase","lowercase"}
+            str:("capitalize","uppercase","lowercase")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2909,7 +2909,7 @@ class Top(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str:{AUTO},
+            str:(AUTO,),
             **LENGTHS,
             **PERCENT
         },
@@ -2934,12 +2934,12 @@ class TransformOrigin(CSSProperty):
     value_logic = ValueLogic(
         default=(Percent(50), Percent(50), PIXEL_EMPTY),
         value_choice={
-            (str,str): ({LEFT, RIGHT, "center"}, {"top", "center", "bottom"}),
-            **{(val, str): (Any, {"top", "center", "bottom"}) for val in (*LENGTHS_TUPLE, Percent)},
-            **{(str, val): ({LEFT, RIGHT, "center"}, Any) for val in (*LENGTHS_TUPLE, Percent)},
-            **{(str, str, val): ({LEFT, RIGHT, "center"}, {"top", "center", "bottom"}, Any) for val in (*LENGTHS_TUPLE, Percent)},
-            **{(val, str, val): (Any, {"top", "center", "bottom"}, Any) for val in (*LENGTHS_TUPLE, Percent)},
-            **{(str, val, val): ({LEFT, RIGHT, "center"}, Any, Any) for val in (*LENGTHS_TUPLE, Percent)},
+            (str,str): ((LEFT, RIGHT, "center"), ("top", "center", "bottom")),
+            **{(val, str): (Any, ("top", "center", "bottom")) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, val): ((LEFT, RIGHT, "center"), Any) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, str, val): ((LEFT, RIGHT, "center"), ("top", "center", "bottom"), Any) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(val, str, val): (Any, ("top", "center", "bottom"), Any) for val in (*LENGTHS_TUPLE, Percent)},
+            **{(str, val, val): ((LEFT, RIGHT, "center"), Any, Any) for val in (*LENGTHS_TUPLE, Percent)},
             **{val_combination: (Any,Any,Any) for val_combination in itertools.product((*LENGTHS_TUPLE, Percent), repeat=3)},
         },
     )
@@ -2951,7 +2951,7 @@ class TransformStyle(CSSProperty):
     value_logic = ValueLogic(
         default="flat",
         value_choice={
-            str:{"flat","preserve-3d"}
+            str:("flat","preserve-3d")
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -2997,7 +2997,7 @@ class TransitionTimingFunction(CSSProperty):
     value_logic = ValueLogic(
         default="ease",
         value_choice={
-            str: {"ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start","step-end"},
+            str: ("ease", "linear", "ease-in", "ease-out", "ease-in-out", "step-start","step-end"),
             CubicBezier: Any,
             Steps: Any
         },
@@ -3040,7 +3040,7 @@ class UnicodeBidi(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL, "embed", "bidi-override"},
+            str: (NORMAL, "embed", "bidi-override"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3052,7 +3052,7 @@ class UserSelect(CSSProperty):
         default=AUTO,
         value_choice={
             None:None,
-            str: {AUTO, "text"},
+            str: (AUTO, "text"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3063,7 +3063,7 @@ class VerticalAlign(CSSProperty):
     value_logic = ValueLogic(
         default="baseline",
         value_choice={
-            str: {"baseline","sub","super","top","text-top","middle","bottom","text-bottom"},
+            str: ("baseline","sub","super","top","text-top","middle","bottom","text-bottom"),
             **LENGTHS,
             **PERCENT
         },
@@ -3076,7 +3076,7 @@ class Visibility(CSSProperty):
     value_logic = ValueLogic(
         default=VISIBLE,
         value_choice={
-            str: {VISIBLE, "hidden", "collapse"},
+            str: (VISIBLE, "hidden", "collapse"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3087,7 +3087,7 @@ class WhiteSpace(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL,"nowrap", "pre", "pre-line", "pre-wrap"},
+            str: (NORMAL,"nowrap", "pre", "pre-line", "pre-wrap"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3109,7 +3109,7 @@ class Width(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             **LENGTHS,
             **PERCENT
         },
@@ -3122,7 +3122,7 @@ class WordBreak(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL,"break-all","keep-all","break-word"},
+            str: (NORMAL,"break-all","keep-all","break-word"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3133,7 +3133,7 @@ class WordSpacing(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL},
+            str: (NORMAL,),
             **LENGTHS,
         },
     )
@@ -3145,7 +3145,7 @@ class WordWrap(CSSProperty):
     value_logic = ValueLogic(
         default=NORMAL,
         value_choice={
-            str: {NORMAL, "break-word"},
+            str: (NORMAL, "break-word"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3156,7 +3156,7 @@ class WritingMode(CSSProperty):
     value_logic = ValueLogic(
         default="horizontal-tb",
         value_choice={
-            str: {"horizontal-tb", "vertical-rl", "vertical-lr"},
+            str: ("horizontal-tb", "vertical-rl", "vertical-lr"),
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -3167,7 +3167,7 @@ class ZIndex(CSSProperty):
     value_logic = ValueLogic(
         default=AUTO,
         value_choice={
-            str: {AUTO},
+            str: (AUTO,),
             int:Any,
         },
     )

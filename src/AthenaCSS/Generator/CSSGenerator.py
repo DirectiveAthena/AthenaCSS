@@ -47,7 +47,7 @@ class CSSGenerator:
     # ------------------------------------------------------------------------------------------------------------------
     # - String Outputs -
     # ------------------------------------------------------------------------------------------------------------------
-    def _output_partial(self, call:Callable):
+    def _output_partial(self, call:Callable) -> Callable:
         return partial(
             call,
             indentation=self.output_indentation,
@@ -62,11 +62,11 @@ class CSSGenerator:
             for content in self.content
         )
 
-    def to_console(self) :
+    def to_console(self) -> None:
         for content in self.content:
             print(self._output_partial(content.to_console)())
 
-    def to_file(self, filepath:str):
+    def to_file(self, filepath:str) -> None:
         with open(filepath, "w+") as file:
             for content in self.content:
                 file.write(self._output_partial(content.to_string)())

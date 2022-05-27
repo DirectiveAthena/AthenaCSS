@@ -94,11 +94,11 @@ class CSSRule(_Content):
     # ------------------------------------------------------------------------------------------------------------------
     # - String Outputs -
     # ------------------------------------------------------------------------------------------------------------------
-    def _selectors_generator(self):
+    def _selectors_generator(self) -> str:
         for selector_group in self.selectors:
             yield selector_group.group_type.value.join(str(el)for el in selector_group.selectors)
 
-    def _declaration_generator(self) -> list[tuple[str,str]]:
+    def _declaration_generator(self) -> tuple[str,str]:
         for declaration in self.declarations:
             yield declaration.name_printer(), declaration.value_printer()
 

@@ -83,7 +83,7 @@ class ValueLogic:
     # - Value -
     # ------------------------------------------------------------------------------------------------------------------
     @property
-    def value(self):
+    def value(self) -> Any:
         return self._value
 
     @value.setter

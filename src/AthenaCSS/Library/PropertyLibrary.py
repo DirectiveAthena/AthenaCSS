@@ -828,7 +828,7 @@ class BorderImageRepeat(CSSProperty):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderImageSlice(CSSProperty):
-    name="border-image-lice"
+    name="border-image-slice"
     value_logic = ValueLogic(
         default=PERCENT_FULL,
         value_choice={
@@ -860,6 +860,7 @@ class BorderImageWidth(CSSProperty):
         value_choice={
             str: BORDERWIDTH,
             **LENGTHS,
+            int:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

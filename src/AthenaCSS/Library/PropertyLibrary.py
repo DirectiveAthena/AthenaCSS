@@ -19,7 +19,7 @@ from AthenaCSS.Library.Support import (
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, PERCENT_EMPTY, PERCENT_FULL,PIXEL_EMPTY, AUTO, NORMAL,
     SECOND_EMPTY, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,RIGHT, POSITION_CHOICES, REPEAT, LENGTHS_TUPLE
 )
-from AthenaCSS.Library.SubPropertyLibrary import FILTERS, TRANSFORMS, Steps
+from AthenaCSS.Library.SubPropertyLibrary import FILTERS, TRANSFORMS, Steps, LinearGradient
 
 from AthenaCSS.Declarations.ValueLogic import ValueLogic
 from AthenaCSS.Declarations.CSSProperty import CSSProperty
@@ -72,7 +72,8 @@ class AccentColor(CSSProperty):
         default=AUTO,
         value_choice={
             str:(AUTO, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -225,6 +226,9 @@ class Animation(CSSPropertyShorthand):
     direction: AnimationDirection
     fill_mode: AnimationFillMode
     play_state: AnimationPlayState
+
+    short_name = "animation"
+
     __slots__ = [
         "name", "duration", "timing_function", "delay", "iteration_count", "direction", "fill_mode", "play_state"
     ]
@@ -249,8 +253,8 @@ class Animation(CSSPropertyShorthand):
         self.play_state = AnimationPlayState(play_state)
 
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.name._value.printer(),
             self.duration._value.printer(),
             self.timing_function._value.printer(),
@@ -260,7 +264,6 @@ class Animation(CSSPropertyShorthand):
             self.fill_mode._value.printer(),
             self.play_state._value.printer()
         ))
-        return f"animation: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BackdropFilter(CSSProperty):
     name="backdrop-filter"
@@ -325,7 +328,8 @@ class BackgroundColor(CSSProperty):
         default=TRANSPARENT,
         value_choice={
             str:(TRANSPARENT, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -337,7 +341,8 @@ class BackgroundImage(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            Url:Any
+            Url:Any,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -408,6 +413,9 @@ class Background(CSSPropertyShorthand):
     origin:BackgroundOrigin
     clip:BackgroundClip
     attachment:BackgroundAttachment
+
+    short_name = "background"
+
     __slots__ = [
         "color", "image", "position", "size", "repeat", "origin", "clip", "attachment"
     ]
@@ -432,8 +440,8 @@ class Background(CSSPropertyShorthand):
         self.attachment = BackgroundAttachment(attachment)
 
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.color._value.printer(),
             self.image._value.printer(),
             self.position._value.printer(),
@@ -443,7 +451,6 @@ class Background(CSSPropertyShorthand):
             self.clip._value.printer(),
             self.attachment._value.printer(),
         ))
-        return f"background: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderBottomColor(CSSProperty):
     name="border-bottom-color"
@@ -451,7 +458,8 @@ class BorderBottomColor(CSSProperty):
         default=TRANSPARENT,
         value_choice={
             str:(TRANSPARENT, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -504,7 +512,7 @@ class BorderBottomStyle(CSSProperty):
         super().__init__(value, **kwargs)
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderBottomWidth(CSSProperty):
-    name="border-bottom-style"
+    name="border-bottom-with"
     value_logic = ValueLogic(
         default=MEDIUM,
         value_choice={
@@ -520,6 +528,9 @@ class BorderBottom(CSSPropertyShorthand):
     width:BorderBottomWidth
     style:BorderBottomStyle
     color:BorderBottomColor
+
+    short_name = "border-bottom"
+
     __slots__ = [
         "width", "style", "color"
     ]
@@ -533,13 +544,12 @@ class BorderBottom(CSSPropertyShorthand):
         self.style = BorderBottomStyle(style)
         self.color = BorderBottomColor(color)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.color._value.printer(),
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"border-bottom: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderTopColor(CSSProperty):
     name="border-top-color"
@@ -547,7 +557,8 @@ class BorderTopColor(CSSProperty):
         default=TRANSPARENT,
         value_choice={
             str:(TRANSPARENT, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -616,6 +627,9 @@ class BorderTop(CSSPropertyShorthand):
     width:BorderTopWidth
     style:BorderTopStyle
     color:BorderTopColor
+
+    short_name = "border-top"
+
     __slots__ = [
         "width", "style", "color"
     ]
@@ -629,13 +643,12 @@ class BorderTop(CSSPropertyShorthand):
         self.style = BorderTopStyle(style)
         self.color = BorderTopColor(color)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.color._value.printer(),
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"border-top: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderLeftColor(CSSProperty):
     name="border-left-color"
@@ -643,7 +656,8 @@ class BorderLeftColor(CSSProperty):
         default=TRANSPARENT,
         value_choice={
             str:(TRANSPARENT, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -678,6 +692,9 @@ class BorderLeft(CSSPropertyShorthand):
     width:BorderLeftWidth
     style:BorderLeftStyle
     color:BorderLeftColor
+
+    short_name = "border-left"
+
     __slots__ = [
         "width", "style", "color"
     ]
@@ -691,13 +708,12 @@ class BorderLeft(CSSPropertyShorthand):
         self.style = BorderLeftStyle(style)
         self.color = BorderLeftColor(color)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.color._value.printer(),
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"border-left: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderRightColor(CSSProperty):
     name="border-right-color"
@@ -705,7 +721,8 @@ class BorderRightColor(CSSProperty):
         default=TRANSPARENT,
         value_choice={
             str:(TRANSPARENT, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -740,6 +757,9 @@ class BorderRight(CSSPropertyShorthand):
     width:BorderRightWidth
     style:BorderRightStyle
     color:BorderRightColor
+
+    short_name = "border-right"
+
     __slots__ = [
         "width", "style", "color"
     ]
@@ -753,13 +773,12 @@ class BorderRight(CSSPropertyShorthand):
         self.style = BorderRightStyle(style)
         self.color = BorderRightColor(color)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.color._value.printer(),
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"border-right: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderCollapse(CSSProperty):
     name="border-collapse"
@@ -778,7 +797,8 @@ class BorderColor(CSSProperty):
         default=TRANSPARENT,
         value_choice={
             str:(TRANSPARENT, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -851,6 +871,8 @@ class BorderImage(CSSPropertyShorthand):
     outset: BorderImageOutset
     repeat: BorderImageRepeat
 
+    short_name = "border-image"
+
     __slots__ = [
         "source", "slice", "width", "outset", "repeat"
     ]
@@ -868,15 +890,14 @@ class BorderImage(CSSPropertyShorthand):
         self.outset = BorderImageOutset(outset)
         self.repeat = BorderImageRepeat(repeat)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.source._value.printer(),
             self.slice._value.printer(),
             self.width._value.printer(),
             self.outset._value.printer(),
             self.repeat._value.printer(),
         ))
-        return f"border-right: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class BorderRadius(CSSProperty):
     name="border-radius"
@@ -945,6 +966,8 @@ class Border(CSSPropertyShorthand):
     style:  BorderStyle
     color:  BorderColor
 
+    short_name = "border"
+
     __slots__ = [
         "width", "style", "color"
     ]
@@ -958,13 +981,12 @@ class Border(CSSPropertyShorthand):
         self.style = BorderStyle(style)
         self.color = BorderColor(color)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.width._value.printer(),
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"border: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Bottom(CSSProperty):
     name="bottom"
@@ -1064,7 +1086,8 @@ class CaretColor(CSSProperty):
         default=AUTO,
         value_choice={
             str: (AUTO, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):
@@ -1101,7 +1124,8 @@ class Color(CSSProperty):
         # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
         value_choice={
             str:(TRANSPARENT, *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value, **kwargs):
@@ -1148,7 +1172,8 @@ class ColumnRuleColor(CSSProperty):
         # default=None, # I know this is overridden by ValueLogic to None, but the value cannot exist
         value_choice={
             str: COLORS_STR,
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value, **kwargs):
@@ -1183,6 +1208,8 @@ class ColumnRule(CSSPropertyShorthand):
     style:  ColumnRuleStyle
     color:  ColumnRuleColor
 
+    short_name = "column-rule"
+
     __slots__ = [
         "width", "style", "color"
     ]
@@ -1196,13 +1223,12 @@ class ColumnRule(CSSPropertyShorthand):
         self.style = ColumnRuleStyle(style)
         self.color = ColumnRuleColor(color)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.width._value.printer(),
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"column-rule: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class ColumnSpan(CSSProperty):
     name="column-span"
@@ -1232,6 +1258,8 @@ class Columns(CSSPropertyShorthand):
     width:  ColumnWidth
     count:  ColumnCount
 
+    short_name = "columns"
+
     __slots__ = [
         "width", "count"
     ]
@@ -1243,12 +1271,11 @@ class Columns(CSSPropertyShorthand):
         self.width = ColumnWidth(width)
         self.count = ColumnCount(count)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.width._value.printer(),
             self.count._value.printer(),
         ))
-        return f"columns: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Content(CSSProperty):
     name="content"
@@ -1424,6 +1451,8 @@ class Flex(CSSPropertyShorthand):
     shrink: FlexShrink
     basis:  FlexBasis
 
+    short_name = "flex"
+
     __slots__ = [
         "grow", "shrink", "basis"
     ]
@@ -1437,13 +1466,12 @@ class Flex(CSSPropertyShorthand):
         self.shrink = FlexShrink(shrink)
         self.basis = FlexBasis(basis)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.grow._value.printer(),
             self.shrink._value.printer(),
             self.basis._value.printer(),
         ))
-        return f"flex: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Float(CSSProperty):
     name="float"
@@ -1587,6 +1615,8 @@ class Font(CSSPropertyShorthand):
     size: FontSize
     family: FontFamily
 
+    short_name = "font"
+
     __slots__ = [
         "style","variant","weight","size","family",
     ]
@@ -1604,15 +1634,14 @@ class Font(CSSPropertyShorthand):
         self.size   =FontSize(size)
         self.family =FontFamily(family)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.style._value.printer(),
             self.variant._value.printer(),
             self.weight._value.printer(),
             self.size._value.printer(),
             self.family._value.printer(),
         ))
-        return f"font: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Gap(CSSProperty):
     name="gap"
@@ -1705,6 +1734,8 @@ class GridColumn(CSSPropertyShorthand):
     start: GridColumnStart
     end: GridColumnEnd
 
+    short_name = "grid-column"
+
     __slots__ = [
         "start","end",
     ]
@@ -1716,12 +1747,11 @@ class GridColumn(CSSPropertyShorthand):
         self.start=GridColumnStart(start)
         self.end=GridColumnEnd(end)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.start._value.printer(),
             self.end._value.printer(),
         ))
-        return f"grid-column: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class GridRowEnd(CSSProperty):
     name="grid-row-end"
@@ -1765,6 +1795,8 @@ class GridRow(CSSPropertyShorthand):
     start: GridRowStart
     end: GridRowEnd
 
+    short_name = "grid-row"
+
     __slots__ = [
         "start","end",
     ]
@@ -1776,16 +1808,17 @@ class GridRow(CSSPropertyShorthand):
         self.start=GridRowStart(start)
         self.end=GridRowEnd(end)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.start._value.printer(),
             self.end._value.printer(),
         ))
-        return f"grid-row: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class GridGap(CSSPropertyShorthand):
     row_gap: GridRowGap
     column_gap: GridColumnGap
+
+    short_name = "grid-gap"
 
     __slots__ = [
         "row_gap","column_gap",
@@ -1798,12 +1831,11 @@ class GridGap(CSSPropertyShorthand):
         self.row_gap=GridRowGap(start)
         self.column_gap=GridColumnGap(end)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.row_gap._value.printer(),
             self.column_gap._value.printer(),
         ))
-        return f"grid-gap: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class GridTemplateAreas(CSSProperty):
     name="grid-template-areas"
@@ -1848,6 +1880,8 @@ class GridTemplate(CSSPropertyShorthand):
     columns: GridTemplateColumns
     areas: GridTemplateAreas
 
+    short_name = "grid-template"
+
     __slots__ = [
         "rows","columns","areas"
     ]
@@ -1861,19 +1895,20 @@ class GridTemplate(CSSPropertyShorthand):
         self.columns=GridTemplateColumns(columns)
         self.areas=GridTemplateAreas(areas)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.rows._value.printer(),
             self.columns._value.printer(),
             self.areas._value.printer(),
         ))
-        return f"grid-template: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class GridArea(CSSPropertyShorthand):
     row_start: GridRowStart
     column_start: GridColumnStart
     row_end: GridRowEnd
     column_end: GridColumnEnd
+
+    short_name = "grid-area"
 
     __slots__ = [
         "row_start","column_start","row_end","column_end"
@@ -1890,14 +1925,13 @@ class GridArea(CSSPropertyShorthand):
         self.row_end=GridRowEnd(row_end)
         self.column_end=GridColumnEnd(column_end)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.row_start._value.printer(),
             self.column_start._value.printer(),
             self.row_end._value.printer(),
             self.column_end._value.printer(),
         ))
-        return f"grid-area: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Grid(CSSPropertyShorthand):
     template_rows: GridTemplateRows
@@ -1906,6 +1940,8 @@ class Grid(CSSPropertyShorthand):
     auto_rows: GridAutoRows
     auto_columns: GridAutoColumns
     auto_flow: GridAutoFlow
+
+    short_name = "grid"
 
 
     __slots__ = [
@@ -1927,8 +1963,8 @@ class Grid(CSSPropertyShorthand):
         self.auto_columns=GridAutoColumns(auto_columns)
         self.auto_flow=GridAutoFlow(auto_flow)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.template_rows._value.printer(),
             self.template_columns._value.printer(),
             self.template_areas._value.printer(),
@@ -1936,7 +1972,6 @@ class Grid(CSSPropertyShorthand):
             self.auto_columns._value.printer(),
             self.auto_flow._value.printer(),
         ))
-        return f"grid: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class HangingPunctuation(CSSProperty):
     name="hanging-punctuation"
@@ -2091,6 +2126,8 @@ class ListStyle(CSSPropertyShorthand):
     position: ListStylePosition
     image: ListStyleImage
 
+    short_name = "list-style"
+
     __slots__ = [
         "type","position","image"
     ]
@@ -2104,13 +2141,12 @@ class ListStyle(CSSPropertyShorthand):
         self.position=ListStylePosition(position)
         self.image=ListStyleImage(image)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.type._value.printer(),
             self.position._value.printer(),
             self.image._value.printer(),
         ))
-        return f"list-style: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class MarginBottom(CSSProperty):
     name="margin-bottom"
@@ -2166,6 +2202,8 @@ class Margin(CSSPropertyShorthand):
     bottom: MarginBottom
     left: MarginLeft
 
+    short_name = "margin"
+
     __slots__ = [
         "top",RIGHT,"bottom", LEFT
     ]
@@ -2181,14 +2219,13 @@ class Margin(CSSPropertyShorthand):
         self.bottom=MarginBottom(bottom)
         self.left=MarginLeft(left)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.top._value.printer(),
             self.right._value.printer(),
             self.bottom._value.printer(),
             self.left._value.printer(),
         ))
-        return f"margin: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class MaskImage(CSSProperty):
     name="mask-image"
@@ -2393,7 +2430,8 @@ class OutlineColor(CSSProperty):
     value_logic = ValueLogic(
         value_choice={
             str: ("invert", *COLORS_STR),
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value, **kwargs):
@@ -2439,6 +2477,8 @@ class Outline(CSSPropertyShorthand):
     style: OutlineStyle
     color: OutlineColor
 
+    short_name = "outline"
+
     __slots__ = [
         "width","style","color",
     ]
@@ -2453,13 +2493,12 @@ class Outline(CSSPropertyShorthand):
         self.color=OutlineColor(color)
 
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.width._value.printer(),
             self.style._value.printer(),
             self.color._value.printer(),
         ))
-        return f"outline: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class Overflow(CSSProperty):
     name="overflow"
@@ -2559,6 +2598,8 @@ class Padding(CSSPropertyShorthand):
     bottom: PaddingBottom
     left: PaddingLeft
 
+    short_name="padding"
+
     __slots__ = [
         "top",RIGHT,"bottom", LEFT
     ]
@@ -2574,14 +2615,13 @@ class Padding(CSSPropertyShorthand):
         self.bottom=PaddingBottom(bottom)
         self.left=PaddingLeft(left)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.top._value.printer(),
             self.right._value.printer(),
             self.bottom._value.printer(),
             self.left._value.printer(),
         ))
-        return f"padding: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class PageBreakAfter(CSSProperty):
     name="page-break-after"
@@ -2770,7 +2810,8 @@ class TextDecorationColor(CSSProperty):
     value_logic = ValueLogic(
         value_choice={
             str:COLORS_STR,
-            **COLORS_CHOICE
+            **COLORS_CHOICE,
+            LinearGradient:Any
         },
     )
     def __init__(self, value, **kwargs):
@@ -2820,6 +2861,8 @@ class TextDecoration(CSSPropertyShorthand):
     style: TextDecorationStyle
     thickness: TextDecorationThickness
 
+    short_name = "text-decoration"
+
     __slots__ = [
         "line","color","style", "thickness"
     ]
@@ -2835,14 +2878,13 @@ class TextDecoration(CSSPropertyShorthand):
         self.style=TextDecorationStyle(style)
         self.thickness=TextDecorationThickness(thickness)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.line._value.printer(),
             self.color._value.printer(),
             self.style._value.printer(),
             self.thickness._value.printer(),
         ))
-        return f"text-decoration: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class TextIndent(CSSProperty):
     name="text-indent"
@@ -3011,6 +3053,8 @@ class Transition(CSSPropertyShorthand):
     timing_function: TransitionTimingFunction
     delay: TransitionDelay
 
+    short_name = "transition" # thanks for nano_433 for sitting through this rename
+
     __slots__ = [
         "property","duration","timing_function", "delay"
     ]
@@ -3026,14 +3070,13 @@ class Transition(CSSPropertyShorthand):
         self.timing_function=TransitionTimingFunction(timing_function)
         self.delay=TransitionDelay(delay)
     # noinspection PyProtectedMember
-    def printer(self) -> str:
-        parts = " ".join((
+    def value_printer(self) -> str:
+        return " ".join((
             self.property._value.printer(),
             self.duration._value.printer(),
             self.timing_function._value.printer(),
             self.delay._value.printer(),
         ))
-        return f"transition: {parts}"
 # ----------------------------------------------------------------------------------------------------------------------
 class UnicodeBidi(CSSProperty):
     name="unicode-bidi"

@@ -424,3 +424,6 @@ class LinearGradient(SubProp):
     )
     def __init__(self, value):
         super().__init__(value)
+    # custom printer to handle the color/percent pairs
+    def printer(self) -> str:
+        return f"{self.name}({', '.join([' '.join(str(v) for v in value) if isinstance(value, tuple) else str(value) for value in self.value])})"

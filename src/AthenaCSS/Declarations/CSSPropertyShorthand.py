@@ -13,11 +13,18 @@ from abc import ABC, abstractmethod
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSPropertyShorthand(ABC):
+    short_name:str
     # ------------------------------------------------------------------------------------------------------------------
     # - Generator -
     # ------------------------------------------------------------------------------------------------------------------
+    def name_printer(self) -> str:
+        return f"{self.short_name}"
+
     @abstractmethod
-    def printer(self) -> str:...
+    def value_printer(self) -> str:...
+
+    def printer(self) -> str:
+        return f"{self.name_printer()}: {self.value_printer()}"
 
     def __str__(self) -> str:
         return self.printer()

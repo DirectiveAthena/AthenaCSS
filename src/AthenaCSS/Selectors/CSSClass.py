@@ -25,6 +25,7 @@ __all__=[
 class CSSClass(CSSElement):
     def __init__(self, *parts, defined_name=None):
         self.defined_name = defined_name
-        self.parts= list(
-            itertools.chain.from_iterable((CLASS_PREFIX, x) for x in parts) # thanks to twidi
-        )
+        self.parts= list(parts)
+
+    def __str__(self) -> str:
+        return ''.join(f"{CLASS_PREFIX}{p}" for p in itertools.chain((self.defined_name,), self.parts) if p is not None)

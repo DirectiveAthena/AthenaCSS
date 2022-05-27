@@ -5,6 +5,7 @@
 from __future__ import annotations
 from typing import Any
 from enum import Enum
+import itertools
 
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
@@ -63,15 +64,15 @@ COLORS_STR = (
 BLENDMODES = (
     "normal", "multiply", "screen", "overlay", "darken", "ligthen", "color-dodge", "saturation", "color", "luminosity"
 )
-
-LENGTHS = {AbsoluteLength: Any, RelativeLength: Any, }
 LENGTHS_TUPLE = (
     Pixel,Pica,Point,Inch,Meter,DeciMeter,CentiMeter,MilliMeter,
     ElementFontSize, ElementFontHeight, ZeroCharacterWidth, RootElementFontSize,
         ViewportWidthPercent, ViewportHeightPercent, ViewportLargerPercent, ViewportSmallerPercent
 )
 
-
+LENGTHS = {length: Any for length in itertools.chain(
+    LENGTHS_TUPLE, (Percent,)
+)}
 
 BOX = ("border-box","padding-box","content-box")
 

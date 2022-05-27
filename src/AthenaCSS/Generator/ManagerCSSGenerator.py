@@ -44,3 +44,7 @@ class ManagerGenerator:
     def add_comment_separator(self, separator_length:int=64) -> ManagerGenerator:
         self.content.append(CSSCommentSeparator(separator_length))
         return self
+
+    def add(self, *content:CSSComment|CSSRule|CSSEmptyLine|CSSCommentSeparator):
+        for c in content:
+            self.content.append(c)

@@ -7,7 +7,9 @@ from typing import Any
 import itertools
 
 # Custom Library
-from AthenaLib.Types.Math import Degree
+from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV
+
+from AthenaLib.Types.Math import Degree, Percent
 from AthenaLib.Types.AbsoluteLength import Pixel
 
 # Custom Packages
@@ -415,3 +417,25 @@ TRANSFORMS = {
     SkewY: Any,
     Perspective: Any,
 }
+# ----------------------------------------------------------------------------------------------------------------------
+class LinearGradient(SubProp):
+    name="linear-gradient"
+    value_logic = ValueLogic(
+        value_choice=ANY,
+        printer_space=TRANSFORM_SPACING
+    )
+    def __init__(self, *value):
+        super().__init__(value)
+    # custom printer to handle the color/percent pairs
+    def printer(self) -> str:
+        values = []
+        for value in self.value:
+            match value:
+                case (RGB() | RGBA() | HEX() | HEXA() | HSL() | HSV()) , Percent():
+                    values.append(f"{type(value[0]).__name__.lower()}{value[0].export()} {str(value[1])}")
+                case _:  # catches all
+                    values.append(value)
+
+        if isinstance(values[-1], int):
+            return f"{self.name}({', '.join(str(v) for v in values[:-1])}){values[-1]}"
+        return f"{self.name}({', '.join(str(v) for v in values)})"

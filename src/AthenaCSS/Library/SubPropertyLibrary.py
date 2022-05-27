@@ -415,3 +415,12 @@ TRANSFORMS = {
     SkewY: Any,
     Perspective: Any,
 }
+# ----------------------------------------------------------------------------------------------------------------------
+class LinearGradient(SubProp):
+    name="linear-gradient"
+    value_logic = ValueLogic(
+        value_choice=ANY,
+        printer_space=TRANSFORM_SPACING
+    )
+    def __init__(self, value):
+        super().__init__(value)

@@ -846,7 +846,8 @@ class BorderImageSource(CSSProperty):
         default=None,
         value_choice={
             None:None,
-            Url:Any
+            Url:Any,
+            LinearGradient:Any
         },
     )
     def __init__(self, value=value_logic.default, **kwargs):

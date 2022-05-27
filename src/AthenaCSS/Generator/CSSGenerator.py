@@ -70,3 +70,4 @@ class CSSGenerator:
         with open(filepath, "w+") as file:
             for content in self.content:
                 file.write(self._output_partial(content.to_string)())
+                file.write("\n")

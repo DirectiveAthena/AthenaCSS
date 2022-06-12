@@ -44,9 +44,10 @@ class CSSGenerators(BulkTests):
             generator.add_rule(rule1)
 
             with (rule2 := CSSRule()) as (selector, declaration):
+                id_ = CSSId("Help", "Me")
                 selector.add(
                     SelectorElement.H1,
-                    SelectorElement.H2(CSSId("Help"))
+                    SelectorElement.H2(id_)
                 )
                 declaration.add(
                     Property.Color(RGB(128,64,32)),
@@ -67,7 +68,7 @@ h1 {
     color: rgb(128, 64, 32);
 }
 h1,
-h2#Help {
+h2#Help#Me {
     color: rgb(128, 64, 32);
     background-color: rgb(128, 64, 32);
     border-color: transparent;

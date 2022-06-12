@@ -11,8 +11,7 @@ from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV
 
 # Custom Packages
 from AthenaCSS.data.support import (
-    COLORS_UNION, PERCENT, DEGREE,NUMBERS, PIXEL, ANY, TRANSFORM_SPACING, PERCENT_EMPTY, PERCENT_FULL, DEGREE_EMPTY,
-    PIXEL_EMPTY
+    COLORS_UNION, PERCENT, DEGREE,NUMBERS, PIXEL, ANY, TRANSFORM_SPACING
 )
 from AthenaCSS.models.declarations.property_sub import CSSSubProp
 from AthenaCSS.models.declarations.value_logic import ValueLogic
@@ -25,7 +24,7 @@ from AthenaCSS.models.athenalib_imports import * # all data models from AthenaLi
 class Blur(CSSSubProp):
     name="blur"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice=PIXEL,
     )
     def __init__(self, value=value_logic.default):
@@ -36,7 +35,7 @@ class Blur(CSSSubProp):
 class Brightness(CSSSubProp):
     name="brightness"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -47,7 +46,7 @@ class Brightness(CSSSubProp):
 class Contrast(CSSSubProp):
     name="contrast"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -71,7 +70,7 @@ class DropShadow(CSSSubProp):
 class Grayscale(CSSSubProp):
     name="grayscale"
     value_logic = ValueLogic(
-        default=PERCENT_EMPTY,
+        default=Percent.new_empty(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -82,7 +81,7 @@ class Grayscale(CSSSubProp):
 class HueRotate(CSSSubProp):
     name="hue-rotate"
     value_logic = ValueLogic(
-        default=DEGREE_EMPTY,
+        default=Degree.new_empty(),
         value_choice=DEGREE
     )
     def __init__(self, value=value_logic.default):
@@ -93,7 +92,7 @@ class HueRotate(CSSSubProp):
 class Invert(CSSSubProp):
     name="invert"
     value_logic = ValueLogic(
-        default=PERCENT_EMPTY,
+        default=Percent.new_empty(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -104,7 +103,7 @@ class Invert(CSSSubProp):
 class Opacity(CSSSubProp):
     name="opacity"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -115,7 +114,7 @@ class Opacity(CSSSubProp):
 class Saturate(CSSSubProp):
     name="saturate"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -126,7 +125,7 @@ class Saturate(CSSSubProp):
 class Sepia(CSSSubProp):
     name="sepia"
     value_logic = ValueLogic(
-        default=PERCENT_EMPTY,
+        default=Percent.new_empty(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):

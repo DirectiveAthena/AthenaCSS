@@ -4,8 +4,7 @@
 # General Packages
 from __future__ import annotations
 import itertools
-from dataclasses import dataclass, field
-from typing import Any
+from dataclasses import dataclass
 
 # Custom Library
 
@@ -21,10 +20,14 @@ __all__=[
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-@dataclass(slots=True, unsafe_hash=True)
+@dataclass(slots=True, unsafe_hash=True, init=False)
 class CSSElement:
-    parts:Any=field(default_factory=list)
-    defined_name:str=field(kw_only=True, default=None)
+    parts:list[str|CSSElement]
+    defined_name:str
+
+    def __init__(self, *parts:str|CSSElement, defined_name=None):
+        self.defined_name = defined_name
+        self.parts = list(parts)
 
     def __str__(self) -> str:
         # spread out for a bit better readability
@@ -45,7 +48,7 @@ class CSSElement:
                 parts_.append(p)
 
         if self.parts is not None and parts_ is not None:
-            return self.__class__((*self.parts,*parts_), defined_name=self.defined_name)
+            return self.__class__(*self.parts,*parts_, defined_name=self.defined_name)
         elif self.parts is None and parts_ is not None:
             return self.__class__(*parts_, defined_name=self.defined_name)
         elif self.parts is not None and parts_ is None:

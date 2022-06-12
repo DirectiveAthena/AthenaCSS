@@ -11,8 +11,8 @@ from typing import Any, AnyStr
 # Custom Packages
 from AthenaCSS.data.support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
-    FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, PERCENT_EMPTY, PERCENT_FULL,PIXEL_EMPTY, AUTO, NORMAL,
-    SECOND_EMPTY, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,RIGHT, POSITION_CHOICES, REPEAT, LENGTHS_TUPLE
+    FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, AUTO, NORMAL, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,
+    RIGHT, POSITION_CHOICES, REPEAT, LENGTHS_TUPLE
 )
 from AthenaCSS.data.subproperties import FILTERS, TRANSFORMS, Steps, LinearGradient
 
@@ -136,7 +136,7 @@ class AnimationName(CSSProperty):
 class AnimationDuration(CSSProperty):
     name="animation-duration"
     value_logic = ValueLogic(
-        default=SECOND_EMPTY,
+        default=Second.new_empty(),
         value_choice={
             Second:Any,
             MilliSecond:Any
@@ -160,7 +160,7 @@ class AnimationTimingFunction(CSSProperty):
 class AnimationDelay(CSSProperty):
     name="animation-delay"
     value_logic = ValueLogic(
-        default=SECOND_EMPTY,
+        default=Second.new_empty(),
         value_choice={
             Second:Any,
             MilliSecond:Any
@@ -359,7 +359,7 @@ class BackgroundOrigin(CSSProperty):
 class BackgroundPosition(CSSProperty):
     name="background-position"
     value_logic = ValueLogic(
-        default=(PERCENT_EMPTY, PERCENT_EMPTY),
+        default=(Percent.new_empty(), Percent.new_empty()),
         value_choice={
             str: POSITION_CHOICES,
             (Percent,Percent): (Any, Any),
@@ -827,7 +827,7 @@ class BorderImageRepeat(CSSProperty):
 class BorderImageSlice(CSSProperty):
     name="border-image-slice"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice={
             str:("fill",),
             int:Any,
@@ -901,7 +901,7 @@ class BorderImage(CSSPropertyShorthand):
 class BorderRadius(CSSProperty):
     name="border-radius"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             **{length_combo: (Any, Any, Any, Any) for length_combo in itertools.product(
                 (*LENGTHS_TUPLE,Percent),
@@ -2150,7 +2150,7 @@ class ListStyle(CSSPropertyShorthand):
 class MarginBottom(CSSProperty):
     name="margin-bottom"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             str: (AUTO,),
             **LENGTHS
@@ -2162,7 +2162,7 @@ class MarginBottom(CSSProperty):
 class MarginLeft(CSSProperty):
     name="margin-left"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             str: (AUTO,),
             **LENGTHS
@@ -2174,7 +2174,7 @@ class MarginLeft(CSSProperty):
 class MarginRight(CSSProperty):
     name="margin-right"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             str: (AUTO,),
             **LENGTHS
@@ -2186,7 +2186,7 @@ class MarginRight(CSSProperty):
 class MarginTop(CSSProperty):
     name="margin-top"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             str: (AUTO,),
             **LENGTHS
@@ -2263,7 +2263,7 @@ class MaskOrigin(CSSProperty):
 class MaskPosition(CSSProperty):
     name="mask-position"
     value_logic = ValueLogic(
-        default=(PERCENT_EMPTY, PERCENT_EMPTY),
+        default=(Percent.new_empty(), Percent.new_empty()),
         value_choice={
             (Percent, Percent):(Any, Any),
             (str,str): ((LEFT, RIGHT, "center"),("top", "center", "bottom")),
@@ -2439,7 +2439,7 @@ class OutlineColor(CSSProperty):
 class OutlineOffset(CSSProperty):
     name="outline-offset"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             **LENGTHS
         },
@@ -2546,7 +2546,7 @@ class OverflowY(CSSProperty):
 class PaddingBottom(CSSProperty):
     name="padding-bottom"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             Percent: Any,
             **LENGTHS
@@ -2558,7 +2558,7 @@ class PaddingBottom(CSSProperty):
 class PaddingTop(CSSProperty):
     name="padding-top"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             Percent: Any,
             **LENGTHS
@@ -2570,7 +2570,7 @@ class PaddingTop(CSSProperty):
 class PaddingLeft(CSSProperty):
     name="padding-left"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             Percent: Any,
             **LENGTHS
@@ -2582,7 +2582,7 @@ class PaddingLeft(CSSProperty):
 class PaddingRight(CSSProperty):
     name="padding-right"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             Percent: Any,
             **LENGTHS
@@ -2888,7 +2888,7 @@ class TextDecoration(CSSPropertyShorthand):
 class TextIndent(CSSProperty):
     name="text-indent"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice={
             **LENGTHS,
             **PERCENT
@@ -2973,7 +2973,7 @@ class Transform(CSSProperty):
 class TransformOrigin(CSSProperty):
     name="transform-origin"
     value_logic = ValueLogic(
-        default=(Percent(50), Percent(50), PIXEL_EMPTY),
+        default=(Percent(50), Percent(50), Pixel.new_empty()),
         value_choice={
             (str,str): ((LEFT, RIGHT, "center"), ("top", "center", "bottom")),
             **{(val, str): (Any, ("top", "center", "bottom")) for val in (*LENGTHS_TUPLE, Percent)},
@@ -3001,7 +3001,7 @@ class TransformStyle(CSSProperty):
 class TransitionDelay(CSSProperty):
     name="transition-delay"
     value_logic = ValueLogic(
-        default=SECOND_EMPTY,
+        default=Second.new_empty(),
         value_choice={
             Second: Any,
             MilliSecond: Any
@@ -3013,7 +3013,7 @@ class TransitionDelay(CSSProperty):
 class TransitionDuration(CSSProperty):
     name="transition-duration"
     value_logic = ValueLogic(
-        default=SECOND_EMPTY,
+        default=Second.new_empty(),
         value_choice={
             Second: Any,
             MilliSecond: Any

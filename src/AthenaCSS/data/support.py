@@ -100,12 +100,6 @@ ANY = {Any:Any}
 
 TRANSFORM_SPACING=", "
 
-PERCENT_EMPTY = Percent(0)
-PERCENT_FULL = Percent(100)
-DEGREE_EMPTY = Degree(0)
-PIXEL_EMPTY = Pixel(0)
-SECOND_EMPTY = Second(0)
-
 AUTO = "auto"
 NORMAL = "normal"
 MEDIUM = "medium"

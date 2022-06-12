@@ -63,12 +63,26 @@ __all__=[
     "Url",
 ]
 # ----------------------------------------------------------------------------------------------------------------------
+# - Support code -
+# ----------------------------------------------------------------------------------------------------------------------
+class NewEmpty:
+    # Inheritance based method to create a new instance of a class down below which is "empty", aka a value of zero
+    @classmethod
+    def new_empty(cls):
+        # noinspection PyArgumentList
+        return cls(0)
+
+# ----------------------------------------------------------------------------------------------------------------------
 # - Math like objects -
 # ----------------------------------------------------------------------------------------------------------------------
-class Degree(AthenaLib_Degree):
+class Degree(AthenaLib_Degree, NewEmpty):
     def __str__(self):
         return f"{self.value}deg"
-class Percent(AthenaLib_Percent):
+class Percent(AthenaLib_Percent, NewEmpty):
+    @classmethod
+    def new_full(cls):
+        return cls(100)
+
     def __str__(self):
         return f"{self.value}%"
 class CubicBezier(AthenaLib_CubicBezier):
@@ -77,73 +91,73 @@ class CubicBezier(AthenaLib_CubicBezier):
 # ----------------------------------------------------------------------------------------------------------------------
 # - Time -
 # ----------------------------------------------------------------------------------------------------------------------
-class MilliSecond(AthenaLib_MilliSecond):
+class MilliSecond(AthenaLib_MilliSecond, NewEmpty):
     def __str__(self):
         return f"{self.value}ms"
-class Second(AthenaLib_Second):
+class Second(AthenaLib_Second, NewEmpty):
     def __str__(self):
         return f"{self.value}s"
-class Minute(AthenaLib_Minute):
+class Minute(AthenaLib_Minute, NewEmpty):
     def __str__(self):
         return f"{self.value}m"
-class Hour(AthenaLib_Hour):
+class Hour(AthenaLib_Hour, NewEmpty):
     def __str__(self):
         return f"{self.value}h"
 # ----------------------------------------------------------------------------------------------------------------------
 # - length -
 # ----------------------------------------------------------------------------------------------------------------------
-class Pixel(AthenaLib_Pixel):
+class Pixel(AthenaLib_Pixel, NewEmpty):
     def __str__(self):
         return f"{self.value}px"
-class Pica(AthenaLib_Pica):
+class Pica(AthenaLib_Pica, NewEmpty):
     def __str__(self):
         return f"{self.value}pc"
-class Point(AthenaLib_Point):
+class Point(AthenaLib_Point, NewEmpty):
     def __str__(self):
         return f"{self.value}pt"
-class Inch(AthenaLib_Inch):
+class Inch(AthenaLib_Inch, NewEmpty):
     def __str__(self):
         return f"{self.value}in"
-class Meter(AthenaLib_Meter):
+class Meter(AthenaLib_Meter, NewEmpty):
     def __str__(self):
         return f"{self.value}m"
-class DeciMeter(AthenaLib_DeciMeter):
+class DeciMeter(AthenaLib_DeciMeter, NewEmpty):
     def __str__(self):
         return f"{self.value}dm"
-class CentiMeter(AthenaLib_CentiMeter):
+class CentiMeter(AthenaLib_CentiMeter, NewEmpty):
     def __str__(self):
         return f"{self.value}cm"
-class MilliMeter(AthenaLib_MilliMeter):
+class MilliMeter(AthenaLib_MilliMeter, NewEmpty):
     def __str__(self):
         return f"{self.value}mm"
 
-class ElementFontSize(AthenaLib_ElementFontSize):
+class ElementFontSize(AthenaLib_ElementFontSize, NewEmpty):
     def __str__(self):
         return f"{self.value}em"
-class ElementFontHeight(AthenaLib_ElementFontHeight):
+class ElementFontHeight(AthenaLib_ElementFontHeight, NewEmpty):
     def __str__(self):
         return f"{self.value}eh"
-class ZeroCharacterWidth(AthenaLib_ZeroCharacterWidth):
+class ZeroCharacterWidth(AthenaLib_ZeroCharacterWidth, NewEmpty):
     def __str__(self):
         return f"{self.value}ch"
-class RootElementFontSize(AthenaLib_RootElementFontSize):
+class RootElementFontSize(AthenaLib_RootElementFontSize, NewEmpty):
     def __str__(self):
         return f"{self.value}rem"
-class ViewportWidthPercent(AthenaLib_ViewportWidthPercent):
+class ViewportWidthPercent(AthenaLib_ViewportWidthPercent, NewEmpty):
     def __str__(self):
         return f"{self.value}vw"
-class ViewportHeightPercent(AthenaLib_ViewportHeightPercent):
+class ViewportHeightPercent(AthenaLib_ViewportHeightPercent, NewEmpty):
     def __str__(self):
         return f"{self.value}vh"
-class ViewportLargerPercent(AthenaLib_ViewportLargerPercent):
+class ViewportLargerPercent(AthenaLib_ViewportLargerPercent, NewEmpty):
     def __str__(self):
         return f"{self.value}vmax"
-class ViewportSmallerPercent(AthenaLib_ViewportSmallerPercent):
+class ViewportSmallerPercent(AthenaLib_ViewportSmallerPercent, NewEmpty):
     def __str__(self):
         return f"{self.value}vmin"
 # ----------------------------------------------------------------------------------------------------------------------
 # - others -
 # ----------------------------------------------------------------------------------------------------------------------
-class Url(AthenaLib_Url):
+class Url(AthenaLib_Url, NewEmpty):
     def __str__(self) -> str:
         return f'url("{self.url}")'

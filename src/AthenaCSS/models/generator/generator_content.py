@@ -9,10 +9,10 @@ from dataclasses import dataclass, field
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import NEW_LINE
+from AthenaCSS.data.support import NEW_LINE
 
-from AthenaCSS.Generator.ManagerCSSRule import ManagerSelectors, ManagerDeclarations
-from AthenaCSS.Generator.ConsoleColorGuide import ConsoleColorGuide
+from AthenaCSS.models.generator.manager_rule import ManagerSelectors, ManagerDeclarations
+from AthenaCSS.models.generator.console_color_guide import ConsoleColorGuide
 
 
 # ----------------------------------------------------------------------------------------------------------------------

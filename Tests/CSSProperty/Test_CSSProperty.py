@@ -4,31 +4,26 @@
 # General Packages
 from __future__ import annotations
 
-# Custom Library
-from AthenaCSS.Library.PropertyLibrary import *
-import AthenaCSS.Library.SubPropertyLibrary as Filters
-
-from AthenaLib.Types.Time import Second,MilliSecond
-from AthenaLib.Types.Bezier import CubicBezier
-from AthenaLib.Types.AbsoluteLength import Pixel
-from AthenaLib.Types.Math import Percent
+# Custom data
+import AthenaCSS
+from AthenaCSS import *
 
 # Custom Packages
 from BulkTests import BulkTests
+from AthenaCSS.models.athenalib_imports import * # all data models from AthenaLib but with correct string casting for CSS
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-
 class CSSProperty(BulkTests):
     def test_AlignContent(self):
         # Define a CSSProperty Class with a defined name
 
-        Ac = AlignContent
+        Ac = Property.AlignContent
         cases = (
             #left                                   #right
             (Ac().value_logic.default,              "stretch"),
-            (AlignContent.value_logic.default,      "stretch"),
+            (Ac.value_logic.default,      "stretch"),
             (repr(Ac()),                            "AlignContent(value='stretch')"),
         )
         self.Subtest_Equality(cases)
@@ -36,18 +31,18 @@ class CSSProperty(BulkTests):
     def test_AnimationName(self):
         # Define a CSSProperty Class with a defined name
 
-        An = AnimationName
+        An = Property.AnimationName
         cases = (
             #left                                   #right
             (str(An()),                             "animation-name: none"),
-            (str(An("jelp")),                       "animation-name: jelp"),
+            (str(An("help")),                       "animation-name: help"),
         )
         self.Subtest_Equality(cases)
 
     def test_AnimationDuration(self):
         # Define a CSSProperty Class with a defined name
 
-        An = AnimationDuration
+        An = Property.AnimationDuration
         cases = (
             #left                                   #right
             (str(An()),                             "animation-duration: 0s"),
@@ -59,7 +54,7 @@ class CSSProperty(BulkTests):
     def test_AnimationTimingFunction(self):
         # Define a CSSProperty Class with a defined name
 
-        An = AnimationTimingFunction
+        An = Property.AnimationTimingFunction
         cases = (
             #left                                   #right
             (str(An()),                             "animation-timing-function: ease"),
@@ -72,7 +67,7 @@ class CSSProperty(BulkTests):
     def test_Animation(self):
         # Define a CSSProperty Class with a defined name
 
-        Ani = Animation
+        Ani = Property.Animation
         cases = (
             #left                                   #right
             (str(Ani()),                            "animation: none 0s ease 0s 1 normal none running"),
@@ -82,7 +77,7 @@ class CSSProperty(BulkTests):
     def test_BackfaceVisibility(self):
         # Define a CSSProperty Class with a defined name
 
-        Bv = BackfaceVisibility
+        Bv = Property.BackfaceVisibility
         cases = (
             #left                                   #right
             (str(Bv()),                             "backface-visibility: visible"),
@@ -93,7 +88,7 @@ class CSSProperty(BulkTests):
     def test_BackgroundPosition(self):
         # Define a CSSProperty Class with a defined name
 
-        Bp = BackgroundPosition
+        Bp = Property.BackgroundPosition
         cases = (
             #left                                   #right
             (str(Bp()),                             "background-position: 0% 0%"),
@@ -114,26 +109,26 @@ class CSSProperty(BulkTests):
     def test_BackdropFilter(self):
         # Define a CSSProperty Class with a defined name
 
-        Bf = BackdropFilter
+        Bf = Property.BackdropFilter
         cases = (
             #left                                   #right
             (str(Bf()),                             "backdrop-filter: none"),
-            (str(Bf(Filters.Blur(100))),            "backdrop-filter: blur(100px)"),
-            (str(Bf(Filters.Brightness(58))),       "backdrop-filter: brightness(58%)"),
-            (str(Bf(Filters.Contrast(58))),         "backdrop-filter: contrast(58%)"),
-            (str(Bf(Filters.Grayscale(58))),        "backdrop-filter: grayscale(58%)"),
-            (str(Bf(Filters.HueRotate(58))),        "backdrop-filter: hue-rotate(58deg)"),
-            (str(Bf(Filters.Invert(58))),           "backdrop-filter: invert(58%)"),
-            (str(Bf(Filters.Opacity(58))),          "backdrop-filter: opacity(58%)"),
-            (str(Bf(Filters.Saturate(58))),         "backdrop-filter: saturate(58%)"),
-            (str(Bf(Filters.Sepia(58))),            "backdrop-filter: sepia(58%)"),
+            (str(Bf(SubProperty.Blur(100))),            "backdrop-filter: blur(100px)"),
+            (str(Bf(SubProperty.Brightness(58))),       "backdrop-filter: brightness(58%)"),
+            (str(Bf(SubProperty.Contrast(58))),         "backdrop-filter: contrast(58%)"),
+            (str(Bf(SubProperty.Grayscale(58))),        "backdrop-filter: grayscale(58%)"),
+            (str(Bf(SubProperty.HueRotate(58))),        "backdrop-filter: hue-rotate(58deg)"),
+            (str(Bf(SubProperty.Invert(58))),           "backdrop-filter: invert(58%)"),
+            (str(Bf(SubProperty.Opacity(58))),          "backdrop-filter: opacity(58%)"),
+            (str(Bf(SubProperty.Saturate(58))),         "backdrop-filter: saturate(58%)"),
+            (str(Bf(SubProperty.Sepia(58))),            "backdrop-filter: sepia(58%)"),
         )
         self.Subtest_Equality(cases)
 
     def test_BackgroundSize(self):
         # Define a CSSProperty Class with a defined name
 
-        Bs = BackgroundSize
+        Bs = Property.BackgroundSize
         cases = (
             #left                                   #right
             (str(Bs()),                             "background-size: auto"),

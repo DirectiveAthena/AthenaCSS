@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Generator.CSSGeneratorContent import (
+from AthenaCSS.models.generator.generator_content import (
     CSSComment, CSSRule, CSSEmptyLine,CSSCommentSeparator
 )
 
@@ -37,7 +37,7 @@ class ManagerGenerator:
         self.content.append(comment)
         return self
 
-    def add_emptyline(self) -> ManagerGenerator:
+    def add_empty_line(self) -> ManagerGenerator:
         self.content.append(CSSEmptyLine)
         return self
 

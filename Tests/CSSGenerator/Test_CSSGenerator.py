@@ -4,14 +4,9 @@
 # General Packages
 from __future__ import annotations
 
-# Custom Library
-import AthenaCSS.Library.SelectorElementLibrary as ElementLib
-import AthenaCSS.Library.PropertyLibrary as PropLib
-from AthenaCSS.Selectors.CSSClass import CSSClass
-from AthenaCSS.Generator.CSSGeneratorContent import CSSRule
-from AthenaCSS.Generator.CSSGenerator import CSSGenerator
-
+# Custom data
 from AthenaColor import RGB
+from AthenaCSS import *
 
 # Custom Packages
 from BulkTests import BulkTests
@@ -25,11 +20,11 @@ class CSSGenerators(BulkTests):
         with (css_generator := CSSGenerator()) as generator:
             with (rule0 := CSSRule()) as (selector, declaration):
                 selector.add(
-                    ElementLib.H1(CSSClass("something")),
-                    ElementLib.H2(CSSClass("something_else")),
+                    SelectorElement.H1(CSSClass("something")),
+                    SelectorElement.H2(CSSClass("something_else")),
                 )
                 declaration.add(
-                    PropLib.Color(RGB(128,64,32)),
+                    Property.Color(RGB(128,64,32)),
                 )
             generator.add_rule(
                 rule0
@@ -39,22 +34,22 @@ class CSSGenerators(BulkTests):
 
             with (rule1 := CSSRule()) as (selector, declaration):
                 selector.add(
-                    ElementLib.H1
+                    SelectorElement.H1
                 )
                 declaration.add(
-                    PropLib.Color(RGB(128,64,32)),
+                    Property.Color(RGB(128,64,32)),
                 )
 
             generator.add_rule(rule1)
 
             with (rule2 := CSSRule()) as (selector, declaration):
                 selector.add(
-                    ElementLib.H1
+                    SelectorElement.H1
                 )
                 declaration.add(
-                    PropLib.Color(RGB(128,64,32)),
-                    PropLib.BackgroundColor(RGB(128,64,32)),
-                    PropLib.BorderColor()
+                    Property.Color(RGB(128,64,32)),
+                    Property.BackgroundColor(RGB(128,64,32)),
+                    Property.BorderColor()
                 )
 
             generator.add_rule(rule2)

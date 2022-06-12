@@ -7,23 +7,20 @@ import itertools
 from typing import Any, AnyStr
 
 # Custom Library
-from AthenaLib.Types.Time import Second, MilliSecond
-from AthenaLib.Types.Bezier import CubicBezier
-from AthenaLib.Types.Url import Url
-from AthenaLib.Types.Math import Percent
-from AthenaLib.Types.AbsoluteLength import Pixel
 
 # Custom Packages
-from AthenaCSS.Library.Support import (
+from AthenaCSS.data.support import (
     COLORS_CHOICE, COLORS_STR, BLENDMODES, BOX, BORDERSTYLE, BORDERWIDTH,LENGTHS, COLORS_UNION, BREAK_STR, CURSOR,
     FLEX_DIRECTION, FLEX_WRAP, FONT_FAMILIES, PERCENT, ANY, PERCENT_EMPTY, PERCENT_FULL,PIXEL_EMPTY, AUTO, NORMAL,
     SECOND_EMPTY, MEDIUM, VISIBLE, TRANSPARENT, STRETCH, LEFT,RIGHT, POSITION_CHOICES, REPEAT, LENGTHS_TUPLE
 )
-from AthenaCSS.Library.SubPropertyLibrary import FILTERS, TRANSFORMS, Steps, LinearGradient
+from AthenaCSS.data.subproperties import FILTERS, TRANSFORMS, Steps, LinearGradient
 
-from AthenaCSS.Declarations.ValueLogic import ValueLogic
-from AthenaCSS.Declarations.CSSProperty import CSSProperty
-from AthenaCSS.Declarations.CSSPropertyShorthand import CSSPropertyShorthand
+from AthenaCSS.models.declarations.value_logic import ValueLogic
+from AthenaCSS.models.declarations.property import CSSProperty
+from AthenaCSS.models.declarations.property_shorthand import CSSPropertyShorthand
+
+from AthenaCSS.models.athenalib_imports import * # all data models from AthenaLib but with correct string casting for CSS
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -

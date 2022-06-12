@@ -8,9 +8,9 @@ import itertools
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import ID_PREFIX
+from AthenaCSS.data.support import ID_PREFIX
 
-from AthenaCSS.Selectors.CSSElement import CSSElement
+from AthenaCSS.models.selectors.element import CSSElement
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -

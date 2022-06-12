@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV
 
 # Custom Packages
-from AthenaCSS.Library.Support import INITIALINHERIT
+from AthenaCSS.data.support import INITIALINHERIT
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -
@@ -54,7 +54,7 @@ class ValueLogic:
             self.value_choice = LogicAssembly(self.value_choice)
 
     def validate_value(self, value):
-        # catch for the widly used initial or inherit value, which is possible at every property
+        # catch for the widely used initial or inherit value, which is possible at every property
         #   or there is an "all is allowed" in the choices
         if (value in INITIALINHERIT or Any in self.value_choice) \
         or (value is None and None in self.value_choice):
@@ -96,7 +96,7 @@ class ValueLogic:
         self._value = copy.copy(self.default)
 
     # ------------------------------------------------------------------------------------------------------------------
-    # - Generator -
+    # - generator -
     # ------------------------------------------------------------------------------------------------------------------
     def printer(self) -> str:
         match self.value:

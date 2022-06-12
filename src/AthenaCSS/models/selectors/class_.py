@@ -8,9 +8,8 @@ import itertools
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import CLASS_PREFIX
-
-from AthenaCSS.Selectors.CSSElement import CSSElement
+from AthenaCSS.data.support import CLASS_PREFIX
+from AthenaCSS.models.selectors.element import CSSElement
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -

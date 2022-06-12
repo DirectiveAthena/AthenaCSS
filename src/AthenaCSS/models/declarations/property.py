@@ -4,12 +4,11 @@
 # General Packages
 from __future__ import annotations
 import copy
-from typing import Any
 
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Declarations.ValueLogic import ValueLogic
+from AthenaCSS.models.declarations.value_logic import ValueLogic
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
@@ -52,7 +51,7 @@ class CSSProperty:
         return self._value.default
 
     # ------------------------------------------------------------------------------------------------------------------
-    # - Generator -
+    # - generator -
     # ------------------------------------------------------------------------------------------------------------------
     def printer(self) -> str:
         return f"{self.name_printer()}: {self.value_printer()}"
@@ -70,10 +69,3 @@ class CSSProperty:
 
     def __str__(self) -> str:
         return self.printer()
-
-# ----------------------------------------------------------------------------------------------------------------------
-# - SubProperty -
-# ----------------------------------------------------------------------------------------------------------------------
-class SubProp(CSSProperty):
-    def printer(self) -> str:
-        return f"{self.name}({self._value.printer()})"

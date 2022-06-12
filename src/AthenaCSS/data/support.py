@@ -10,12 +10,8 @@ import itertools
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV, CMYK
 
-from AthenaLib.Types.AbsoluteLength import *
-from AthenaLib.Types.RelativeLength import *
-from AthenaLib.Types.Math import Percent, Degree
-from AthenaLib.Types.Time import Second
-
 # Custom Packages
+from AthenaCSS.models.athenalib_imports import * # all data models from AthenaLib but with correct string casting for CSS
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -
@@ -62,7 +58,7 @@ COLORS_STR = (
 )
 
 BLENDMODES = (
-    "normal", "multiply", "screen", "overlay", "darken", "ligthen", "color-dodge", "saturation", "color", "luminosity"
+    "normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "saturation", "color", "luminosity"
 )
 LENGTHS_TUPLE = (
     Pixel,Pica,Point,Inch,Meter,DeciMeter,CentiMeter,MilliMeter,

@@ -5,7 +5,7 @@
 from __future__ import annotations
 import unittest
 
-# Custom Library
+# Custom data
 
 # Custom Packages
 
@@ -25,7 +25,7 @@ class BulkTests(unittest.TestCase):
                     ObjectType(value)
 
     def Subtest_ObjectOperation(self, ObjectType:type, args:tuple, kwargs:dict, cases):
-        for operation, oargs, okwargs,result in cases:
-            with self.subTest(ObjectType=ObjectType, args=args, kwargs=kwargs, oargs=oargs, okwargs=okwargs,result=result, ):
+        for operation, oArgs, oKwargs,result in cases:
+            with self.subTest(ObjectType=ObjectType, args=args, kwargs=kwargs, oArgs=oArgs, oKwargs=oKwargs,result=result, ):
                 test_object = ObjectType(*args, **kwargs)
-                self.assertEqual(operation(test_object, *oargs, *okwargs), result)
+                self.assertEqual(operation(test_object, *oArgs, *oKwargs), result)

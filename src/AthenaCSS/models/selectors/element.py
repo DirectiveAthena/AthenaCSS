@@ -4,6 +4,8 @@
 # General Packages
 from __future__ import annotations
 import itertools
+from dataclasses import dataclass, field
+from typing import Any
 
 # Custom Library
 
@@ -19,17 +21,22 @@ __all__=[
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
+@dataclass(slots=True, unsafe_hash=True)
 class CSSElement:
-    __slots__ = ["parts", "defined_name"]
-
-    def __init__(self, *parts, defined_name=None):
-        self.defined_name = defined_name
-        self.parts = list(parts)
+    parts:Any=field(default_factory=list)
+    defined_name:str=field(kw_only=True, default=None)
 
     def __str__(self) -> str:
-        return ''.join(str(p) for p in itertools.chain((self.defined_name,), self.parts) if p is not None)
+        # spread out for a bit better readability
+        return ''.join(
+            str(p)
+            for p in itertools.chain((self.defined_name,), self.parts)  # if parts is empty, then it is simply ignored
+            if p is not None
+        )
 
+    # noinspection PyArgumentList
     def __call__(self, *parts):
+        # dissassemble the parts into it's bare stuff and then combine it together
         parts_ = []
         for p in parts:
             if type(p) is type(self):
@@ -37,4 +44,11 @@ class CSSElement:
             else:
                 parts_.append(p)
 
-        return self.__class__(*self.parts, *parts_, defined_name=self.defined_name)
+        if self.parts is not None and parts_ is not None:
+            return self.__class__((*self.parts,*parts_), defined_name=self.defined_name)
+        elif self.parts is None and parts_ is not None:
+            return self.__class__(*parts_, defined_name=self.defined_name)
+        elif self.parts is not None and parts_ is None:
+            return self.__class__(*self.parts, defined_name=self.defined_name)
+        else:
+            return self.__class__(defined_name=self.defined_name)

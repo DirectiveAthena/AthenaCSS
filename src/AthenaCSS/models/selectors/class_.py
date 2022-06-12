@@ -22,9 +22,13 @@ __all__=[
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSClass(CSSElement):
-    def __init__(self, *parts, defined_name=None):
-        self.defined_name = defined_name
-        self.parts= list(parts)
-
     def __str__(self) -> str:
-        return ''.join(f"{CLASS_PREFIX}{p}" for p in itertools.chain((self.defined_name,), self.parts) if p is not None)
+        if isinstance(self.parts, str):
+            return f"{CLASS_PREFIX}{self.parts}"
+        # spread out for a bit better readability
+        return ''.join(
+            f"{CLASS_PREFIX}{p}"
+            for p in itertools.chain((self.defined_name,), self.parts)
+            # if parts is empty, then it is simply ignored
+            if p is not None
+        )

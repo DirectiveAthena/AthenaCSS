@@ -4,6 +4,8 @@
 # General Packages
 from __future__ import annotations
 import itertools
+from dataclasses import dataclass, field
+from typing import Any
 
 # Custom Library
 
@@ -23,8 +25,13 @@ __all__=[
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
 class CSSId(CSSElement):
-    def __init__(self, *parts, defined_name=None):
-        self.defined_name = defined_name
-        self.parts= list(
-            itertools.chain.from_iterable((ID_PREFIX, x) for x in parts) # thanks to twidi
+    def __str__(self) -> str:
+        if isinstance(self.parts, str):
+            return f"{ID_PREFIX}{self.parts}"
+        # spread out for a bit better readability
+        return ''.join(
+            f"{ID_PREFIX}{p}"
+            for p in itertools.chain((self.defined_name,), self.parts)
+            # if parts is empty, then it is simply ignored
+            if p is not None
         )

@@ -22,6 +22,7 @@ class CSSGenerators(BulkTests):
                 selector.add(
                     SelectorElement.H1(CSSClass("something")),
                     SelectorElement.H2(CSSClass("something_else")),
+                    SelectorElement.H2(CSSClass("something_else"), CSSClass("Something_totaly"), CSSClass("different")),
                 )
                 declaration.add(
                     Property.Color(RGB(128,64,32)),
@@ -44,7 +45,8 @@ class CSSGenerators(BulkTests):
 
             with (rule2 := CSSRule()) as (selector, declaration):
                 selector.add(
-                    SelectorElement.H1
+                    SelectorElement.H1,
+                    SelectorElement.H2(CSSId("Help"))
                 )
                 declaration.add(
                     Property.Color(RGB(128,64,32)),
@@ -56,14 +58,16 @@ class CSSGenerators(BulkTests):
 
         self.assertEqual(
 """h1.something,
-h2.something_else {
+h2.something_else,
+h2.something_else.Something_totaly.different {
     color: rgb(128, 64, 32);
 }
 /*THIS SHOULD BE BETWEEN THE FIRST AND SECOND RULE*/
 h1 {
     color: rgb(128, 64, 32);
 }
-h1 {
+h1,
+h2#Help {
     color: rgb(128, 64, 32);
     background-color: rgb(128, 64, 32);
     border-color: transparent;

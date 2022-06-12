@@ -1,4 +1,15 @@
 # ----------------------------------------------------------------------------------------------------------------------
+# - WHY? -
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Before this file, all string casting was directly implmented into AthenaLib
+#   which created some problems when starting with the AthenaGuiLib package
+#   as it needed some classes stated below with different string casters.
+# This is why I decided to go the route of creating string casters for each seperate thing.
+# Maybe in the future, this might be joined together for those classes which have a same string casting,
+#   but for now, this file does everything it needs to do.
+#
+# ----------------------------------------------------------------------------------------------------------------------
 # - Package Imports -
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages

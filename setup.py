@@ -9,12 +9,29 @@ import setuptools
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
+def readme_handler() -> str:
+    with open("README.md", "r") as readme_file:
+        return readme_file.read()
+
+def version_handler() -> str:
+    # ------------------------------------------------------------------------------------------------------------------
+    version = 0,7,0 # <-- DEFINE THE VERSION IN A TUPLE FORMAT HERE
+    # ------------------------------------------------------------------------------------------------------------------
+    version_str = ".".join(str(i) for i in version)
+
+    with open("src/AthenaCSS/_info/_v.py", "w") as file:
+        file.write(f"def _version():\n    return '{version_str}'")
+
+    return version_str
+
 setuptools.setup(
     name="AthenaCSS",
-    version="0.6.0",
+    version=version_handler(),
     author="Andreas Sas",
     author_email="",
-    description="",
+    description="CSS generator for Python",
+    long_description=readme_handler(),
+    long_description_content_type="text/markdown",
     url="https://github.com/DirectiveAthena/VerSC-AthenaCSS",
     project_urls={
         "Bug Tracker": "https://github.com/DirectiveAthena/VerSC-AthenaCSS/issues",
@@ -23,5 +40,5 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.10",
-    install_requires=["AthenaColor>=5.1.0", "AthenaLib>=0.2.0"]
+    install_requires=["AthenaColor>=5.1.2", "AthenaLib>=1.0.0"]
 )

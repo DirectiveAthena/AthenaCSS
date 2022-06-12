@@ -20,19 +20,16 @@ class CSSProperty:
     value:InitVar[Any]
     important:bool=field(kw_only=True, default=False)
     value_wrapped:bool=field(kw_only=True, default=False)
-    _value:ValueLogic=field(init=False)
+    _value:ValueLogic=field(init=False, repr=False)
     # below should be set for each different property
-    value_logic:ValueLogic=field(init=False)
-    name:str=field(init=False)
+    value_logic:ValueLogic=field(init=False, repr=False)
+    name:str=field(init=False, repr=False)
 
     def __post_init__(self, value):
         # make a new instance of the ValueLogic as all value Logical is defined there
         self._value = copy.deepcopy(self.value_logic) if self.value_logic is not None else ValueLogic()
         # the above has to be set first, only then can the self.value property be set
         self.value = value
-
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(value={self.value!r})"
 
     # ------------------------------------------------------------------------------------------------------------------
     # - Value -

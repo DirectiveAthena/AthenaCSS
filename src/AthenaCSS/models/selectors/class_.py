@@ -8,23 +8,27 @@ import itertools
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import ID_PREFIX
-
-from AthenaCSS.Selectors.CSSElement import CSSElement
+from AthenaCSS.data.support import CLASS_PREFIX
+from AthenaCSS.models.selectors.element import CSSElement
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
-    "CSSId"
+    "CSSClass"
 ]
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-class CSSId(CSSElement):
-    def __init__(self, *parts, defined_name=None):
-        self.defined_name = defined_name
-        self.parts= list(
-            itertools.chain.from_iterable((ID_PREFIX, x) for x in parts) # thanks to twidi
+class CSSClass(CSSElement):
+    def __str__(self) -> str:
+        if isinstance(self.parts, str):
+            return f"{CLASS_PREFIX}{self.parts}"
+        # spread out for a bit better readability
+        return ''.join(
+            f"{CLASS_PREFIX}{p}"
+            for p in itertools.chain((self.defined_name,), self.parts)
+            # if parts is empty, then it is simply ignored
+            if p is not None
         )

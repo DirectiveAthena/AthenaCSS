@@ -15,7 +15,7 @@ from abc import ABC, abstractmethod
 class CSSPropertyShorthand(ABC):
     short_name:str
     # ------------------------------------------------------------------------------------------------------------------
-    # - Generator -
+    # - generator -
     # ------------------------------------------------------------------------------------------------------------------
     def name_printer(self) -> str:
         return f"{self.short_name}"

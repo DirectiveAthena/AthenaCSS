@@ -4,14 +4,9 @@
 # General Packages
 from __future__ import annotations
 
-# Custom Library
-import AthenaCSS.Library.SelectorElementLibrary as ElementLib
-import AthenaCSS.Library.PropertyLibrary as PropLib
-from AthenaCSS.Selectors.CSSClass import CSSClass
-from AthenaCSS.Generator.CSSGeneratorContent import CSSRule
-from AthenaCSS.Generator.CSSGenerator import CSSGenerator
-
+# Custom data
 from AthenaColor import RGB
+from AthenaCSS import *
 
 # Custom Packages
 from BulkTests import BulkTests
@@ -25,11 +20,12 @@ class CSSGenerators(BulkTests):
         with (css_generator := CSSGenerator()) as generator:
             with (rule0 := CSSRule()) as (selector, declaration):
                 selector.add(
-                    ElementLib.H1(CSSClass("something")),
-                    ElementLib.H2(CSSClass("something_else")),
+                    SelectorElement.H1(CSSClass("something")),
+                    SelectorElement.H2(CSSClass("something_else")),
+                    SelectorElement.H2(CSSClass("something_else"), CSSClass("Something_totaly"), CSSClass("different")),
                 )
                 declaration.add(
-                    PropLib.Color(RGB(128,64,32)),
+                    Property.Color(RGB(128,64,32)),
                 )
             generator.add_rule(
                 rule0
@@ -39,36 +35,40 @@ class CSSGenerators(BulkTests):
 
             with (rule1 := CSSRule()) as (selector, declaration):
                 selector.add(
-                    ElementLib.H1
+                    SelectorElement.H1
                 )
                 declaration.add(
-                    PropLib.Color(RGB(128,64,32)),
+                    Property.Color(RGB(128,64,32)),
                 )
 
             generator.add_rule(rule1)
 
             with (rule2 := CSSRule()) as (selector, declaration):
+                id_ = CSSId("Help", "Me")
                 selector.add(
-                    ElementLib.H1
+                    SelectorElement.H1,
+                    SelectorElement.H2(id_)
                 )
                 declaration.add(
-                    PropLib.Color(RGB(128,64,32)),
-                    PropLib.BackgroundColor(RGB(128,64,32)),
-                    PropLib.BorderColor()
+                    Property.Color(RGB(128,64,32)),
+                    Property.BackgroundColor(RGB(128,64,32)),
+                    Property.BorderColor()
                 )
 
             generator.add_rule(rule2)
 
         self.assertEqual(
 """h1.something,
-h2.something_else {
+h2.something_else,
+h2.something_else.Something_totaly.different {
     color: rgb(128, 64, 32);
 }
 /*THIS SHOULD BE BETWEEN THE FIRST AND SECOND RULE*/
 h1 {
     color: rgb(128, 64, 32);
 }
-h1 {
+h1,
+h2#Help#Me {
     color: rgb(128, 64, 32);
     background-color: rgb(128, 64, 32);
     border-color: transparent;

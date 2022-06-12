@@ -10,10 +10,10 @@ from typing import Callable
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import NEW_LINE
+from AthenaCSS.data.support import NEW_LINE
 
-from AthenaCSS.Generator.ManagerCSSGenerator import ManagerGenerator
-from AthenaCSS.Generator.ConsoleColorGuide import ConsoleColorGuide
+from AthenaCSS.models.generator.manager_generator import ManagerGenerator
+from AthenaCSS.models.generator.console_color_guide import ConsoleColorGuide
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Support Code -

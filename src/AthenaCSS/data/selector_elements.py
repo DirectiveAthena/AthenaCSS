@@ -7,13 +7,14 @@ from __future__ import annotations
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Selectors.CSSElement import CSSElement
-from AthenaCSS.Selectors.CSSPseudo import CSSPseudo
+from AthenaCSS.models.selectors.element import CSSElement
+from AthenaCSS.models.selectors.pseudo import CSSPseudo
+
 # ----------------------------------------------------------------------------------------------------------------------
 # - All -
 # ----------------------------------------------------------------------------------------------------------------------
 __all__=[
-    "All","PseudoActive","Pseudoafter","Pseudobefore","PseudoChecked",
+    "All","PseudoActive", "PseudoAfter", "PseudoBefore", "PseudoChecked",
     "PseudoDefault","PseudoDisabled","PseudoEmpty","PseudoEnabled","PseudoFirstChild","PseudoFirstLetter","PseudoFirstLine",
     "PseudoFirstOfType","PseudoFocus","PseudoFullscreen","PseudoHover","PseudoInRange","PseudoIndeterminate","PseudoInvalid",
     "PseudoLang","PseudoLastChild","PseudoLastOfType","PseudoLink","PseudoMarker","PseudoNot","PseudoNthChild","PseudoNthLastChild",
@@ -24,7 +25,7 @@ __all__=[
     "Colgroup","Data","Datalist","Dd","Del","Details","Dfn","Dialog","Dir","Div","Dl","Dt","Em","Embed","Fieldset",
     "Figcaption","Figure","Font","Footer","Form","Frame","Frameset","H1","H2","H3","H4","H5","H6","Head","Header","Hr",
     "Html","I","Iframe","Img","Input","Ins","Kbd","Label","Legend","Li","Link","Main","Map","Mark","Meta","Meter","Nav",
-    "Noframes","Noscript","Object","Ol","Optgroup","Option","Output","P","Param","Picture","Pre","Progress","Q","Rp",
+    "NoFrames", "NoScript", "Object", "Ol", "Optgroup", "Option", "Output", "P", "Param", "Picture", "Pre", "Progress", "Q", "Rp",
     "Rt","Ruby","S","Samp","Script","Section","Select","Small","Source","Span","Strike","Strong","Style","Sub",
     "Summary","Sup","Svg","Table","Tbody","Td","Template","Textarea","Tfoot","Th","Thead","Time","Title","Tr","Track",
     "Tt","U","Ul","Var","Video","Wbr"
@@ -38,8 +39,8 @@ All = CSSElement(defined_name="*")
 
 # ----------------------------------------------------------------------------------------------------------------------
 PseudoActive = CSSPseudo(defined_name=":active")
-Pseudoafter = CSSPseudo(defined_name="::after")
-Pseudobefore = CSSPseudo(defined_name="::before")
+PseudoAfter = CSSPseudo(defined_name="::after")
+PseudoBefore = CSSPseudo(defined_name="::before")
 PseudoChecked = CSSPseudo(defined_name=":checked")
 PseudoDefault = CSSPseudo(defined_name=":default")
 PseudoDisabled = CSSPseudo(defined_name=":disabled")
@@ -153,8 +154,8 @@ Mark = CSSElement(defined_name="mark")
 Meta = CSSElement(defined_name="meta")
 Meter = CSSElement(defined_name="meter")
 Nav = CSSElement(defined_name="nav")
-Noframes = CSSElement(defined_name="noframes")
-Noscript = CSSElement(defined_name="noscript")
+NoFrames = CSSElement(defined_name="noframes")
+NoScript = CSSElement(defined_name="noscript")
 Object = CSSElement(defined_name="object")
 Ol = CSSElement(defined_name="ol")
 Optgroup = CSSElement(defined_name="optgroup")

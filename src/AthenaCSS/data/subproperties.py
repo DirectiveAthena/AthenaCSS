@@ -9,24 +9,22 @@ import itertools
 # Custom Library
 from AthenaColor import RGB, RGBA, HEX, HEXA, HSL, HSV
 
-from AthenaLib.Types.Math import Degree, Percent
-from AthenaLib.Types.AbsoluteLength import Pixel
-
 # Custom Packages
-from AthenaCSS.Library.Support import (
-    COLORS_UNION, PERCENT, DEGREE,NUMBERS, PIXEL, ANY, TRANSFORM_SPACING, PERCENT_EMPTY, PERCENT_FULL, DEGREE_EMPTY,
-    PIXEL_EMPTY
+from AthenaCSS.data.support import (
+    COLORS_UNION, PERCENT, DEGREE,NUMBERS, PIXEL, ANY, TRANSFORM_SPACING
 )
-from AthenaCSS.Declarations.CSSProperty import SubProp
-from AthenaCSS.Declarations.ValueLogic import ValueLogic
+from AthenaCSS.models.declarations.property_sub import CSSSubProp
+from AthenaCSS.models.declarations.value_logic import ValueLogic
+
+from AthenaCSS.models.athenalib_imports import * # all data models from AthenaLib but with correct string casting for CSS
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Filters -
 # ----------------------------------------------------------------------------------------------------------------------
-class Blur(SubProp):
+class Blur(CSSSubProp):
     name="blur"
     value_logic = ValueLogic(
-        default=PIXEL_EMPTY,
+        default=Pixel.new_empty(),
         value_choice=PIXEL,
     )
     def __init__(self, value=value_logic.default):
@@ -34,10 +32,10 @@ class Blur(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Brightness(SubProp):
+class Brightness(CSSSubProp):
     name="brightness"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -45,10 +43,10 @@ class Brightness(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Contrast(SubProp):
+class Contrast(CSSSubProp):
     name="contrast"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -56,7 +54,7 @@ class Contrast(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class DropShadow(SubProp):
+class DropShadow(CSSSubProp):
     name="drop-shadow"
     value_logic = ValueLogic(
         default=None,
@@ -69,10 +67,10 @@ class DropShadow(SubProp):
     def __init__(self, value=value_logic.default):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Grayscale(SubProp):
+class Grayscale(CSSSubProp):
     name="grayscale"
     value_logic = ValueLogic(
-        default=PERCENT_EMPTY,
+        default=Percent.new_empty(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -80,10 +78,10 @@ class Grayscale(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class HueRotate(SubProp):
+class HueRotate(CSSSubProp):
     name="hue-rotate"
     value_logic = ValueLogic(
-        default=DEGREE_EMPTY,
+        default=Degree.new_empty(),
         value_choice=DEGREE
     )
     def __init__(self, value=value_logic.default):
@@ -91,10 +89,10 @@ class HueRotate(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Invert(SubProp):
+class Invert(CSSSubProp):
     name="invert"
     value_logic = ValueLogic(
-        default=PERCENT_EMPTY,
+        default=Percent.new_empty(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -102,10 +100,10 @@ class Invert(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Opacity(SubProp):
+class Opacity(CSSSubProp):
     name="opacity"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -113,10 +111,10 @@ class Opacity(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Saturate(SubProp):
+class Saturate(CSSSubProp):
     name="saturate"
     value_logic = ValueLogic(
-        default=PERCENT_FULL,
+        default=Percent.new_full(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -124,10 +122,10 @@ class Saturate(SubProp):
             value = type(self.value_logic.default)(value)
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Sepia(SubProp):
+class Sepia(CSSSubProp):
     name="sepia"
     value_logic = ValueLogic(
-        default=PERCENT_EMPTY,
+        default=Percent.new_empty(),
         value_choice=PERCENT
     )
     def __init__(self, value=value_logic.default):
@@ -136,7 +134,7 @@ class Sepia(SubProp):
         super().__init__(value)
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Support for Declarations
+# Support for declarations
 # ----------------------------------------------------------------------------------------------------------------------
 FILTERS = {
     Blur: Any,
@@ -153,7 +151,7 @@ FILTERS = {
 # ----------------------------------------------------------------------------------------------------------------------
 # - Steps -
 # ----------------------------------------------------------------------------------------------------------------------
-class Steps(SubProp):
+class Steps(CSSSubProp):
     name="steps"
     value_logic = ValueLogic(
         value_choice={
@@ -166,7 +164,7 @@ class Steps(SubProp):
 # ----------------------------------------------------------------------------------------------------------------------
 # - Transform -
 # ----------------------------------------------------------------------------------------------------------------------
-class Matrix(SubProp):
+class Matrix(CSSSubProp):
     name="matrix"
     value_logic = ValueLogic(
         value_choice={
@@ -180,7 +178,7 @@ class Matrix(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Matrix3D(SubProp):
+class Matrix3D(CSSSubProp):
     name="matrix3d"
     value_logic = ValueLogic(
         value_choice={
@@ -194,7 +192,7 @@ class Matrix3D(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Translate(SubProp):
+class Translate(CSSSubProp):
     name="translate"
     value_logic = ValueLogic(
         value_choice={
@@ -208,7 +206,7 @@ class Translate(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Translate3D(SubProp):
+class Translate3D(CSSSubProp):
     name="translate3d"
     value_logic = ValueLogic(
         value_choice={
@@ -222,7 +220,7 @@ class Translate3D(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class TranslateX(SubProp):
+class TranslateX(CSSSubProp):
     name="translateX"
     value_logic = ValueLogic(
         value_choice=NUMBERS,
@@ -231,7 +229,7 @@ class TranslateX(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class TranslateY(SubProp):
+class TranslateY(CSSSubProp):
     name="translateY"
     value_logic = ValueLogic(
         value_choice=NUMBERS,
@@ -240,7 +238,7 @@ class TranslateY(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class TranslateZ(SubProp):
+class TranslateZ(CSSSubProp):
     name="translateZ"
     value_logic = ValueLogic(
         value_choice=NUMBERS,
@@ -249,7 +247,7 @@ class TranslateZ(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Scale(SubProp):
+class Scale(CSSSubProp):
     name="scale"
     value_logic = ValueLogic(
         value_choice={
@@ -263,7 +261,7 @@ class Scale(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Scale3D(SubProp):
+class Scale3D(CSSSubProp):
     name="scale3d"
     value_logic = ValueLogic(
         value_choice={
@@ -277,7 +275,7 @@ class Scale3D(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class ScaleX(SubProp):
+class ScaleX(CSSSubProp):
     name="scaleX"
     value_logic = ValueLogic(
         value_choice=NUMBERS,
@@ -286,7 +284,7 @@ class ScaleX(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class ScaleY(SubProp):
+class ScaleY(CSSSubProp):
     name="scaleY"
     value_logic = ValueLogic(
         value_choice=NUMBERS,
@@ -295,7 +293,7 @@ class ScaleY(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class ScaleZ(SubProp):
+class ScaleZ(CSSSubProp):
     name="scaleZ"
     value_logic = ValueLogic(
         value_choice=NUMBERS,
@@ -304,7 +302,7 @@ class ScaleZ(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Rotate(SubProp):
+class Rotate(CSSSubProp):
     name="rotate"
     value_logic = ValueLogic(
         value_choice=DEGREE,
@@ -313,7 +311,7 @@ class Rotate(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Rotate3D(SubProp):
+class Rotate3D(CSSSubProp):
     name="rotate3d"
     value_logic = ValueLogic(
         value_choice={
@@ -327,7 +325,7 @@ class Rotate3D(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class RotateX(SubProp):
+class RotateX(CSSSubProp):
     name="rotateX"
     value_logic = ValueLogic(
         value_choice=DEGREE,
@@ -336,7 +334,7 @@ class RotateX(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class RotateY(SubProp):
+class RotateY(CSSSubProp):
     name="rotateY"
     value_logic = ValueLogic(
         value_choice=DEGREE,
@@ -345,7 +343,7 @@ class RotateY(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class RotateZ(SubProp):
+class RotateZ(CSSSubProp):
     name="rotateZ"
     value_logic = ValueLogic(
         value_choice=DEGREE,
@@ -354,7 +352,7 @@ class RotateZ(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Skew(SubProp):
+class Skew(CSSSubProp):
     name="skew"
     value_logic = ValueLogic(
         value_choice={
@@ -365,7 +363,7 @@ class Skew(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class SkewX(SubProp):
+class SkewX(CSSSubProp):
     name="skewX"
     value_logic = ValueLogic(
         value_choice=DEGREE,
@@ -374,7 +372,7 @@ class SkewX(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class SkewY(SubProp):
+class SkewY(CSSSubProp):
     name="skewY"
     value_logic = ValueLogic(
         value_choice=DEGREE,
@@ -383,7 +381,7 @@ class SkewY(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-class Perspective(SubProp):
+class Perspective(CSSSubProp):
     name="perspective"
     value_logic = ValueLogic(
         value_choice=ANY,
@@ -392,7 +390,7 @@ class Perspective(SubProp):
     def __init__(self, value):
         super().__init__(value)
 # ----------------------------------------------------------------------------------------------------------------------
-# Support for Declarations
+# Support for declarations
 # ----------------------------------------------------------------------------------------------------------------------
 TRANSFORMS = {
     Matrix: Any,
@@ -418,7 +416,7 @@ TRANSFORMS = {
     Perspective: Any,
 }
 # ----------------------------------------------------------------------------------------------------------------------
-class LinearGradient(SubProp):
+class LinearGradient(CSSSubProp):
     name="linear-gradient"
     value_logic = ValueLogic(
         value_choice=ANY,

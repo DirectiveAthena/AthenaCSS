@@ -9,11 +9,15 @@ from typing import NamedTuple
 # Custom Library
 
 # Custom Packages
-from AthenaCSS.Library.Support import SELECTORGROUP_TYPES
+from AthenaCSS.data.support import SELECTORGROUP_TYPES
 
-from AthenaCSS.Declarations.CSSProperty import CSSProperty
-from AthenaCSS.Declarations.CSSPropertyShorthand import CSSPropertyShorthand
-from AthenaCSS.Selectors import (CSSId, CSSElement, CSSClass, CSSPseudo, CSSAttribute)
+from AthenaCSS.models.declarations.property import CSSProperty
+from AthenaCSS.models.declarations.property_shorthand import CSSPropertyShorthand
+from AthenaCSS.models.selectors.element import CSSElement
+from AthenaCSS.models.selectors.id import CSSId
+from AthenaCSS.models.selectors.attribute import CSSAttribute
+from AthenaCSS.models.selectors.pseudo import CSSPseudo
+from AthenaCSS.models.selectors.class_ import CSSClass
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - SupportCode -
@@ -27,7 +31,7 @@ SELECTORS = CSSId|CSSElement|CSSClass|CSSPseudo|CSSAttribute
 @dataclass(kw_only=True,slots=True)
 class ManagerSelectors:
     content: list = field(init=False, default_factory=list)
-    # Subclass placed inside the ManagerSelectors as it is only meant to be accessed by the actuall Manager
+    # Subclass placed inside the ManagerSelectors as it is only meant to be accessed by the actual Manager
     class SelectorGroup(NamedTuple):
         selectors: tuple[SELECTORS]
         group_type: SELECTORGROUP_TYPES
@@ -37,7 +41,7 @@ class ManagerSelectors:
     # ------------------------------------------------------------------------------------------------------------------
     def add(self, *selectors:SELECTORS) -> ManagerSelectors:
         # reason for splitting the selectors up into their own groups
-        #   is to make formatting in the to_string section more streamlined and consitent
+        #   is to make formatting in the to_string section more streamlined and consistent
         #   with either one "add" or multiple "add" sections
 
         for element in selectors:

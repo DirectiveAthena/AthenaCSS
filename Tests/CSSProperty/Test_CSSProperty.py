@@ -113,15 +113,15 @@ class CSSProperty(BulkTests):
         cases = (
             #left                                   #right
             (str(Bf()),                             "backdrop-filter: none"),
-            (str(Bf(SubProperty.Blur(100))),            "backdrop-filter: blur(100px)"),
-            (str(Bf(SubProperty.Brightness(58))),       "backdrop-filter: brightness(58%)"),
-            (str(Bf(SubProperty.Contrast(58))),         "backdrop-filter: contrast(58%)"),
-            (str(Bf(SubProperty.Grayscale(58))),        "backdrop-filter: grayscale(58%)"),
-            (str(Bf(SubProperty.HueRotate(58))),        "backdrop-filter: hue-rotate(58deg)"),
-            (str(Bf(SubProperty.Invert(58))),           "backdrop-filter: invert(58%)"),
-            (str(Bf(SubProperty.Opacity(58))),          "backdrop-filter: opacity(58%)"),
-            (str(Bf(SubProperty.Saturate(58))),         "backdrop-filter: saturate(58%)"),
-            (str(Bf(SubProperty.Sepia(58))),            "backdrop-filter: sepia(58%)"),
+            (str(Bf(SubProperty.Blur(100))),        "backdrop-filter: blur(100px)"),
+            (str(Bf(SubProperty.Brightness(58))),   "backdrop-filter: brightness(58%)"),
+            (str(Bf(SubProperty.Contrast(58))),     "backdrop-filter: contrast(58%)"),
+            (str(Bf(SubProperty.Grayscale(58))),    "backdrop-filter: grayscale(58%)"),
+            (str(Bf(SubProperty.HueRotate(58))),    "backdrop-filter: hue-rotate(58deg)"),
+            (str(Bf(SubProperty.Invert(58))),       "backdrop-filter: invert(58%)"),
+            (str(Bf(SubProperty.Opacity(58))),      "backdrop-filter: opacity(58%)"),
+            (str(Bf(SubProperty.Saturate(58))),     "backdrop-filter: saturate(58%)"),
+            (str(Bf(SubProperty.Sepia(58))),        "backdrop-filter: sepia(58%)"),
         )
         self.Subtest_Equality(cases)
 

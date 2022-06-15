@@ -23,8 +23,8 @@ class CSSProperty(BulkTests):
         cases = (
             #left                                   #right
             (Ac().value_logic.default,              "stretch"),
-            (Ac.value_logic.default,      "stretch"),
-            (repr(Ac()),                            "AlignContent(value='stretch')"),
+            (Ac.value_logic.default,                "stretch"),
+            (repr(Ac()),                            "AlignContent(important=False, value_wrapped=False)"),
         )
         self.Subtest_Equality(cases)
 

@@ -43,5 +43,5 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.10",
-    install_requires=["AthenaColor>=5.1.2", "AthenaLib>=1.0.0"]
+    install_requires=["AthenaColor>=6.0.2", "AthenaLib>=1.1.0"]
 )

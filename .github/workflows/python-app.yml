@@ -30,5 +30,5 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: run unittest
       run: |
-        export PYTHONPATH="$PYTHONPATH:/src"
+        export PYTHONPATH="$PYTHONPATH:/$PWD/src"
         python -m unittest discover -s Tests

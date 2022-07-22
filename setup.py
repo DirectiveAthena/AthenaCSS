@@ -15,7 +15,7 @@ def readme_handler() -> str:
 
 def version_handler() -> str:
     # ------------------------------------------------------------------------------------------------------------------
-    version = 0,7,0 # <-- DEFINE THE VERSION IN A TUPLE FORMAT HERE
+    version = 0,8,0 # <-- DEFINE THE VERSION IN A TUPLE FORMAT HERE
     # ------------------------------------------------------------------------------------------------------------------
     return ".".join(str(i) for i in version)
 
@@ -38,5 +38,8 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.10",
-    install_requires=["AthenaColor>=6.0.2", "AthenaLib>=1.1.0"]
+    install_requires=[
+        "AthenaColor>=6.2.0",
+        "AthenaLib>=1.4.0"
+    ]
 )

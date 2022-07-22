@@ -2,9 +2,8 @@
 # - Package Imports -
 # ----------------------------------------------------------------------------------------------------------------------
 # General Packages
-from __future__ import annotations
 
-# Custom data
+# Custom Library
 
 # Custom Packages
 

@@ -24,8 +24,4 @@ import AthenaCSS.data.subproperties as SubProperty
 import AthenaCSS.data.selector_elements as SelectorElement
 import AthenaCSS.data.support as Support
 
-# info function which prints a bit of information to the console
-# noinspection PyProtectedMember
-from AthenaCSS._info.info import info
-
 
